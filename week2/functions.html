@@ -18,6 +18,9 @@
     <h1>My App</h1>
 
     <p><i>Description goes here</i></p>
+    
+    <button type="button" onclick="sayHello('Caro')"> Say Hello </button>
+    
 
     <script>
        /* Comment: Enter code below */
@@ -55,9 +58,10 @@
         addNumber(5,7);
         console.log(addReturn (7,7));
         
-        var firstAdd= addReturn(13,4)
-        var secondAdd= addReturn(12,1)
-        console.log(addReturn(firstAdd, secondAdd))
+        var firstAdd= addReturn(13,4);
+        var secondAdd= addReturn(12,1);
+        var thirdAdd= addReturn(firstAdd, secondAdd);
+        console.log(thirdAdd)
     </script>
 
 </body>
