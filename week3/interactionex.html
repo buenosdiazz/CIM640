@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My App</title>
+
+    <style>
+        /* Enter CSS below */
+    </style>
+
+ </head>
+
+
+<body>
+
+    <h1>My App</h1>
+
+    <p><i>Description goes here</i></p>
+    
+    <form> 
+    <label for="licks"> Enter number of licks:</label>
+    <input type="text" name="licks" id="licks">
+    <br> <br>
+    <button type="button" id="lButton"> Enter Licks </button>
+    </form>
+<br> 
+<br> 
+    
+<div id="output"> </div>
+    <script>
+      
+        function centerOfPop(){
+         var userInput= document.getElementById("licks").value;
+            console.log("licks amount" + userInput);
+            var lickRatio= (userInput / averageLicks)*100;
+            lickRatio = Math.round(lickRatio);
+             console.log(lickRatio);
+            var message = "you have gone: " + lickRatio + "% of the way! ";
+            
+            var outputText= document.getElementById("output");
+            outputText.innerHTML = message
+        }
+        
+        var averageLicks= 252; 
+        var getButton = document.getElementById("lButton");
+        
+        getButton.addEventListener("click", centerOfPop);
+    </script>
+
+</body>
+
+</html>
