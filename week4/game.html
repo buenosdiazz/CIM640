@@ -32,11 +32,10 @@
             var guess = document.getElementById("guessInput").value;
             console.log(guess);
             
-            var answer = Math.floor(Math.random()*11);
-            
             if(guess == answer){
                 console.log ("you win1");
-                output.innerHTML = "you guessed correct!";
+                output.innerHTML = "you guessed correct! a new number has been generated, keep playing";
+                answer= Math.floor(Math.random()*11);
             } else if (guess < answer && guess >= 0){
                 output.innerHTML=" you are too low"
                  } else if (guess > answer && guess <= 10){
@@ -54,6 +53,8 @@
         guessButton.addEventListener("click", checkAnswer);
         
         var output= document.getElementById("outputText");
+        
+        var answer = Math.floor(Math.random()*11);
         
     </script>
 
