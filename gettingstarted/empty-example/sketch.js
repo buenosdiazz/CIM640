@@ -24,6 +24,10 @@ function draw(){
     ellipse(posX-10, posY-10, 10, 10);
     ellipse(posX+10, posY-10, 10, 10);
     stroke("blue");
-    strokeWeight(5);
-    point(posX +10, posY+10)
+    strokeWeight(20);
+    point(posX +10, posY+10);
+    nofill();
+    arc(posX, posY, 100, 100, PI, TWO_PI);
+
 }
+
