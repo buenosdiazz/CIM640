@@ -2,60 +2,135 @@
 <html>
 
 <head>
-    <title>Guessing Game</title>
+    <title>Quiz Homework</title>
 
     <style>
         /* Enter CSS below */
     </style>
 
- </head>
+</head>
 
 
 <body>
 
-    <h1>Guessing Game</h1>
+    <h1>Quiz Homework</h1>
 
-    <p><i>Choose a number between 1-10 </i></p>
-    
+    <p><i>Answer the following questions</i></p>
+
     <form>
-    <label for="guessInput">Enter number:</label>
-    <input type="text" name="guessInput" id="guessInput">
-    <button type="button" id="guessButton"> Guess </button>
-    </form>
-    
-<div id="outputText"> </div>
-    <script>
-       /* Comment: Enter code below */
-        
-        
-        function checkAnswer(){
-            var guess = document.getElementById("guessInput").value;
-            console.log(guess);
-            
-            if(guess == answer){
-                console.log ("you win1");
-                output.innerHTML = "you guessed correct! a new number has been generated, keep playing";
-                answer= Math.floor(Math.random()*11);
-            } else if (guess < answer && guess >= 0){
-                output.innerHTML=" you are too low"
-                 } else if (guess > answer && guess <= 10){
-                output.innerHTML=" you are too high"
-            }  else{
-                console.log("try again")
-                output.innerHTML = "try again!"
-            }
-            
-            }
-               
-            
 
-         var guessButton = document.getElementById("guessButton");
-        guessButton.addEventListener("click", checkAnswer);
-        
-        var output= document.getElementById("outputText");
-        
-        var answer = Math.floor(Math.random()*11);
-        
+
+        <label for="question1">Chris Pine plays the role of which character in the 2016 sci-fi film "Star Trek Beyond"?</label>
+        <select name="question1" id="question1" class="question">
+            <option value="mccoy">Leonard McCoy</option>
+            <option value="kirk">James T. Kirk</option>
+            <option value="chekov">Pavel Chekov</option>
+            <option value="spock">Spock</option>
+        </select>
+
+        <br>
+        <br>
+
+        <label for="question2">Starring Tom Hanks, this 2016 drama film is based on the autobiography book "Highest Duty". </label>
+        <select name="question2" id="question2" class="question">
+            <option value="sully">Sully</option>
+            <option value="midnightspecial">Midnight Special</option>
+            <option value="americanpastoral">American Pastoral</option>
+            <option value="salesman">The Salesman</option>
+        </select>
+
+        <br>
+        <br>
+
+        <label for="question3">Who plays the role of computer professional Edward Snowden in the 2016 biographical film "Snowden"?  </label>
+        <select name="question3" id="question3" class="question">
+            <option value="stone">Oliver Stone</option>
+            <option value="hardry">Tom Hardy</option>
+            <option value="bale">Christian Bale</option>
+            <option value="levitt">Joseph Gordon-Levitt</option>
+        </select>
+        <br>
+        <br>
+
+       <label for="question4">In this 2016 Irish film we see Conor Lalor form a rock 'n' roll band in the hopes that he might win the heart of an aspiring model named Raphina. </label>
+        <select name="question4" id="question4" class="question">
+            <option value="lobster">The Lobster</option>
+            <option value="singstreet">Sing Street</option>
+            <option value="kubo">Kubo and the Two Strings</option>
+            <option value="midnightspecial">Midnight Special</option>
+        </select>
+        <br>
+        <br>
+
+        <label for="question5">This 2016 American drama film centers on a family who are forced by circumstances to reintegrate into society after living in seclusion for a decade.
+ </label>
+        <select name="question5" id="question5" class="question">
+            <option value="hellorhighwater">Hell or High Water</option>
+            <option value="cityofgold"> City of Gold </option>
+            <option value="captainfantastic">Captain Fantastic</option>
+            <option value="onlyyesterday">Only Yesterday</option>
+        </select>
+        <br>
+        <br>
+
+        <label for="question6">Finish the title to this 2016 CGI-animated comedy film produced by Illumination Entertainment - The Secret Life of...  </label>
+        <select name="question6" id="question6" class="question">
+            <option value="pets">Pets</option>
+            <option value="waltermitty">Walter Mitty</option>
+            <option value="americanteen">The American Teenager</option>
+            <option value="drzo">Doctor Zo</option>
+        </select>
+        <br>
+        <br>
+
+        <button type="button" id="submitAnswers">Submit Answers</button>
+
+    </form>
+
+    <br>
+
+    <div id="outputText"></div>
+
+    <script>
+        /* Comment: Enter code below */
+        function checkAnswers() {
+            var counter = 0;
+            var answerRatio = 0;
+            var getResponse = document.getElementsByClassName("question");
+            //console.log(getResponse[0].value); To view the value of each individual element
+            var output = document.getElementById("outputText");
+            if (getResponse[0].value == answers[0]) {
+                counter = counter + 1;
+            }
+            if (getResponse[1].value == answers[1]) {
+                counter++;
+            }
+            if (getResponse[2].value == answers[2]) {
+                counter++;
+            }
+             if (getResponse[3].value == answers[3]) {
+                counter++;
+            }
+             if (getResponse[4].value == answers[4]) {
+                counter++;
+            }
+             if (getResponse[5].value == answers[5]) {
+                counter++;
+            }
+            answerRatio = (counter / getResponse.length) * 100;
+            console.log("Percent of questions right: " + answerRatio)
+            percenttoshow= Math.round(answerRatio)
+
+            if (answerRatio == 100) {
+                output.innerHTML = "You got them all right!";
+            }else{
+                output.innerHTML = "You score is " + percenttoshow + "%";
+            }
+
+        }
+        var answers = ["kirk", "sully","levitt", "singstreet","captainfantastic","pets"];
+        var getButton = document.getElementById("submitAnswers");
+        getButton.addEventListener("click", checkAnswers);
     </script>
 
 </body>
