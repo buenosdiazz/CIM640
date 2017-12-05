@@ -8,4 +8,8 @@ Interactive Game of thrones map
 
 Idea 3
 
+<<<<<<< HEAD
 Help Hansel and Gretel get home
+=======
+Help Hansel and Gretel get home
+>>>>>>> origin/master
