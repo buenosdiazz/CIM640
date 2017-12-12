@@ -19,6 +19,7 @@ var lightCounter = 0;
 
 function setup(){
     bg = loadImage("assets/bg.jpg");
+
     createCanvas(1110, 700);
 
 
@@ -28,6 +29,8 @@ function setup(){
 //    button = createButton('click me');
 //    button.position(19, 19);
 //    button.mousePressed(changeBG);
+
+
 
     interfaceItems.push(new interface("a",posX+166, posY+125,15,25,color(0,100,0)));
     interfaceItems.push(new interface("e",posX+573, posY+104,15,25,color(0,100,0)));
@@ -197,6 +200,8 @@ function draw() {
     //X
     ellipse(posX+728, posY+473,15,25);
     */
+
+
 }
 
 
