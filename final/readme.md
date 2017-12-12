@@ -1,6 +1,6 @@
 Idea 1
 
-Stranger things wall. Help Will send a message to Joyce Byers from the upside-down. The user would type his/her own message and see it appear in the flashing lights. 
+Stranger things inspired wall/ message generator. Help Will send a message to Joyce Byers from the upside-down. The user would type his/her own message, submit it, and see it appear in the flashing lights. 
 
 ![alt text](http://cdn6.bigcommerce.com/s-74z8fwc/product_images/uploaded_images/stranger-things-netflix-winona-wall.jpg?t=1476858673)
 
