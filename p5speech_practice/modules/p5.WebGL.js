@@ -1,4 +1,4 @@
-/*! p5.p5.Math.js v0.5.11 July 21, 2017 */
+/*! p5.p5.WebGL.js v0.5.11 July 21, 2017 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.p5 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /**
  * @module Shape
@@ -6441,7 +6441,7 @@ p5.prototype.blendMode = function(mode) {
 
 module.exports = p5;
 
-},{"../webgl/p5.RendererGL":28,"./constants":4,"./core":5,"./p5.Graphics":11,"./p5.Renderer2D":13}],15:[function(_dereq_,module,exports){
+},{"../webgl/p5.RendererGL":30,"./constants":4,"./core":5,"./p5.Graphics":11,"./p5.Renderer2D":13}],15:[function(_dereq_,module,exports){
 
 // requestAnim shim layer by Paul Irish
 window.requestAnimationFrame = (function(){
@@ -8530,2242 +8530,6 @@ Filters.blur = function(canvas, radius){
 module.exports = Filters;
 
 },{}],20:[function(_dereq_,module,exports){
-/**
- * @module Math
- * @submodule Calculation
- * @for p5
- * @requires core
- */
-
-'use strict';
-
-var p5 = _dereq_('../core/core');
-
-/**
- * Calculates the absolute value (magnitude) of a number. Maps to Math.abs().
- * The absolute value of a number is always positive.
- *
- * @method abs
- * @param  {Number} n number to compute
- * @return {Number}   absolute value of given number
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var x = -3;
- *   var y = abs(x);
- *
- *   print(x); // -3
- *   print(y); // 3
- * }
- * </code></div>
- *
- * @alt
- * no image displayed
- *
- */
-p5.prototype.abs = Math.abs;
-
-/**
- * Calculates the closest int value that is greater than or equal to the
- * value of the parameter. Maps to Math.ceil(). For example, ceil(9.03)
- * returns the value 10.
- *
- * @method ceil
- * @param  {Number} n number to round up
- * @return {Number}   rounded up number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   // map, mouseX between 0 and 5.
- *   var ax = map(mouseX, 0, 100, 0, 5);
- *   var ay = 66;
- *
- *   //Get the ceiling of the mapped number.
- *   var bx = ceil(map(mouseX, 0, 100, 0,5));
- *   var by = 33;
- *
- *   // Multiply the mapped numbers by 20 to more easily
- *   // see the changes.
- *   stroke(0);
- *   fill(0);
- *   line(0, ay, ax * 20, ay);
- *   line(0, by, bx * 20, by);
- *
- *   // Reformat the float returned by map and draw it.
- *   noStroke();
- *   text(nfc(ax, 2,2), ax, ay - 5);
- *   text(nfc(bx,1,1), bx, by - 5);
- * }
- * </code></div>
-  *
- * @alt
- * 2 horizontal lines & number sets. increase with mouse x. bottom to 2 decimals
- *
- */
-p5.prototype.ceil = Math.ceil;
-
-/**
- * Constrains a value between a minimum and maximum value.
- *
- * @method constrain
- * @param  {Number} n    number to constrain
- * @param  {Number} low  minimum limit
- * @param  {Number} high maximum limit
- * @return {Number}      constrained number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *
- *   var leftWall = 25;
- *   var rightWall = 75;
- *
- *   // xm is just the mouseX, while
- *   // xc is the mouseX, but constrained
- *   // between the leftWall and rightWall!
- *   var xm = mouseX;
- *   var xc = constrain(mouseX, leftWall, rightWall);
- *
- *   // Draw the walls.
- *   stroke(150);
- *   line(leftWall, 0, leftWall, height);
- *   line(rightWall, 0, rightWall, height);
- *
- *   // Draw xm and xc as circles.
- *   noStroke();
- *   fill(150);
- *   ellipse(xm, 33, 9,9); // Not Constrained
- *   fill(0);
- *   ellipse(xc, 66, 9,9); // Constrained
- * }
- * </code></div>
- *
- * @alt
- * 2 vertical lines. 2 ellipses move with mouse X 1 does not move passed lines
- *
- */
-p5.prototype.constrain = function(n, low, high) {
-  return Math.max(Math.min(n, high), low);
-};
-
-/**
- * Calculates the distance between two points.
- *
- * @method dist
- * @param  {Number} x1 x-coordinate of the first point
- * @param  {Number} y1 y-coordinate of the first point
- * @param  {Number} x2 x-coordinate of the second point
- * @param  {Number} y2 y-coordinate of the second point
- * @return {Number}    distance between the two points
- */
-/**
- * @method dist
- * @param  {Number} x1
- * @param  {Number} y1
- * @param  {Number} z1 z-coordinate of the first point
- * @param  {Number} x2
- * @param  {Number} y2
- * @param  {Number} z2 z-coordinate of the second point
- * @return {Number}    distance between the two points
- * @example
- * <div><code>
- * // Move your mouse inside the canvas to see the
- * // change in distance between two points!
- * function draw() {
- *   background(200);
- *   fill(0);
- *
- *   var x1 = 10;
- *   var y1 = 90;
- *   var x2 = mouseX;
- *   var y2 = mouseY;
- *
- *   line(x1, y1, x2, y2);
- *   ellipse(x1, y1, 7, 7);
- *   ellipse(x2, y2, 7, 7);
- *
- *   // d is the length of the line
- *   // the distance from point 1 to point 2.
- *   var d = int(dist(x1, y1, x2, y2));
- *
- *   // Let's write d along the line we are drawing!
- *   push();
- *   translate( (x1+x2)/2, (y1+y2)/2 );
- *   rotate( atan2(y2-y1,x2-x1) );
- *   text(nfc(d,1,1), 0, -5);
- *   pop();
- *   // Fancy!
- * }
- * </code></div>
- *
- * @alt
- * 2 ellipses joined by line. 1 ellipse moves with mouse X&Y. Distance displayed.
- *
- */
-p5.prototype.dist = function(x1, y1, z1, x2, y2, z2) {
-  if (arguments.length === 4) {
-    // In the case of 2d: z1 means x2 and x2 means y2
-    return hypot(z1-x1, x2-y1);
-  } else if (arguments.length === 6) {
-    return hypot(x2-x1, y2-y1, z2-z1);
-  }
-};
-
-/**
- * Returns Euler's number e (2.71828...) raised to the power of the n
- * parameter. Maps to Math.exp().
- *
- * @method exp
- * @param  {Number} n exponent to raise
- * @return {Number}   e^n
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *
- *   // Compute the exp() function with a value between 0 and 2
- *   var xValue = map(mouseX, 0, width, 0, 2);
- *   var yValue = exp(xValue);
- *
- *   var y = map(yValue, 0, 8, height, 0);
- *
- *   var legend = "exp (" + nfc(xValue, 3) +")\n= " + nf(yValue, 1, 4);
- *   stroke(150);
- *   line(mouseX, y, mouseX, height);
- *   fill(0);
- *   text(legend, 5, 15);
- *   noStroke();
- *   ellipse (mouseX,y, 7, 7);
- *
- *   // Draw the exp(x) curve,
- *   // over the domain of x from 0 to 2
- *   noFill();
- *   stroke(0);
- *   beginShape();
- *   for (var x = 0; x < width; x++) {
- *     xValue = map(x, 0, width, 0, 2);
- *     yValue = exp(xValue);
- *     y = map(yValue, 0, 8, height, 0);
- *     vertex(x, y);
- *   }
- *
- *   endShape();
- *   line(0, 0, 0, height);
- *   line(0, height-1, width, height-1);
- * }
- * </code></div>
- *
- * @alt
- * ellipse moves along a curve with mouse x. e^n displayed.
- *
- */
-p5.prototype.exp = Math.exp;
-
-/**
- * Calculates the closest int value that is less than or equal to the
- * value of the parameter. Maps to Math.floor().
- *
- * @method floor
- * @param  {Number} n number to round down
- * @return {Number}   rounded down number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   //map, mouseX between 0 and 5.
- *   var ax = map(mouseX, 0, 100, 0, 5);
- *   var ay = 66;
- *
- *   //Get the floor of the mapped number.
- *   var bx = floor(map(mouseX, 0, 100, 0,5));
- *   var by = 33;
- *
- *   // Multiply the mapped numbers by 20 to more easily
- *   // see the changes.
- *   stroke(0);
- *   fill(0);
- *   line(0, ay, ax * 20, ay);
- *   line(0, by, bx * 20, by);
- *
- *   // Reformat the float returned by map and draw it.
- *   noStroke();
- *   text(nfc(ax, 2,2), ax, ay - 5);
- *   text(nfc(bx,1,1), bx, by - 5);
- * }
- * </code></div>
- *
- * @alt
- * 2 horizontal lines & number sets. increase with mouse x. bottom to 2 decimals
- *
- */
-p5.prototype.floor = Math.floor;
-
-/**
- * Calculates a number between two numbers at a specific increment. The amt
- * parameter is the amount to interpolate between the two values where 0.0
- * equal to the first point, 0.1 is very near the first point, 0.5 is
- * half-way in between, etc. The lerp function is convenient for creating
- * motion along a straight path and for drawing dotted lines.
- *
- * @method lerp
- * @param  {Number} start first value
- * @param  {Number} stop  second value
- * @param  {Number} amt   number between 0.0 and 1.0
- * @return {Number}       lerped value
- * @example
- * <div><code>
- * function setup() {
- *   background(200);
- *   var a = 20;
- *   var b = 80;
- *   var c = lerp(a,b, .2);
- *   var d = lerp(a,b, .5);
- *   var e = lerp(a,b, .8);
- *
- *   var y = 50
- *
- *   strokeWeight(5);
- *   stroke(0); // Draw the original points in black
- *   point(a, y);
- *   point(b, y);
- *
- *   stroke(100); // Draw the lerp points in gray
- *   point(c, y);
- *   point(d, y);
- *   point(e, y);
- * }
- * </code></div>
- *
- * @alt
- * 5 points horizontally staggered mid-canvas. mid 3 are grey, outer black
- *
- */
-p5.prototype.lerp = function(start, stop, amt) {
-  return amt*(stop-start)+start;
-};
-
-/**
- * Calculates the natural logarithm (the base-e logarithm) of a number. This
- * function expects the n parameter to be a value greater than 0.0. Maps to
- * Math.log().
- *
- * @method log
- * @param  {Number} n number greater than 0
- * @return {Number}   natural logarithm of n
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   var maxX = 2.8;
- *   var maxY = 1.5;
- *
- *   // Compute the natural log of a value between 0 and maxX
- *   var xValue = map(mouseX, 0, width, 0, maxX);
- *   if (xValue > 0) { // Cannot take the log of a negative number.
- *     var yValue = log(xValue);
- *     var y = map(yValue, -maxY, maxY, height, 0);
- *
- *     // Display the calculation occurring.
- *     var legend = "log(" + nf(xValue, 1, 2) + ")\n= " + nf(yValue, 1, 3);
- *     stroke(150);
- *     line(mouseX, y, mouseX, height);
- *     fill(0);
- *     text (legend, 5, 15);
- *     noStroke();
- *     ellipse (mouseX, y, 7, 7);
- *   }
- *
- *   // Draw the log(x) curve,
- *   // over the domain of x from 0 to maxX
- *   noFill();
- *   stroke(0);
- *   beginShape();
- *   for(var x=0; x < width; x++) {
- *     xValue = map(x, 0, width, 0, maxX);
- *     yValue = log(xValue);
- *     y = map(yValue, -maxY, maxY, height, 0);
- *     vertex(x, y);
- *   }
- *   endShape();
- *   line(0,0,0,height);
- *   line(0,height/2,width, height/2);
- * }
- * </code></div>
- *
- * @alt
- * ellipse moves along a curve with mouse x. natural logarithm of n displayed.
- *
- */
-p5.prototype.log = Math.log;
-
-/**
- * Calculates the magnitude (or length) of a vector. A vector is a direction
- * in space commonly used in computer graphics and linear algebra. Because it
- * has no "start" position, the magnitude of a vector can be thought of as
- * the distance from the coordinate 0,0 to its x,y value. Therefore, mag() is
- * a shortcut for writing dist(0, 0, x, y).
- *
- * @method mag
- * @param  {Number} a first value
- * @param  {Number} b second value
- * @return {Number}   magnitude of vector from (0,0) to (a,b)
- * @example
- * <div><code>
- * function setup() {
- *   var x1 = 20;
- *   var x2 = 80;
- *   var y1 = 30;
- *   var y2 = 70;
- *
- *   line(0, 0, x1, y1);
- *   print(mag(x1, y1));  // Prints "36.05551275463989"
- *   line(0, 0, x2, y1);
- *   print(mag(x2, y1));  // Prints "85.44003745317531"
- *   line(0, 0, x1, y2);
- *   print(mag(x1, y2));  // Prints "72.80109889280519"
- *   line(0, 0, x2, y2);
- *   print(mag(x2, y2));  // Prints "106.3014581273465"
- * }
- * </code></div>
- *
- * @alt
- * 4 lines of different length radiate from top left of canvas.
- *
- */
-p5.prototype.mag = function(x, y) {
-  return hypot(x, y);
-};
-
-/**
- * Re-maps a number from one range to another.
- * <br><br>
- * In the first example above, the number 25 is converted from a value in the
- * range of 0 to 100 into a value that ranges from the left edge of the
- * window (0) to the right edge (width).
- *
- * @method map
- * @param  {Number} value  the incoming value to be converted
- * @param  {Number} start1 lower bound of the value's current range
- * @param  {Number} stop1  upper bound of the value's current range
- * @param  {Number} start2 lower bound of the value's target range
- * @param  {Number} stop2  upper bound of the value's target range
- * @return {Number}        remapped number
- * @example
- *   <div><code>
- *     var value = 25;
- *     var m = map(value, 0, 100, 0, width);
- *     ellipse(m, 50, 10, 10);
- *   </code></div>
- *
- *   <div><code>
- *     function setup() {
- *       noStroke();
- *     }
- *
- *     function draw() {
- *       background(204);
- *       var x1 = map(mouseX, 0, width, 25, 75);
- *       ellipse(x1, 25, 25, 25);
- *       var x2 = map(mouseX, 0, width, 0, 100);
- *       ellipse(x2, 75, 25, 25);
- *     }
- *   </code></div>
- *
- * @alt
- * 10 by 10 white ellipse with in mid left canvas
- * 2 25 by 25 white ellipses move with mouse x. Bottom has more range from X
- *
- */
-p5.prototype.map = function(n, start1, stop1, start2, stop2) {
-  return ((n-start1)/(stop1-start1))*(stop2-start2)+start2;
-};
-
-/**
- * Determines the largest value in a sequence of numbers, and then returns
- * that value. max() accepts any number of Number parameters, or an Array
- * of any length.
- *
- * @method max
- * @param  {Number|Array} n0 Numbers to compare
- * @return {Number}          maximum Number
- * @example
- * <div><code>
- * function setup() {
- *   // Change the elements in the array and run the sketch
- *   // to show how max() works!
- *   numArray = new Array(2,1,5,4,8,9);
- *   fill(0);
- *   noStroke();
- *   text("Array Elements", 0, 10);
- *   // Draw all numbers in the array
- *   var spacing = 15;
- *   var elemsY = 25;
- *   for(var i = 0; i < numArray.length; i++) {
- *     text(numArray[i], i * spacing, elemsY);
- *   }
- *   maxX = 33;
- *   maxY = 80;
- *   // Draw the Maximum value in the array.
- *   textSize(32);
- *   text(max(numArray), maxX, maxY);
- * }
- * </code></div>
- *
- * @alt
- * Small text at top reads: Array Elements 2 1 5 4 8 9. Large text at center: 9
- *
- */
-p5.prototype.max = function() {
-  if (arguments[0] instanceof Array) {
-    return Math.max.apply(null,arguments[0]);
-  } else {
-    return Math.max.apply(null,arguments);
-  }
-};
-
-/**
- * Determines the smallest value in a sequence of numbers, and then returns
- * that value. min() accepts any number of Number parameters, or an Array
- * of any length.
- *
- * @method min
- * @param  {Number|Array} n0 Numbers to compare
- * @return {Number}          minimum Number
- * @example
- * <div><code>
- * function setup() {
- *   // Change the elements in the array and run the sketch
- *   // to show how min() works!
- *   numArray = new Array(2,1,5,4,8,9);
- *   fill(0);
- *   noStroke();
- *   text("Array Elements", 0, 10);
- *   // Draw all numbers in the array
- *   var spacing = 15;
- *   var elemsY = 25;
- *   for(var i = 0; i < numArray.length; i++) {
- *     text(numArray[i], i * spacing, elemsY);
- *   }
- *   maxX = 33;
- *   maxY = 80;
- *   // Draw the Minimum value in the array.
- *   textSize(32);
- *   text(min(numArray), maxX, maxY);
- * }
- * </code></div>
- *
- * @alt
- * Small text at top reads: Array Elements 2 1 5 4 8 9. Large text at center: 1
- *
- */
-p5.prototype.min = function() {
-  if (arguments[0] instanceof Array) {
-    return Math.min.apply(null,arguments[0]);
-  } else {
-    return Math.min.apply(null,arguments);
-  }
-};
-
-/**
- * Normalizes a number from another range into a value between 0 and 1.
- * Identical to map(value, low, high, 0, 1).
- * Numbers outside of the range are not clamped to 0 and 1, because
- * out-of-range values are often intentional and useful. (See the second
- * example above.)
- *
- * @method norm
- * @param  {Number} value incoming value to be normalized
- * @param  {Number} start lower bound of the value's current range
- * @param  {Number} stop  upper bound of the value's current range
- * @return {Number}       normalized number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   currentNum = mouseX;
- *   lowerBound = 0;
- *   upperBound = width; //100;
- *   normalized = norm(currentNum, lowerBound, upperBound);
- *   lineY = 70
- *   line(0, lineY, width, lineY);
- *   //Draw an ellipse mapped to the non-normalized value.
- *   noStroke();
- *   fill(50)
- *   var s = 7; // ellipse size
- *   ellipse(currentNum, lineY, s, s);
- *
- *   // Draw the guide
- *   guideY = lineY + 15;
- *   text("0", 0, guideY);
- *   textAlign(RIGHT);
- *   text("100", width, guideY);
- *
- *   // Draw the normalized value
- *   textAlign(LEFT);
- *   fill(0);
- *   textSize(32);
- *   normalY = 40;
- *   normalX = 20;
- *   text(normalized, normalX, normalY);
- * }
- * </code></div>
- *
- * @alt
- * ellipse moves with mouse. 0 shown left & 100 right and updating values center
- *
- */
-p5.prototype.norm = function(n, start, stop) {
-  return this.map(n, start, stop, 0, 1);
-};
-
-/**
- * Facilitates exponential expressions. The pow() function is an efficient
- * way of multiplying numbers by themselves (or their reciprocals) in large
- * quantities. For example, pow(3, 5) is equivalent to the expression
- * 3*3*3*3*3 and pow(3, -5) is equivalent to 1 / 3*3*3*3*3. Maps to
- * Math.pow().
- *
- * @method pow
- * @param  {Number} n base of the exponential expression
- * @param  {Number} e power by which to raise the base
- * @return {Number}   n^e
- * @example
- * <div><code>
- * function setup() {
- *   //Exponentially increase the size of an ellipse.
- *   eSize = 3; // Original Size
- *   eLoc = 10; // Original Location
- *
- *   ellipse(eLoc, eLoc, eSize, eSize);
- *
- *   ellipse(eLoc*2, eLoc*2, pow(eSize, 2), pow(eSize, 2));
- *
- *   ellipse(eLoc*4, eLoc*4, pow(eSize, 3), pow(eSize, 3));
- *
- *   ellipse(eLoc*8, eLoc*8, pow(eSize, 4), pow(eSize, 4));
- * }
- * </code></div>
- *
- * @alt
- * small to large ellipses radiating from top left of canvas
- *
- */
-p5.prototype.pow = Math.pow;
-
-/**
- * Calculates the integer closest to the n parameter. For example,
- * round(133.8) returns the value 134. Maps to Math.round().
- *
- * @method round
- * @param  {Number} n number to round
- * @return {Number}   rounded number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   //map, mouseX between 0 and 5.
- *   var ax = map(mouseX, 0, 100, 0, 5);
- *   var ay = 66;
- *
- *   // Round the mapped number.
- *   var bx = round(map(mouseX, 0, 100, 0,5));
- *   var by = 33;
- *
- *   // Multiply the mapped numbers by 20 to more easily
- *   // see the changes.
- *   stroke(0);
- *   fill(0);
- *   line(0, ay, ax * 20, ay);
- *   line(0, by, bx * 20, by);
- *
- *   // Reformat the float returned by map and draw it.
- *   noStroke();
- *   text(nfc(ax, 2,2), ax, ay - 5);
- *   text(nfc(bx,1,1), bx, by - 5);
- * }
- * </code></div>
- *
- * @alt
- * horizontal center line squared values displayed on top and regular on bottom.
- *
- */
-p5.prototype.round = Math.round;
-
-/**
- * Squares a number (multiplies a number by itself). The result is always a
- * positive number, as multiplying two negative numbers always yields a
- * positive result. For example, -1 * -1 = 1.
- *
- * @method sq
- * @param  {Number} n number to square
- * @return {Number}   squared number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   eSize = 7;
- *   x1 = map(mouseX, 0, width, 0, 10);
- *   y1 = 80;
- *   x2 = sq(x1);
- *   y2 = 20;
- *
- *   // Draw the non-squared.
- *   line(0, y1, width, y1);
- *   ellipse(x1, y1, eSize, eSize);
- *
- *   // Draw the squared.
- *   line(0, y2, width, y2);
- *   ellipse(x2, y2, eSize, eSize);
- *
- *   // Draw dividing line.
- *   stroke(100)
- *   line(0, height/2, width, height/2);
- *
- *   // Draw text.
- *   var spacing = 15;
- *   noStroke();
- *   fill(0);
- *   text("x = " + x1, 0, y1 + spacing);
- *   text("sq(x) = " + x2, 0, y2 + spacing);
- * }
- * </code></div>
- *
- * @alt
- * horizontal center line squared values displayed on top and regular on bottom.
- *
- */
-p5.prototype.sq = function(n) { return n*n; };
-
-/**
- * Calculates the square root of a number. The square root of a number is
- * always positive, even though there may be a valid negative root. The
- * square root s of number a is such that s*s = a. It is the opposite of
- * squaring. Maps to Math.sqrt().
- *
- * @method sqrt
- * @param  {Number} n non-negative number to square root
- * @return {Number}   square root of number
- * @example
- * <div><code>
- * function draw() {
- *   background(200);
- *   eSize = 7;
- *   x1 = mouseX;
- *   y1 = 80;
- *   x2 = sqrt(x1);
- *   y2 = 20;
- *
- *   // Draw the non-squared.
- *   line(0, y1, width, y1);
- *   ellipse(x1, y1, eSize, eSize);
- *
- *   // Draw the squared.
- *   line(0, y2, width, y2);
- *   ellipse(x2, y2, eSize, eSize);
- *
- *   // Draw dividing line.
- *   stroke(100)
- *   line(0, height/2, width, height/2);
- *
- *   // Draw text.
- *   noStroke();
- *   fill(0);
- *   var spacing = 15;
- *   text("x = " + x1, 0, y1 + spacing);
- *   text("sqrt(x) = " + x2, 0, y2 + spacing);
- * }
- * </code></div>
- *
- * @alt
- * horizontal center line squareroot values displayed on top and regular on bottom.
- *
- */
-p5.prototype.sqrt = Math.sqrt;
-
-// Calculate the length of the hypotenuse of a right triangle
-// This won't under- or overflow in intermediate steps
-// https://en.wikipedia.org/wiki/Hypot
-function hypot(x, y, z) {
-  // Use the native implementation if it's available
-  if (typeof Math.hypot === 'function') {
-    return Math.hypot.apply(null, arguments);
-  }
-
-  // Otherwise use the V8 implementation
-  // https://github.com/v8/v8/blob/8cd3cf297287e581a49e487067f5cbd991b27123/src/js/math.js#L217
-  var length = arguments.length;
-  var args = [];
-  var max = 0;
-  for (var i = 0; i < length; i++) {
-    var n = arguments[i];
-    n = +n;
-    if (n === Infinity || n === -Infinity) {
-      return Infinity;
-    }
-    n = Math.abs(n);
-    if (n > max) {
-      max = n;
-    }
-    args[i] = n;
-  }
-
-  if (max === 0) {
-    max = 1;
-  }
-  var sum = 0;
-  var compensation = 0;
-  for (var j = 0; j < length; j++) {
-    var m = args[j] / max;
-    var summand = m * m - compensation;
-    var preliminary = sum + summand;
-    compensation = (preliminary - sum) - summand;
-    sum = preliminary;
-  }
-  return Math.sqrt(sum) * max;
-}
-
-module.exports = p5;
-
-},{"../core/core":5}],21:[function(_dereq_,module,exports){
-/**
- * @module Math
- * @submodule Math
- * @for p5
- * @requires core
- */
-
-'use strict';
-
-var p5 = _dereq_('../core/core');
-
-
-/**
- * Creates a new p5.Vector (the datatype for storing vectors). This provides a
- * two or three dimensional vector, specifically a Euclidean (also known as
- * geometric) vector. A vector is an entity that has both magnitude and
- * direction.
- *
- * @method createVector
- * @param {Number} [x] x component of the vector
- * @param {Number} [y] y component of the vector
- * @param {Number} [z] z component of the vector
- * @return {p5.Vector}
- */
-p5.prototype.createVector = function (x, y, z) {
-  if (this instanceof p5) {
-    return new p5.Vector(this, arguments);
-  } else {
-    return new p5.Vector(x, y, z);
-  }
-};
-
-module.exports = p5;
-
-},{"../core/core":5}],22:[function(_dereq_,module,exports){
-//////////////////////////////////////////////////////////////
-
-// http://mrl.nyu.edu/~perlin/noise/
-// Adapting from PApplet.java
-// which was adapted from toxi
-// which was adapted from the german demo group farbrausch
-// as used in their demo "art": http://www.farb-rausch.de/fr010src.zip
-
-// someday we might consider using "improved noise"
-// http://mrl.nyu.edu/~perlin/paper445.pdf
-// See: https://github.com/shiffman/The-Nature-of-Code-Examples-p5.js/
-//      blob/master/introduction/Noise1D/noise.js
-
-/**
- * @module Math
- * @submodule Noise
- * @for p5
- * @requires core
- */
-
-'use strict';
-
-var p5 = _dereq_('../core/core');
-
-var PERLIN_YWRAPB = 4;
-var PERLIN_YWRAP = 1<<PERLIN_YWRAPB;
-var PERLIN_ZWRAPB = 8;
-var PERLIN_ZWRAP = 1<<PERLIN_ZWRAPB;
-var PERLIN_SIZE = 4095;
-
-var perlin_octaves = 4; // default to medium smooth
-var perlin_amp_falloff = 0.5; // 50% reduction/octave
-
-var scaled_cosine = function(i) {
-  return 0.5*(1.0-Math.cos(i*Math.PI));
-};
-
-var perlin; // will be initialized lazily by noise() or noiseSeed()
-
-
-/**
- * Returns the Perlin noise value at specified coordinates. Perlin noise is
- * a random sequence generator producing a more natural ordered, harmonic
- * succession of numbers compared to the standard <b>random()</b> function.
- * It was invented by Ken Perlin in the 1980s and been used since in
- * graphical applications to produce procedural textures, natural motion,
- * shapes, terrains etc.<br /><br /> The main difference to the
- * <b>random()</b> function is that Perlin noise is defined in an infinite
- * n-dimensional space where each pair of coordinates corresponds to a
- * fixed semi-random value (fixed only for the lifespan of the program; see
- * the noiseSeed() function). p5.js can compute 1D, 2D and 3D noise,
- * depending on the number of coordinates given. The resulting value will
- * always be between 0.0 and 1.0. The noise value can be animated by moving
- * through the noise space as demonstrated in the example above. The 2nd
- * and 3rd dimension can also be interpreted as time.<br /><br />The actual
- * noise is structured similar to an audio signal, in respect to the
- * function's use of frequencies. Similar to the concept of harmonics in
- * physics, perlin noise is computed over several octaves which are added
- * together for the final result. <br /><br />Another way to adjust the
- * character of the resulting sequence is the scale of the input
- * coordinates. As the function works within an infinite space the value of
- * the coordinates doesn't matter as such, only the distance between
- * successive coordinates does (eg. when using <b>noise()</b> within a
- * loop). As a general rule the smaller the difference between coordinates,
- * the smoother the resulting noise sequence will be. Steps of 0.005-0.03
- * work best for most applications, but this will differ depending on use.
- *
- *
- * @method noise
- * @param  {Number} x   x-coordinate in noise space
- * @param  {Number} [y] y-coordinate in noise space
- * @param  {Number} [z] z-coordinate in noise space
- * @return {Number}     Perlin noise value (between 0 and 1) at specified
- *                      coordinates
- * @example
- * <div>
- * <code>var xoff = 0.0;
- *
- * function draw() {
- *   background(204);
- *   xoff = xoff + .01;
- *   var n = noise(xoff) * width;
- *   line(n, 0, n, height);
- * }
- * </code>
- * </div>
- * <div>
- * <code>var noiseScale=0.02;
- *
- * function draw() {
- *   background(0);
- *   for (var x=0; x < width; x++) {
- *     var noiseVal = noise((mouseX+x)*noiseScale, mouseY*noiseScale);
- *     stroke(noiseVal*255);
- *     line(x, mouseY+noiseVal*80, x, height);
- *   }
- * }
- * </code>
- * </div>
- *
- * @alt
- * vertical line moves left to right with updating noise values.
- * horizontal wave pattern effected by mouse x-position & updating noise values.
- *
- */
-
-p5.prototype.noise = function(x,y,z) {
-  y = y || 0;
-  z = z || 0;
-
-  if (perlin == null) {
-    perlin = new Array(PERLIN_SIZE + 1);
-    for (var i = 0; i < PERLIN_SIZE + 1; i++) {
-      perlin[i] = Math.random();
-    }
-  }
-
-  if (x<0) { x=-x; }
-  if (y<0) { y=-y; }
-  if (z<0) { z=-z; }
-
-  var xi=Math.floor(x), yi=Math.floor(y), zi=Math.floor(z);
-  var xf = x - xi;
-  var yf = y - yi;
-  var zf = z - zi;
-  var rxf, ryf;
-
-  var r=0;
-  var ampl=0.5;
-
-  var n1,n2,n3;
-
-  for (var o=0; o<perlin_octaves; o++) {
-    var of=xi+(yi<<PERLIN_YWRAPB)+(zi<<PERLIN_ZWRAPB);
-
-    rxf = scaled_cosine(xf);
-    ryf = scaled_cosine(yf);
-
-    n1  = perlin[of&PERLIN_SIZE];
-    n1 += rxf*(perlin[(of+1)&PERLIN_SIZE]-n1);
-    n2  = perlin[(of+PERLIN_YWRAP)&PERLIN_SIZE];
-    n2 += rxf*(perlin[(of+PERLIN_YWRAP+1)&PERLIN_SIZE]-n2);
-    n1 += ryf*(n2-n1);
-
-    of += PERLIN_ZWRAP;
-    n2  = perlin[of&PERLIN_SIZE];
-    n2 += rxf*(perlin[(of+1)&PERLIN_SIZE]-n2);
-    n3  = perlin[(of+PERLIN_YWRAP)&PERLIN_SIZE];
-    n3 += rxf*(perlin[(of+PERLIN_YWRAP+1)&PERLIN_SIZE]-n3);
-    n2 += ryf*(n3-n2);
-
-    n1 += scaled_cosine(zf)*(n2-n1);
-
-    r += n1*ampl;
-    ampl *= perlin_amp_falloff;
-    xi<<=1;
-    xf*=2;
-    yi<<=1;
-    yf*=2;
-    zi<<=1;
-    zf*=2;
-
-    if (xf>=1.0) { xi++; xf--; }
-    if (yf>=1.0) { yi++; yf--; }
-    if (zf>=1.0) { zi++; zf--; }
-  }
-  return r;
-};
-
-
-/**
- *
- * Adjusts the character and level of detail produced by the Perlin noise
- * function. Similar to harmonics in physics, noise is computed over
- * several octaves. Lower octaves contribute more to the output signal and
- * as such define the overall intensity of the noise, whereas higher octaves
- * create finer grained details in the noise sequence.
- * <br><br>
- * By default, noise is computed over 4 octaves with each octave contributing
- * exactly half than its predecessor, starting at 50% strength for the 1st
- * octave. This falloff amount can be changed by adding an additional function
- * parameter. Eg. a falloff factor of 0.75 means each octave will now have
- * 75% impact (25% less) of the previous lower octave. Any value between
- * 0.0 and 1.0 is valid, however note that values greater than 0.5 might
- * result in greater than 1.0 values returned by <b>noise()</b>.
- * <br><br>
- * By changing these parameters, the signal created by the <b>noise()</b>
- * function can be adapted to fit very specific needs and characteristics.
- *
- * @method noiseDetail
- * @param {Number} lod number of octaves to be used by the noise
- * @param {Number} falloff falloff factor for each octave
- * @example
- * <div>
- * <code>
- *
- * var noiseVal;
- * var noiseScale=0.02;
- *
- * function setup() {
- *   createCanvas(100,100);
- * }
- *
- * function draw() {
- *   background(0);
- *   for (var y = 0; y < height; y++) {
- *     for (var x = 0; x < width/2; x++) {
- *       noiseDetail(2,0.2);
- *       noiseVal = noise((mouseX+x) * noiseScale,
- *                        (mouseY+y) * noiseScale);
- *       stroke(noiseVal*255);
- *       point(x,y);
- *       noiseDetail(8,0.65);
- *       noiseVal = noise((mouseX + x + width/2) * noiseScale,
- *                        (mouseY + y) * noiseScale);
- *       stroke(noiseVal*255);
- *       point(x + width/2, y);
- *     }
- *   }
- * }
- * </code>
- * </div>
- *
- * @alt
- * 2 vertical grey smokey patterns affected my mouse x-position and noise.
- *
- */
-p5.prototype.noiseDetail = function(lod, falloff) {
-  if (lod>0)     { perlin_octaves=lod; }
-  if (falloff>0) { perlin_amp_falloff=falloff; }
-};
-
-/**
- * Sets the seed value for <b>noise()</b>. By default, <b>noise()</b>
- * produces different results each time the program is run. Set the
- * <b>value</b> parameter to a constant to return the same pseudo-random
- * numbers each time the software is run.
- *
- * @method noiseSeed
- * @param {Number} seed   the seed value
- * @example
- * <div>
- * <code>var xoff = 0.0;
- *
- * function setup() {
- *   noiseSeed(99);
- *   stroke(0, 10);
- * }
- *
- * function draw() {
- *   xoff = xoff + .01;
- *   var n = noise(xoff) * width;
- *   line(n, 0, n, height);
- * }
- * </code>
- * </div>
- *
- * @alt
- * vertical grey lines drawing in pattern affected by noise.
- *
- */
-p5.prototype.noiseSeed = function(seed) {
-  // Linear Congruential Generator
-  // Variant of a Lehman Generator
-  var lcg = (function() {
-    // Set to values from http://en.wikipedia.org/wiki/Numerical_Recipes
-    // m is basically chosen to be large (as it is the max period)
-    // and for its relationships to a and c
-    var m = 4294967296,
-    // a - 1 should be divisible by m's prime factors
-    a = 1664525,
-     // c and m should be co-prime
-    c = 1013904223,
-    seed, z;
-    return {
-      setSeed : function(val) {
-        // pick a random seed if val is undefined or null
-        // the >>> 0 casts the seed to an unsigned 32-bit integer
-        z = seed = (val == null ? Math.random() * m : val) >>> 0;
-      },
-      getSeed : function() {
-        return seed;
-      },
-      rand : function() {
-        // define the recurrence relationship
-        z = (a * z + c) % m;
-        // return a float in [0, 1)
-        // if z = m then z / m = 0 therefore (z % m) / m < 1 always
-        return z / m;
-      }
-    };
-  }());
-
-  lcg.setSeed(seed);
-  perlin = new Array(PERLIN_SIZE + 1);
-  for (var i = 0; i < PERLIN_SIZE + 1; i++) {
-    perlin[i] = lcg.rand();
-  }
-};
-
-module.exports = p5;
-
-},{"../core/core":5}],23:[function(_dereq_,module,exports){
-/**
- * @module Math
- * @submodule Math
- * @requires constants
- */
-
-'use strict';
-
-var p5 = _dereq_('../core/core');
-var polarGeometry = _dereq_('./polargeometry');
-var constants = _dereq_('../core/constants');
-
-/**
- * A class to describe a two or three dimensional vector, specifically
- * a Euclidean (also known as geometric) vector. A vector is an entity
- * that has both magnitude and direction. The datatype, however, stores
- * the components of the vector (x, y for 2D, and x, y, z for 3D). The magnitude
- * and direction can be accessed via the methods mag() and heading().
- * <br><br>
- * In many of the p5.js examples, you will see p5.Vector used to describe a
- * position, velocity, or acceleration. For example, if you consider a rectangle
- * moving across the screen, at any given instant it has a position (a vector
- * that points from the origin to its location), a velocity (the rate at which
- * the object's position changes per time unit, expressed as a vector), and
- * acceleration (the rate at which the object's velocity changes per time
- * unit, expressed as a vector).
- * <br><br>
- * Since vectors represent groupings of values, we cannot simply use
- * traditional addition/multiplication/etc. Instead, we'll need to do some
- * "vector" math, which is made easy by the methods inside the p5.Vector class.
- *
- * @class p5.Vector
- * @constructor
- * @param {Number} [x] x component of the vector
- * @param {Number} [y] y component of the vector
- * @param {Number} [z] z component of the vector
- * @example
- * <div>
- * <code>
- * var v1 = createVector(40, 50);
- * var v2 = createVector(40, 50);
- *
- * ellipse(v1.x, v1.y, 50, 50);
- * ellipse(v2.x, v2.y, 50, 50);
- * v1.add(v2);
- * ellipse(v1.x, v1.y, 50, 50);
- * </code>
- * </div>
- *
- * @alt
- * 2 white ellipses. One center-left the other bottom right and off canvas
- *
- */
-p5.Vector = function() {
-  var x,y,z;
-  // This is how it comes in with createVector()
-  if(arguments[0] instanceof p5) {
-    // save reference to p5 if passed in
-    this.p5 = arguments[0];
-    x  = arguments[1][0] || 0;
-    y  = arguments[1][1] || 0;
-    z  = arguments[1][2] || 0;
-  // This is what we'll get with new p5.Vector()
-  } else {
-    x = arguments[0] || 0;
-    y = arguments[1] || 0;
-    z = arguments[2] || 0;
-  }
-  /**
-   * The x component of the vector
-   * @property x {Number}
-   */
-  this.x = x;
-  /**
-   * The y component of the vector
-   * @property y {Number}
-   */
-  this.y = y;
-  /**
-   * The z component of the vector
-   * @property z {Number}
-   */
-  this.z = z;
-};
-
-/**
- * Returns a string representation of a vector v by calling String(v)
- * or v.toString(). This method is useful for logging vectors in the
- * console.
- * @method  toString
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var v = createVector(20,30);
- *   print(String(v)); // prints "p5.Vector Object : [20, 30, 0]"
- * }
- * </div></code>
- *
- */
-p5.Vector.prototype.toString = function p5VectorToString() {
-  return 'p5.Vector Object : ['+ this.x +', '+ this.y +', '+ this.z + ']';
-};
-
-/**
- * Sets the x, y, and z component of the vector using two or three separate
- * variables, the data from a p5.Vector, or the values from a float array.
- * @method set
- * @param {Number|p5.Vector|Array} [x] the x component of the vector or a
- *                                     p5.Vector or an Array
- * @param {Number}                 [y] the y component of the vector
- * @param {Number}                 [z] the z component of the vector
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * function setup() {
- *    var v = createVector(1, 2, 3);
- *    v.set(4,5,6); // Sets vector to [4, 5, 6]
- *
- *    var v1 = createVector(0, 0, 0);
- *    var arr = [1, 2, 3];
- *    v1.set(arr); // Sets vector to [1, 2, 3]
- * }
- * </code>
- * </div>
- */
-p5.Vector.prototype.set = function (x, y, z) {
-  if (x instanceof p5.Vector) {
-    this.x = x.x || 0;
-    this.y = x.y || 0;
-    this.z = x.z || 0;
-    return this;
-  }
-  if (x instanceof Array) {
-    this.x = x[0] || 0;
-    this.y = x[1] || 0;
-    this.z = x[2] || 0;
-    return this;
-  }
-  this.x = x || 0;
-  this.y = y || 0;
-  this.z = z || 0;
-  return this;
-};
-
-/**
- * Gets a copy of the vector, returns a p5.Vector object.
- *
- * @method copy
- * @return {p5.Vector} the copy of the p5.Vector object
- * @example
- * <div class="norender">
- * <code>
- * var v1 = createVector(1, 2, 3);
- * var v2 = v1.copy();
- * print(v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
- * // Prints "true"
- * </code>
- * </div>
- */
-p5.Vector.prototype.copy = function () {
-  if (this.p5) {
-    return new p5.Vector(this.p5,[this.x, this.y, this.z]);
-  } else {
-    return new p5.Vector(this.x,this.y,this.z);
-  }
-};
-
-/**
- * Adds x, y, and z components to a vector, adds one vector to another, or
- * adds two independent vectors together. The version of the method that adds
- * two vectors together is a static method and returns a p5.Vector, the others
- * acts directly on the vector. See the examples for more context.
- *
- * @method add
- * @param  {Number|p5.Vector|Array} x   the x component of the vector to be
- *                                      added or a p5.Vector or an Array
- * @param  {Number}                 [y] the y component of the vector to be
- *                                      added
- * @param  {Number}                 [z] the z component of the vector to be
- *                                      added
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(1, 2, 3);
- * v.add(4,5,6);
- * // v's components are set to [5, 7, 9]
- * </code>
- * </div>
- * <div class="norender">
- * <code>
- * // Static method
- * var v1 = createVector(1, 2, 3);
- * var v2 = createVector(2, 3, 4);
- *
- * var v3 = p5.Vector.add(v1, v2);
- * // v3 has components [3, 5, 7]
- * </code>
- * </div>
- */
-p5.Vector.prototype.add = function (x, y, z) {
-  if (x instanceof p5.Vector) {
-    this.x += x.x || 0;
-    this.y += x.y || 0;
-    this.z += x.z || 0;
-    return this;
-  }
-  if (x instanceof Array) {
-    this.x += x[0] || 0;
-    this.y += x[1] || 0;
-    this.z += x[2] || 0;
-    return this;
-  }
-  this.x += x || 0;
-  this.y += y || 0;
-  this.z += z || 0;
-  return this;
-};
-
-/**
- * Subtracts x, y, and z components from a vector, subtracts one vector from
- * another, or subtracts two independent vectors. The version of the method
- * that subtracts two vectors is a static method and returns a p5.Vector, the
- * other acts directly on the vector. See the examples for more context.
- *
- * @method sub
- * @param  {Number|p5.Vector|Array} x   the x component of the vector or a
- *                                      p5.Vector or an Array
- * @param  {Number}                 [y] the y component of the vector
- * @param  {Number}                 [z] the z component of the vector
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(4, 5, 6);
- * v.sub(1, 1, 1);
- * // v's components are set to [3, 4, 5]
- * </code>
- * </div>
- *
- * <div class="norender">
- * <code>
- * // Static method
- * var v1 = createVector(2, 3, 4);
- * var v2 = createVector(1, 2, 3);
- *
- * var v3 = p5.Vector.sub(v1, v2);
- * // v3 has components [1, 1, 1]
- * </code>
- * </div>
- */
-p5.Vector.prototype.sub = function (x, y, z) {
-  if (x instanceof p5.Vector) {
-    this.x -= x.x || 0;
-    this.y -= x.y || 0;
-    this.z -= x.z || 0;
-    return this;
-  }
-  if (x instanceof Array) {
-    this.x -= x[0] || 0;
-    this.y -= x[1] || 0;
-    this.z -= x[2] || 0;
-    return this;
-  }
-  this.x -= x || 0;
-  this.y -= y || 0;
-  this.z -= z || 0;
-  return this;
-};
-
-/**
- * Multiply the vector by a scalar. The static version of this method
- * creates a new p5.Vector while the non static version acts on the vector
- * directly. See the examples for more context.
- *
- * @method mult
- * @param  {Number}    n the number to multiply with the vector
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(1, 2, 3);
- * v.mult(2);
- * // v's components are set to [2, 4, 6]
- * </code>
- * </div>
- *
- * <div class="norender">
- * <code>
- * // Static method
- * var v1 = createVector(1, 2, 3);
- * var v2 = p5.Vector.mult(v1, 2);
- * // v2 has components [2, 4, 6]
- * </code>
- * </div>
- */
-p5.Vector.prototype.mult = function (n) {
-  this.x *= n || 0;
-  this.y *= n || 0;
-  this.z *= n || 0;
-  return this;
-};
-
-/**
- * Divide the vector by a scalar. The static version of this method creates a
- * new p5.Vector while the non static version acts on the vector directly.
- * See the examples for more context.
- *
- * @method div
- * @param  {number}    n the number to divide the vector by
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(6, 4, 2);
- * v.div(2); //v's components are set to [3, 2, 1]
- * </code>
- * </div>
- *
- * <div class="norender">
- * <code>
- * // Static method
- * var v1  = createVector(6, 4, 2);
- * var v2 = p5.Vector.div(v, 2);
- * // v2 has components [3, 2, 1]
- * </code>
- * </div>
- */
-p5.Vector.prototype.div = function (n) {
-  this.x /= n;
-  this.y /= n;
-  this.z /= n;
-  return this;
-};
-
-/**
- * Calculates the magnitude (length) of the vector and returns the result as
- * a float (this is simply the equation sqrt(x*x + y*y + z*z).)
- *
- * @method mag
- * @return {Number} magnitude of the vector
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(20.0, 30.0, 40.0);
- * var m = v.mag();
- * print(m); // Prints "53.85164807134504"
- * </code>
- * </div>
- */
-p5.Vector.prototype.mag = function () {
-  return Math.sqrt(this.magSq());
-};
-
-/**
- * Calculates the squared magnitude of the vector and returns the result
- * as a float (this is simply the equation <em>(x*x + y*y + z*z)</em>.)
- * Faster if the real length is not required in the
- * case of comparing vectors, etc.
- *
- * @method magSq
- * @return {number} squared magnitude of the vector
- * @example
- * <div class="norender">
- * <code>
- * // Static method
- * var v1 = createVector(6, 4, 2);
- * print(v1.magSq()); // Prints "56"
- * </code>
- * </div>
- */
-p5.Vector.prototype.magSq = function () {
-  var x = this.x, y = this.y, z = this.z;
-  return (x * x + y * y + z * z);
-};
-
-/**
- * Calculates the dot product of two vectors. The version of the method
- * that computes the dot product of two independent vectors is a static
- * method. See the examples for more context.
- *
- *
- * @method dot
- * @param  {Number|p5.Vector} x   x component of the vector or a p5.Vector
- * @param  {Number}           [y] y component of the vector
- * @param  {Number}           [z] z component of the vector
- * @return {Number}                 the dot product
- *
- * @example
- * <div class="norender">
- * <code>
- * var v1 = createVector(1, 2, 3);
- * var v2 = createVector(2, 3, 4);
- *
- * print(v1.dot(v2)); // Prints "20"
- * </code>
- * </div>
- *
- * <div class="norender">
- * <code>
- * //Static method
- * var v1 = createVector(1, 2, 3);
- * var v2 = createVector(3, 2, 1);
- * print (p5.Vector.dot(v1, v2)); // Prints "10"
- * </code>
- * </div>
- */
-p5.Vector.prototype.dot = function (x, y, z) {
-  if (x instanceof p5.Vector) {
-    return this.dot(x.x, x.y, x.z);
-  }
-  return this.x * (x || 0) +
-         this.y * (y || 0) +
-         this.z * (z || 0);
-};
-
-/**
- * Calculates and returns a vector composed of the cross product between
- * two vectors. Both the static and non static methods return a new p5.Vector.
- * See the examples for more context.
- *
- * @method cross
- * @param  {p5.Vector} v p5.Vector to be crossed
- * @return {p5.Vector}   p5.Vector composed of cross product
- * @example
- * <div class="norender">
- * <code>
- * var v1 = createVector(1, 2, 3);
- * var v2 = createVector(1, 2, 3);
- *
- * v1.cross(v2); // v's components are [0, 0, 0]
- * </code>
- * </div>
- *
- * <div class="norender">
- * <code>
- * // Static method
- * var v1 = createVector(1, 0, 0);
- * var v2 = createVector(0, 1, 0);
- *
- * var crossProduct = p5.Vector.cross(v1, v2);
- * // crossProduct has components [0, 0, 1]
- * </code>
- * </div>
- */
-p5.Vector.prototype.cross = function (v) {
-  var x = this.y * v.z - this.z * v.y;
-  var y = this.z * v.x - this.x * v.z;
-  var z = this.x * v.y - this.y * v.x;
-  if (this.p5) {
-    return new p5.Vector(this.p5,[x,y,z]);
-  } else {
-    return new p5.Vector(x,y,z);
-  }
-};
-
-/**
- * Calculates the Euclidean distance between two points (considering a
- * point as a vector object).
- *
- * @method dist
- * @param  {p5.Vector} v the x, y, and z coordinates of a p5.Vector
- * @return {Number}      the distance
- * @example
- * <div class="norender">
- * <code>
- * var v1 = createVector(1, 0, 0);
- * var v2 = createVector(0, 1, 0);
- *
- * var distance = v1.dist(v2); // distance is 1.4142...
- * </code>
- * </div>
- * <div class="norender">
- * <code>
- * // Static method
- * var v1 = createVector(1, 0, 0);
- * var v2 = createVector(0, 1, 0);
- *
- * var distance = p5.Vector.dist(v1,v2);
- * // distance is 1.4142...
- * </code>
- * </div>
- */
-p5.Vector.prototype.dist = function (v) {
-  var d = v.copy().sub(this);
-  return d.mag();
-};
-
-/**
- * Normalize the vector to length 1 (make it a unit vector).
- *
- * @method normalize
- * @return {p5.Vector} normalized p5.Vector
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(10, 20, 2);
- * // v has components [10.0, 20.0, 2.0]
- * v.normalize();
- * // v's components are set to
- * // [0.4454354, 0.8908708, 0.089087084]
- * </code>
- * </div>
- *
- */
-p5.Vector.prototype.normalize = function () {
-  return this.mag() === 0 ? this : this.div(this.mag());
-};
-
-/**
- * Limit the magnitude of this vector to the value used for the <b>max</b>
- * parameter.
- *
- * @method limit
- * @param  {Number}    max the maximum magnitude for the vector
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(10, 20, 2);
- * // v has components [10.0, 20.0, 2.0]
- * v.limit(5);
- * // v's components are set to
- * // [2.2271771, 4.4543543, 0.4454354]
- * </code>
- * </div>
- */
-p5.Vector.prototype.limit = function (max) {
-  var mSq = this.magSq();
-  if(mSq > max*max) {
-    this.div(Math.sqrt(mSq)); //normalize it
-    this.mult(max);
-  }
-  return this;
-};
-
-/**
- * Set the magnitude of this vector to the value used for the <b>len</b>
- * parameter.
- *
- * @method setMag
- * @param  {number}    len the new length for this vector
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(10, 20, 2);
- * // v has components [10.0, 20.0, 2.0]
- * v.setMag(10);
- * // v's components are set to [6.0, 8.0, 0.0]
- * </code>
- * </div>
- */
-p5.Vector.prototype.setMag = function (n) {
-  return this.normalize().mult(n);
-};
-
-/**
- * Calculate the angle of rotation for this vector (only 2D vectors)
- *
- * @method heading
- * @return {Number} the angle of rotation
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var v1 = createVector(30,50);
- *   print(v1.heading()); // 1.0303768265243125
- *
- *   var v1 = createVector(40,50);
- *   print(v1.heading()); // 0.8960553845713439
- *
- *   var v1 = createVector(30,70);
- *   print(v1.heading()); // 1.1659045405098132
- * }
- * </div></code>
- */
-p5.Vector.prototype.heading = function () {
-  var h = Math.atan2(this.y, this.x);
-  if (this.p5) {
-    if (this.p5._angleMode === constants.RADIANS) {
-      return h;
-    } else {
-      return polarGeometry.radiansToDegrees(h);
-    }
-  } else {
-    return h;
-  }
-};
-
-/**
- * Rotate the vector by an angle (only 2D vectors), magnitude remains the
- * same
- *
- * @method rotate
- * @param  {number}    angle the angle of rotation
- * @chainable
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(10.0, 20.0);
- * // v has components [10.0, 20.0, 0.0]
- * v.rotate(HALF_PI);
- * // v's components are set to [-20.0, 9.999999, 0.0]
- * </code>
- * </div>
- */
-p5.Vector.prototype.rotate = function (a) {
-  var newHeading = this.heading() + a;
-  if (this.p5) {
-    if (this.p5._angleMode === constants.DEGREES) {
-      newHeading = polarGeometry.degreesToRadians(newHeading);
-    }
-  }
-  var mag = this.mag();
-  this.x = Math.cos(newHeading) * mag;
-  this.y = Math.sin(newHeading) * mag;
-  return this;
-};
-
-/**
- * Calculates and returns the angle (in radians) between two vectors.
- * @method angleBetween
- * @param  {p5.Vector}    the x, y, and z components of a p5.Vector
- * @return {Number}       the angle between (in radians)
- * @example
- * <div class="norender">
- * <code>
- * var v1 = createVector(1, 0, 0);
- * var v2 = createVector(0, 1, 0);
- *
- * var angle = v1.angleBetween(v2);
- * // angle is PI/2
- * </code>
- * </div>
- */
-p5.Vector.prototype.angleBetween = function (v) {
-  var angle = Math.acos(this.dot(v) / (this.mag() * v.mag()));
-  if (this.p5) {
-    if (this.p5._angleMode === constants.DEGREES) {
-      angle = polarGeometry.radiansToDegrees(angle);
-    }
-  }
-  return angle;
-};
-
-/**
- * Linear interpolate the vector to another vector
- *
- * @method lerp
- * @param  {p5.Vector} x   the x component
- * @param  {p5.Vector} y   the y component
- * @param  {p5.Vector} z   the z component
- * @param  {Number}    amt the amount of interpolation; some value between 0.0
- *                         (old vector) and 1.0 (new vector). 0.1 is very near
- *                         the new vector. 0.5 is halfway in between.
- * @chainable
- */
-/**
- * @method lerp
- * @param  {p5.Vector} v   the p5.Vector to lerp to
- * @param  {Number}    amt
- * @chainable
- *
- * @example
- * <div class="norender">
- * <code>
- * var v = createVector(1, 1, 0);
- *
- * v.lerp(3, 3, 0, 0.5); // v now has components [2,2,0]
- * </code>
- * </div>
- *
- * <div class="norender">
- * <code>
- * var v1 = createVector(0, 0, 0);
- * var v2 = createVector(100, 100, 0);
- *
- * var v3 = p5.Vector.lerp(v1, v2, 0.5);
- * // v3 has components [50,50,0]
- * </code>
- * </div>
- */
-p5.Vector.prototype.lerp = function (x, y, z, amt) {
-  if (x instanceof p5.Vector) {
-    return this.lerp(x.x, x.y, x.z, y);
-  }
-  this.x += (x - this.x) * amt || 0;
-  this.y += (y - this.y) * amt || 0;
-  this.z += (z - this.z) * amt || 0;
-  return this;
-};
-
-/**
- * Return a representation of this vector as a float array. This is only
- * for temporary use. If used in any other fashion, the contents should be
- * copied by using the <b>p5.Vector.copy()</b> method to copy into your own
- * array.
- *
- * @method array
- * @return {Number[]} an Array with the 3 values
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var v = createVector(20,30);
- *   print(v.array()); // Prints : Array [20, 30, 0]
- * }
- * </div></code>
- * <div class="norender">
- * <code>
- * var v = createVector(10.0, 20.0, 30.0);
- * var f = v.array();
- * print(f[0]); // Prints "10.0"
- * print(f[1]); // Prints "20.0"
- * print(f[2]); // Prints "30.0"
- * </code>
- * </div>
- */
-p5.Vector.prototype.array = function () {
-  return [this.x || 0, this.y || 0, this.z || 0];
-};
-
-/**
- * Equality check against a p5.Vector
- *
- * @method equals
- * @param {Number|p5.Vector|Array} [x] the x component of the vector or a
- *                                     p5.Vector or an Array
- * @param {Number}                 [y] the y component of the vector
- * @param {Number}                 [z] the z component of the vector
- * @return {Boolean} whether the vectors are equals
- * @example
- * <div class = "norender"><code>
- * v1 = createVector(5,10,20);
- * v2 = createVector(5,10,20);
- * v3 = createVector(13,10,19);
- *
- * print(v1.equals(v2.x,v2.y,v2.z)); // true
- * print(v1.equals(v3.x,v3.y,v3.z)); // false
- * </div></code>
- * <div class="norender">
- * <code>
- * var v1 = createVector(10.0, 20.0, 30.0);
- * var v2 = createVector(10.0, 20.0, 30.0);
- * var v3 = createVector(0.0, 0.0, 0.0);
- * print (v1.equals(v2)) // true
- * print (v1.equals(v3)) // false
- * </code>
- * </div>
- */
-p5.Vector.prototype.equals = function (x, y, z) {
-  var a, b, c;
-  if (x instanceof p5.Vector) {
-    a = x.x || 0;
-    b = x.y || 0;
-    c = x.z || 0;
-  } else if (x instanceof Array) {
-    a = x[0] || 0;
-    b = x[1] || 0;
-    c = x[2] || 0;
-  } else {
-    a = x || 0;
-    b = y || 0;
-    c = z || 0;
-  }
-  return this.x === a && this.y === b && this.z === c;
-};
-
-
-// Static Methods
-
-
-/**
- * Make a new 2D unit vector from an angle
- *
- * @method fromAngle
- * @static
- * @param {Number}     angle the desired angle
- * @return {p5.Vector}       the new p5.Vector object
- * @example
- * <div>
- * <code>
- * function draw() {
- *   background (200);
- *
- *   // Create a variable, proportional to the mouseX,
- *   // varying from 0-360, to represent an angle in degrees.
- *   angleMode(DEGREES);
- *   var myDegrees = map(mouseX, 0,width, 0,360);
- *
- *   // Display that variable in an onscreen text.
- *   // (Note the nfc() function to truncate additional decimal places,
- *   // and the "\xB0" character for the degree symbol.)
- *   var readout = "angle = " + nfc(myDegrees,1,1) + "\xB0"
- *   noStroke();
- *   fill (0);
- *   text (readout, 5, 15);
- *
- *   // Create a p5.Vector using the fromAngle function,
- *   // and extract its x and y components.
- *   var v = p5.Vector.fromAngle(radians(myDegrees));
- *   var vx = v.x;
- *   var vy = v.y;
- *
- *   push();
- *   translate (width/2, height/2);
- *   noFill();
- *   stroke (150);
- *   line (0,0, 30,0);
- *   stroke (0);
- *   line (0,0, 30*vx, 30*vy);
- *   pop()
- * }
- * </code>
- * </div>
- */
-p5.Vector.fromAngle = function(angle) {
-  if (this.p5) {
-    if (this.p5._angleMode === constants.DEGREES) {
-      angle = polarGeometry.degreesToRadians(angle);
-    }
-  }
-  if (this.p5) {
-    return new p5.Vector(this.p5,[Math.cos(angle),Math.sin(angle),0]);
-  } else {
-    return new p5.Vector(Math.cos(angle),Math.sin(angle),0);
-  }
-};
-
-/**
- * Make a new 2D unit vector from a random angle
- *
- * @method random2D
- * @static
- * @return {p5.Vector} the new p5.Vector object
- * @example
- * <div class="norender">
- * <code>
- * var v = p5.Vector.random2D();
- * // May make v's attributes something like:
- * // [0.61554617, -0.51195765, 0.0] or
- * // [-0.4695841, -0.14366731, 0.0] or
- * // [0.6091097, -0.22805278, 0.0]
- * </code>
- * </div>
- */
-p5.Vector.random2D = function () {
-  var angle;
-  // A lot of nonsense to determine if we know about a
-  // p5 sketch and whether we should make a random angle in degrees or radians
-  if (this.p5) {
-    if (this.p5._angleMode === constants.DEGREES) {
-      angle = this.p5.random(360);
-    } else {
-      angle = this.p5.random(constants.TWO_PI);
-    }
-  } else {
-    angle = Math.random()*Math.PI*2;
-  }
-  return this.fromAngle(angle);
-};
-
-/**
- * Make a new random 3D unit vector.
- *
- * @method random3D
- * @static
- * @return {p5.Vector} the new p5.Vector object
- * @example
- * <div class="norender">
- * <code>
- * var v = p5.Vector.random3D();
- * // May make v's attributes something like:
- * // [0.61554617, -0.51195765, 0.599168] or
- * // [-0.4695841, -0.14366731, -0.8711202] or
- * // [0.6091097, -0.22805278, -0.7595902]
- * </code>
- * </div>
- */
-p5.Vector.random3D = function () {
-  var angle,vz;
-  // If we know about p5
-  if (this.p5) {
-    angle = this.p5.random(0,constants.TWO_PI);
-    vz = this.p5.random(-1,1);
-  } else {
-    angle = Math.random()*Math.PI*2;
-    vz = Math.random()*2-1;
-  }
-  var vx = Math.sqrt(1-vz*vz)*Math.cos(angle);
-  var vy = Math.sqrt(1-vz*vz)*Math.sin(angle);
-  if (this.p5) {
-    return new p5.Vector(this.p5,[vx,vy,vz]);
-  } else {
-    return new p5.Vector(vx,vy,vz);
-  }
-};
-
-// Adds two vectors together and returns a new one.
-/**
- * @method add
- * @static
- * @param  {p5.Vector} v1 a p5.Vector to add
- * @param  {p5.Vector} v2 a p5.Vector to add
- * @param  {p5.Vector} target the vector to receive the result
- */
-/**
- * @method add
- * @static
- * @param  {p5.Vector} v1
- * @param  {p5.Vector} v2
- * @return {p5.Vector} the resulting p5.Vector
- *
- */
-
-p5.Vector.add = function (v1, v2, target) {
-  if (!target) {
-    target = v1.copy();
-  } else {
-    target.set(v1);
-  }
-  target.add(v2);
-  return target;
-};
-
-/*
- * Subtracts one p5.Vector from another and returns a new one.  The second
- * vector (v2) is subtracted from the first (v1), resulting in v1-v2.
- */
-/**
- * @method sub
- * @static
- * @param  {p5.Vector} v1 a p5.Vector to subtract from
- * @param  {p5.Vector} v2 a p5.Vector to subtract
- * @param  {p5.Vector} target if undefined a new vector will be created
- */
-/**
- * @method sub
- * @static
- * @param  {p5.Vector} v1
- * @param  {p5.Vector} v2
- * @return {p5.Vector} the resulting p5.Vector
- */
-
-p5.Vector.sub = function (v1, v2, target) {
-  if (!target) {
-    target = v1.copy();
-  } else {
-    target.set(v1);
-  }
-  target.sub(v2);
-  return target;
-};
-
-
-/**
- * Multiplies a vector by a scalar and returns a new vector.
- */
-/**
- * @method mult
- * @static
- * @param  {p5.Vector} v the vector to multiply
- * @param  {Number}  n
- * @param  {p5.Vector} target if undefined a new vector will be created
- */
-/**
- * @method mult
- * @static
- * @param  {p5.Vector} v
- * @param  {Number}  n
- * @return {p5.Vector}  the resulting new p5.Vector
- */
-p5.Vector.mult = function (v, n, target) {
-  if (!target) {
-    target = v.copy();
-  } else {
-    target.set(v);
-  }
-  target.mult(n);
-  return target;
-};
-
-/**
- * Divides a vector by a scalar and returns a new vector.
- */
-/**
- * @method div
- * @static
- * @param  {p5.Vector} v the vector to divide
- * @param  {Number}  n
- * @param  {p5.Vector} target if undefined a new vector will be created
- */
-/**
- * @method div
- * @static
- * @param  {p5.Vector} v
- * @param  {Number}  n
- * @return {p5.Vector} the resulting new p5.Vector
- */
-p5.Vector.div = function (v, n, target) {
-  if (!target) {
-    target = v.copy();
-  } else {
-    target.set(v);
-  }
-  target.div(n);
-  return target;
-};
-
-
-/**
- * Calculates the dot product of two vectors.
- */
-/**
- * @method dot
- * @static
- * @param  {p5.Vector} v1 the first p5.Vector
- * @param  {p5.Vector} v2 the second p5.Vector
- * @return {Number}     the dot product
- */
-p5.Vector.dot = function (v1, v2) {
-  return v1.dot(v2);
-};
-
-/**
- * Calculates the cross product of two vectors.
- */
-/**
- * @method cross
- * @static
- * @param  {p5.Vector} v1 the first p5.Vector
- * @param  {p5.Vector} v2 the second p5.Vector
- * @return {Number}     the cross product
- */
-p5.Vector.cross = function (v1, v2) {
-  return v1.cross(v2);
-};
-
-/**
- * Calculates the Euclidean distance between two points (considering a
- * point as a vector object).
- */
-/**
- * @method dist
- * @static
- * @param  {p5.Vector} v1 the first p5.Vector
- * @param  {p5.Vector} v2 the second p5.Vector
- * @return {Number}     the distance
- */
-p5.Vector.dist = function (v1,v2) {
-  return v1.dist(v2);
-};
-
-/**
- * Linear interpolate a vector to another vector and return the result as a
- * new vector.
- */
-/**
- * @method lerp
- * @static
- * @param {p5.Vector} v1
- * @param {p5.Vector} v2
- * @param {Number} amt
- * @param {p5.Vector} target if undefined a new vector will be created
- */
-/**
- * @method lerp
- * @static
- * @param {p5.Vector} v1
- * @param {p5.Vector} v2
- * @param {Number} amt
- * @return {Number}      the lerped value
- */
-p5.Vector.lerp = function (v1, v2, amt, target) {
-  if (!target) {
-    target = v1.copy();
-  } else {
-    target.set(v1);
-  }
-  target.lerp(v2, amt);
-  return target;
-};
-
-/**
- * @method mag
- * @param {p5.Vector} vecT the vector to return the magnitude of
- * @return {Number}        the magnitude of vecT
- * @static
- */
-p5.Vector.mag = function (vecT){
-  var x = vecT.x,
-    y = vecT.y,
-    z = vecT.z;
-  var magSq = x * x + y * y + z * z;
-  return Math.sqrt(magSq);
-};
-
-module.exports = p5.Vector;
-
-},{"../core/constants":4,"../core/core":5,"./polargeometry":24}],24:[function(_dereq_,module,exports){
 
 module.exports = {
 
@@ -10779,10 +8543,10 @@ module.exports = {
 
 };
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],21:[function(_dereq_,module,exports){
 /**
- * @module Math
- * @submodule Random
+ * @module Lights, Camera
+ * @submodule Camera
  * @for p5
  * @requires core
  */
@@ -10791,600 +8555,1220 @@ module.exports = {
 
 var p5 = _dereq_('../core/core');
 
-var seeded = false;
-var previous = false;
-var y2 = 0;
-
-// Linear Congruential Generator
-// Variant of a Lehman Generator
-var lcg = (function() {
-  // Set to values from http://en.wikipedia.org/wiki/Numerical_Recipes
-  // m is basically chosen to be large (as it is the max period)
-  // and for its relationships to a and c
-  var m = 4294967296,
-    // a - 1 should be divisible by m's prime factors
-    a = 1664525,
-    // c and m should be co-prime
-    c = 1013904223,
-    seed, z;
-  return {
-    setSeed : function(val) {
-      // pick a random seed if val is undefined or null
-      // the >>> 0 casts the seed to an unsigned 32-bit integer
-      z = seed = (val == null ? Math.random() * m : val) >>> 0;
-    },
-    getSeed : function() {
-      return seed;
-    },
-    rand : function() {
-      // define the recurrence relationship
-      z = (a * z + c) % m;
-      // return a float in [0, 1)
-      // if z = m then z / m = 0 therefore (z % m) / m < 1 always
-      return z / m;
-    }
-  };
-}());
-
 /**
- * Sets the seed value for random().
- *
- * By default, random() produces different results each time the program
- * is run. Set the seed parameter to a constant to return the same
- * pseudo-random numbers each time the software is run.
- *
- * @method randomSeed
- * @param {Number} seed   the seed value
+ * Sets camera position
+ * @method camera
+ * @param  {Number} x  camera position value on x axis
+ * @param  {Number} y  camera position value on y axis
+ * @param  {Number} z  camera position value on z axis
+ * @return {p5}        the p5 object
  * @example
  * <div>
  * <code>
- * randomSeed(99);
- * for (var i=0; i < 100; i++) {
- *   var r = random(0, 255);
- *   stroke(r);
- *   line(i, 0, i, 100);
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ * function draw(){
+ *  //move the camera away from the plane by a sin wave
+ *  camera(0, 0, sin(frameCount * 0.01) * 100);
+ *  plane(120, 120);
  * }
  * </code>
  * </div>
  *
  * @alt
- * many vertical lines drawn in white, black or grey.
+ * blue square shrinks in size grows to fill canvas. disappears then loops.
  *
  */
-p5.prototype.randomSeed = function(seed) {
-  lcg.setSeed(seed);
-  seeded = true;
-  previous = false;
+p5.prototype.camera = function(x, y, z){
+  //what it manipulates is the model view matrix
+  this._renderer.translate(-x, -y, -z);
 };
 
 /**
- * Return a random floating-point number.
- *
- * Takes either 0, 1 or 2 arguments.
- *
- * If no argument is given, returns a random number from 0
- * up to (but not including) 1.
- *
- * If one argument is given and it is a number, returns a random number from 0
- * up to (but not including) the number.
- *
- * If one argument is given and it is an array, returns a random element from
- * that array.
- *
- * If two arguments are given, returns a random number from the
- * first argument up to (but not including) the second argument.
- *
- * @method random
- * @param  {Number} [min]   the lower bound (inclusive)
- * @param  {Number} [max]   the upper bound (exclusive)
- * @return {Number} the random number
+ * Sets perspective camera
+ * @method  perspective
+ * @param  {Number} fovy   camera frustum vertical field of view,
+ *                         from bottom to top of view, in degrees
+ * @param  {Number} aspect camera frustum aspect ratio
+ * @param  {Number} near   frustum near plane length
+ * @param  {Number} far    frustum far plane length
+ * @return {p5}            the p5 object
  * @example
  * <div>
  * <code>
- * for (var i = 0; i < 100; i++) {
- *   var r = random(50);
- *   stroke(r*5);
- *   line(50, i, 50+r, i);
+ * //drag mouse to toggle the world!
+ * //you will see there's a vanish point
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ *   var fov = 60 / 180 * PI;
+ *   var cameraZ = (height/2.0) / tan(fov/2.0);
+ *   perspective(60 / 180 * PI, width/height, cameraZ * 0.1, cameraZ * 10);
  * }
- * </code>
- * </div>
- * <div>
- * <code>
- * for (var i = 0; i < 100; i++) {
- *   var r = random(-50, 50);
- *   line(50,i,50+r,i);
+ * function draw(){
+ *  background(200);
+ *  orbitControl();
+ *  for(var i = -1; i < 2; i++){
+ *     for(var j = -2; j < 3; j++){
+ *       push();
+ *       translate(i*160, 0, j*160);
+ *       box(40, 40, 40);
+ *       pop();
+ *     }
+ *   }
  * }
- * </code>
- * </div>
- * <div>
- * <code>
- * // Get a random element from an array using the random(Array) syntax
- * var words = [ "apple", "bear", "cat", "dog" ];
- * var word = random(words);  // select random word
- * text(word,10,50);  // draw the word
  * </code>
  * </div>
  *
  * @alt
- * 100 horizontal lines from center canvas to right. size+fill change each time
- * 100 horizontal lines from center of canvas. height & side change each render
- * word displayed at random. Either apple, bear, cat, or dog
+ * colored 3d boxes toggleable with mouse position
  *
  */
-/**
- * @method random
- * @param  {Array} choices   the array to choose from
- * @return {*} the random element from the array
- * @example
- */
-p5.prototype.random = function (min, max) {
-
-  var rand;
-
-  if (seeded) {
-    rand  = lcg.rand();
-  } else {
-    rand = Math.random();
-  }
-  if (typeof min === 'undefined') {
-    return rand;
-  } else
-  if (typeof max === 'undefined') {
-    if (min instanceof Array) {
-      return min[Math.floor(rand * min.length)];
-    } else {
-      return rand * min;
-    }
-  } else {
-    if (min > max) {
-      var tmp = min;
-      min = max;
-      max = tmp;
-    }
-
-    return rand * (max-min) + min;
-  }
+p5.prototype.perspective = function(fovy,aspect,near,far) {
+  fovy = fovy || (60 / 180 * this.PI);
+  aspect = aspect || (this.width/this.height);
+  near = near || ((this.height/2.0) / this.tan(fovy/2.0) * 0.1);
+  far = far || ((this.height/2.0) / this.tan(fovy/2.0) * 10);
+  this._renderer.uPMatrix = p5.Matrix.identity();
+  this._renderer.uPMatrix.perspective(fovy,aspect,near,far);
+  this._renderer._curCamera = 'custom';
 };
 
+/**
+ * Setup ortho camera
+ * @method  ortho
+ * @param  {Number} left   camera frustum left plane
+ * @param  {Number} right  camera frustum right plane
+ * @param  {Number} bottom camera frustum bottom plane
+ * @param  {Number} top    camera frustum top plane
+ * @param  {Number} near   camera frustum near plane
+ * @param  {Number} far    camera frustum far plane
+ * @return {p5}            the p5 object
+ * @example
+ * <div>
+ * <code>
+ * //drag mouse to toggle the world!
+ * //there's no vanish point
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ *   ortho(-width/2, width/2, height/2, -height/2, 0, 500);
+ * }
+ * function draw(){
+ *  background(200);
+ *  orbitControl();
+ *  for(var i = -1; i < 2; i++){
+ *     for(var j = -2; j < 3; j++){
+ *       push();
+ *       translate(i*160, 0, j*160);
+ *       box(40, 40, 40);
+ *       pop();
+ *     }
+ *   }
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * 3 3d boxes, reveal several more boxes on 3d plane when mouse used to toggle
+ *
+ */
+p5.prototype.ortho = function(left,right,bottom,top,near,far) {
+  left = left || (-this.width/2);
+  right = right || (this.width/2);
+  bottom = bottom || (-this.height/2);
+  top = top || (this.height/2);
+  near = near || 0;
+  far = far || Math.max(this.width, this.height);
+  this._renderer.uPMatrix = p5.Matrix.identity();
+  this._renderer.uPMatrix.ortho(left,right,bottom,top,near,far);
+  this._renderer._curCamera = 'custom';
+};
+
+module.exports = p5;
+
+},{"../core/core":5}],22:[function(_dereq_,module,exports){
+'use strict';
+
+var p5 = _dereq_('../core/core');
+
+//@TODO: implement full orbit controls including
+//pan, zoom, quaternion rotation, etc.
+p5.prototype.orbitControl = function(){
+  if(this.mouseIsPressed){
+    this.rotateY((this.mouseX - this.width / 2) / (this.width / 2));
+    this.rotateX((this.mouseY - this.height / 2) / (this.width / 2));
+  }
+  return this;
+};
+
+module.exports = p5;
+},{"../core/core":5}],23:[function(_dereq_,module,exports){
+/**
+ * @module Lights, Camera
+ * @submodule Lights
+ * @for p5
+ * @requires core
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
 
 /**
+ * Creates an ambient light with a color
  *
- * Returns a random number fitting a Gaussian, or
- * normal, distribution. There is theoretically no minimum or maximum
- * value that randomGaussian() might return. Rather, there is
- * just a very low probability that values far from the mean will be
- * returned; and a higher probability that numbers near the mean will
- * be returned.
+ * @method ambientLight
+ * @param  {Number}        v1      red or hue value relative to
+ *                                 the current color range
+ * @param  {Number}        v2      green or saturation value
+ *                                 relative to the current color range
+ * @param  {Number}        v3      blue or brightness value
+ *                                 relative to the current color range
+ * @param  {Number}        [alpha]
+ * @chainable
+ */
+
+/**
+ * @method ambientLight
+ * @param  {String}        value   a color string
+ * @param  {Number}        [alpha]
+ * @chainable
+ */
+
+/**
+ * @method ambientLight
+ * @param  {Number[]}      values  an array containing the red,green,blue &
+ *                                 and alpha components of the color
+ * @chainable
+ */
+
+/**
+ * @method ambientLight
+ * @param  {p5.Color}      color   the ambient light color
+ * @param  {Number}        [alpha]
+ * @chainable
+ *
+ * @example
+ * <div>
+ * <code>
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ * function draw(){
+ *   background(0);
+ *   ambientLight(150);
+ *   ambientMaterial(250);
+ *   sphere(50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * nothing displayed
+ *
+ */
+p5.prototype.ambientLight = function(v1, v2, v3, a){
+  var gl = this._renderer.GL;
+  var shaderProgram = this._renderer._getShader(
+    'lightVert', 'lightTextureFrag');
+
+  gl.useProgram(shaderProgram);
+  shaderProgram.uAmbientColor = gl.getUniformLocation(
+    shaderProgram,
+    'uAmbientColor[' + this._renderer.ambientLightCount + ']');
+
+  var color = this._renderer._pInst.color.apply(
+    this._renderer._pInst, arguments);
+  var colors = color._array;
+
+  gl.uniform3f( shaderProgram.uAmbientColor,
+    colors[0], colors[1], colors[2]);
+
+  //in case there's no material color for the geometry
+  shaderProgram.uMaterialColor = gl.getUniformLocation(
+    shaderProgram, 'uMaterialColor' );
+  gl.uniform4f( shaderProgram.uMaterialColor, 1, 1, 1, 1);
+
+  this._renderer.ambientLightCount ++;
+  shaderProgram.uAmbientLightCount =
+    gl.getUniformLocation(shaderProgram, 'uAmbientLightCount');
+  gl.uniform1i(shaderProgram.uAmbientLightCount,
+    this._renderer.ambientLightCount);
+
+  return this;
+};
+
+/**
+ * Creates a directional light with a color and a direction
+ * @method  directionalLight
+ * @param  {Number|Array|String|p5.Color} v1   gray value,
+ * red or hue value (depending on the current color mode),
+ * or color Array, or CSS color string
+ * @param  {Number}          [v2] optional: green or saturation value
+ * @param  {Number}          [v3] optional: blue or brightness value
+ * @param  {Number}          [a]  optional: opacity
+ * @param  {Number|p5.Vector} x   x axis direction or a p5.Vector
+ * @param  {Number}          [y]  optional: y axis direction
+ * @param  {Number}          [z]  optional: z axis direction
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ * function draw(){
+ *   background(0);
+ *   //move your mouse to change light direction
+ *   var dirX = (mouseX / width - 0.5) *2;
+ *   var dirY = (mouseY / height - 0.5) *(-2);
+ *   directionalLight(250, 250, 250, dirX, dirY, 0.25);
+ *   ambientMaterial(250);
+ *   sphere(50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * light source on canvas changeable with mouse position
+ *
+ */
+p5.prototype.directionalLight = function(v1, v2, v3, a, x, y, z) {
+  var gl = this._renderer.GL;
+  var shaderProgram = this._renderer._getShader(
+    'lightVert', 'lightTextureFrag');
+
+  gl.useProgram(shaderProgram);
+  shaderProgram.uDirectionalColor = gl.getUniformLocation(
+    shaderProgram,
+    'uDirectionalColor[' + this._renderer.directionalLightCount + ']');
+
+  //@TODO: check parameters number
+  var color = this._renderer._pInst.color.apply(
+    this._renderer._pInst, [v1, v2, v3]);
+  var colors = color._array;
+
+  gl.uniform3f( shaderProgram.uDirectionalColor,
+    colors[0], colors[1], colors[2]);
+
+  var _x, _y, _z;
+
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  if(typeof args[args.length-1] === 'number'){
+    _x = args[args.length-3];
+    _y = args[args.length-2];
+    _z = args[args.length-1];
+
+  }else{
+    try{
+      _x = args[args.length-1].x;
+      _y = args[args.length-1].y;
+      _z = args[args.length-1].z;
+    }
+    catch(error){
+      throw error;
+    }
+  }
+
+  shaderProgram.uLightingDirection = gl.getUniformLocation(
+    shaderProgram,
+    'uLightingDirection[' + this._renderer.directionalLightCount + ']');
+  gl.uniform3f( shaderProgram.uLightingDirection, _x, _y, _z);
+
+  //in case there's no material color for the geometry
+  shaderProgram.uMaterialColor = gl.getUniformLocation(
+    shaderProgram, 'uMaterialColor' );
+  gl.uniform4f( shaderProgram.uMaterialColor, 1, 1, 1, 1);
+
+  this._renderer.directionalLightCount ++;
+  shaderProgram.uDirectionalLightCount =
+    gl.getUniformLocation(shaderProgram, 'uDirectionalLightCount');
+  gl.uniform1i(shaderProgram.uDirectionalLightCount,
+    this._renderer.directionalLightCount);
+
+  return this;
+};
+
+/**
+ * Creates a point light with a color and a light position
+ * @method  pointLight
+ * @param  {Number|Array|String|p5.Color} v1   gray value,
+ * red or hue value (depending on the current color mode),
+ * or color Array, or CSS color string
+ * @param  {Number}          [v2] optional: green or saturation value
+ * @param  {Number}          [v3] optional: blue or brightness value
+ * @param  {Number}          [a]  optional: opacity
+ * @param  {Number|p5.Vector} x   x axis position or a p5.Vector
+ * @param  {Number}          [y]  optional: y axis position
+ * @param  {Number}          [z]  optional: z axis position
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ * function draw(){
+ *   background(0);
+ *   //move your mouse to change light position
+ *   var locY = (mouseY / height - 0.5) *(-2);
+ *   var locX = (mouseX / width - 0.5) *2;
+ *   //to set the light position,
+ *   //think of the world's coordinate as:
+ *   // -1,1 -------- 1,1
+ *   //   |            |
+ *   //   |            |
+ *   //   |            |
+ *   // -1,-1---------1,-1
+ *   pointLight(250, 250, 250, locX, locY, 0);
+ *   ambientMaterial(250);
+ *   sphere(50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * spot light on canvas changes position with mouse
+ *
+ */
+p5.prototype.pointLight = function(v1, v2, v3, a, x, y, z) {
+  var gl = this._renderer.GL;
+  var shaderProgram = this._renderer._getShader(
+    'lightVert', 'lightTextureFrag');
+
+  gl.useProgram(shaderProgram);
+  shaderProgram.uPointLightColor = gl.getUniformLocation(
+    shaderProgram,
+    'uPointLightColor[' + this._renderer.pointLightCount + ']');
+
+  //@TODO: check parameters number
+  var color = this._renderer._pInst.color.apply(
+    this._renderer._pInst, [v1, v2, v3]);
+  var colors = color._array;
+
+  gl.uniform3f( shaderProgram.uPointLightColor,
+    colors[0], colors[1], colors[2]);
+
+  var _x, _y, _z;
+
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  if(typeof args[args.length-1] === 'number'){
+    _x = args[args.length-3];
+    _y = args[args.length-2];
+    _z = args[args.length-1];
+
+  }else{
+    try{
+      _x = args[args.length-1].x;
+      _y = args[args.length-1].y;
+      _z = args[args.length-1].z;
+    }
+    catch(error){
+      throw error;
+    }
+  }
+
+  shaderProgram.uPointLightLocation = gl.getUniformLocation(
+    shaderProgram,
+    'uPointLightLocation[' + this._renderer.pointLightCount + ']');
+  gl.uniform3f( shaderProgram.uPointLightLocation, _x, _y, _z);
+
+  //in case there's no material color for the geometry
+  shaderProgram.uMaterialColor = gl.getUniformLocation(
+    shaderProgram, 'uMaterialColor' );
+  gl.uniform4f( shaderProgram.uMaterialColor, 1, 1, 1, 1);
+
+  this._renderer.pointLightCount ++;
+  shaderProgram.uPointLightCount =
+    gl.getUniformLocation(shaderProgram, 'uPointLightCount');
+  gl.uniform1i(shaderProgram.uPointLightCount,
+    this._renderer.pointLightCount);
+
+  return this;
+};
+
+module.exports = p5;
+
+},{"../core/core":5}],24:[function(_dereq_,module,exports){
+/**
+ * @module Shape
+ * @submodule 3D Models
+ * @for p5
+ * @requires core
+ * @requires p5.Geometry
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+_dereq_('./p5.Geometry');
+
+/**
+ * Load a 3d model from an OBJ file.
  * <br><br>
- * Takes either 0, 1 or 2 arguments.<br>
- * If no args, returns a mean of 0 and standard deviation of 1.<br>
- * If one arg, that arg is the mean (standard deviation is 1).<br>
- * If two args, first is mean, second is standard deviation.
+ * One of the limitations of the OBJ format is that it doesn't have a built-in
+ * sense of scale. This means that models exported from different programs might
+ * be very different sizes. If your model isn't displaying, try calling
+ * loadModel() with the normalized parameter set to true. This will resize the
+ * model to a scale appropriate for p5. You can also make additional changes to
+ * the final size of your model with the scale() function.
  *
- * @method randomGaussian
- * @param  {Number} mean  the mean
- * @param  {Number} sd    the standard deviation
- * @return {Number} the random number
+ * @method loadModel
+ * @param  {String} path              Path of the model to be loaded
+ * @param  {Boolean} normalize        If true, scale the model to a
+ *                                      standardized size when loading
+ * @param  {function(p5.Geometry)} [successCallback] Function to be called
+ *                                     once the model is loaded. Will be passed
+ *                                     the 3D model object.
+ * @param  {function(Event)} [failureCallback] called with event error if
+ *                                         the image fails to load.
+ * @return {p5.Geometry} the p5.Geometry object
+ */
+/**
+ * @method loadModel
+ * @param  {String} path
+ * @param  {function(p5.Geometry)} [successCallback]
+ * @param  {function(Event)} [failureCallback]
+ * @return {p5.Geometry} the p5.Geometry object
  * @example
  * <div>
- * <code>for (var y = 0; y < 100; y++) {
- *  var x = randomGaussian(50,15);
- *  line(50, y, x, y);
- *}
- * </code>
- * </div>
- * <div>
  * <code>
- *var distribution = new Array(360);
+ * //draw a spinning teapot
+ * var teapot;
  *
- *function setup() {
- *  createCanvas(100, 100);
- *  for (var i = 0; i < distribution.length; i++) {
- *    distribution[i] = floor(randomGaussian(0,15));
- *  }
- *}
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
  *
- *function draw() {
- *  background(204);
+ *   teapot = loadModel('assets/teapot.obj');
+ * }
  *
- *  translate(width/2, width/2);
- *
- *  for (var i = 0; i < distribution.length; i++) {
- *    rotate(TWO_PI/distribution.length);
- *    stroke(0);
- *    var dist = abs(distribution[i]);
- *    line(0, 0, dist, 0);
- *  }
- *}
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateY(frameCount * 0.01);
+ *   model(teapot);
+ * }
  * </code>
  * </div>
+ *
  * @alt
- * 100 horizontal lines from center of canvas. height & side change each render
- * black lines radiate from center of canvas. size determined each render
+ * Vertically rotating 3-d teapot with red, green and blue gradient.
+ *
  */
-p5.prototype.randomGaussian = function(mean, sd)  {
-  var y1,x1,x2,w;
-  if (previous) {
-    y1 = y2;
-    previous = false;
+p5.prototype.loadModel = function () {
+  var path = arguments[0];
+  var normalize;
+  var successCallback;
+  var failureCallback;
+  if(typeof arguments[1] === 'boolean') {
+    normalize = arguments[1];
+    successCallback = arguments[2];
+    failureCallback = arguments[3];
   } else {
-    do {
-      x1 = this.random(2) - 1;
-      x2 = this.random(2) - 1;
-      w = x1 * x1 + x2 * x2;
-    } while (w >= 1);
-    w = Math.sqrt((-2 * Math.log(w))/w);
-    y1 = x1 * w;
-    y2 = x2 * w;
-    previous = true;
+    normalize = false;
+    successCallback = arguments[1];
+    failureCallback = arguments[2];
   }
 
-  var m = mean || 0;
-  var s = sd || 1;
-  return y1*s + m;
+  var model = new p5.Geometry();
+  model.gid = path + '|' + normalize;
+  this.loadStrings(path, function(strings) {
+    parseObj(model, strings);
+
+    if (normalize) {
+      model.normalize();
+    }
+
+    if (typeof successCallback === 'function') {
+      successCallback(model);
+    }
+  }.bind(this), failureCallback);
+
+  return model;
+};
+
+/**
+ * Parse OBJ lines into model. For reference, this is what a simple model of a
+ * square might look like:
+ *
+ * v -0.5 -0.5 0.5
+ * v -0.5 -0.5 -0.5
+ * v -0.5 0.5 -0.5
+ * v -0.5 0.5 0.5
+ *
+ * f 4 3 2 1
+ */
+function parseObj( model, lines ) {
+  // OBJ allows a face to specify an index for a vertex (in the above example),
+  // but it also allows you to specify a custom combination of vertex, UV
+  // coordinate, and vertex normal. So, "3/4/3" would mean, "use vertex 3 with
+  // UV coordinate 4 and vertex normal 3". In WebGL, every vertex with different
+  // parameters must be a different vertex, so loadedVerts is used to
+  // temporarily store the parsed vertices, normals, etc., and indexedVerts is
+  // used to map a specific combination (keyed on, for example, the string
+  // "3/4/3"), to the actual index of the newly created vertex in the final
+  // object.
+  var loadedVerts = {'v' : [],
+                    'vt' : [],
+                    'vn' : []};
+  var indexedVerts = {};
+
+  for (var line = 0; line < lines.length; ++line) {
+    // Each line is a separate object (vertex, face, vertex normal, etc)
+    // For each line, split it into tokens on whitespace. The first token
+    // describes the type.
+    var tokens = lines[line].trim().split(/\b\s+/);
+
+    if (tokens.length > 0) {
+      if (tokens[0] === 'v' || tokens[0] === 'vn') {
+        // Check if this line describes a vertex or vertex normal.
+        // It will have three numeric parameters.
+        var vertex = new p5.Vector(parseFloat(tokens[1]),
+                                   parseFloat(tokens[2]),
+                                   parseFloat(tokens[3]));
+        loadedVerts[tokens[0]].push(vertex);
+      } else if (tokens[0] === 'vt') {
+        // Check if this line describes a texture coordinate.
+        // It will have two numeric parameters.
+        var texVertex = [parseFloat(tokens[1]), parseFloat(tokens[2])];
+        loadedVerts[tokens[0]].push(texVertex);
+      } else if (tokens[0] === 'f') {
+        // Check if this line describes a face.
+        // OBJ faces can have more than three points. Triangulate points.
+        for (var tri = 3; tri < tokens.length; ++tri) {
+          var face = [];
+
+          var vertexTokens = [1, tri - 1, tri];
+
+          for (var tokenInd = 0; tokenInd < vertexTokens.length; ++tokenInd) {
+            // Now, convert the given token into an index
+            var vertString = tokens[vertexTokens[tokenInd]];
+            var vertIndex = 0;
+
+            // TODO: Faces can technically use negative numbers to refer to the
+            // previous nth vertex. I haven't seen this used in practice, but
+            // it might be good to implement this in the future.
+
+            if (indexedVerts[vertString] !== undefined) {
+              vertIndex = indexedVerts[vertString];
+            } else {
+              var vertParts = vertString.split('/');
+              for (var i = 0; i < vertParts.length; i++) {
+                vertParts[i] = parseInt(vertParts[i]) - 1;
+              }
+
+              vertIndex = indexedVerts[vertString] = model.vertices.length;
+              model.vertices.push(loadedVerts.v[vertParts[0]].copy());
+              if (loadedVerts.vt[vertParts[1]]) {
+                model.uvs.push(loadedVerts.vt[vertParts[1]].slice());
+              } else {
+                model.uvs.push([0, 0]);
+              }
+
+              if (loadedVerts.vn[vertParts[2]]) {
+                model.vertexNormals.push(loadedVerts.vn[vertParts[2]].copy());
+              }
+            }
+
+            face.push(vertIndex);
+          }
+
+          model.faces.push(face);
+        }
+      }
+    }
+  }
+
+  // If the model doesn't have normals, compute the normals
+  if(model.vertexNormals.length === 0) {
+    model.computeNormals();
+  }
+
+  return model;
+}
+
+/**
+ * Render a 3d model to the screen.
+ *
+ * @method model
+ * @param  {p5.Geometry} model Loaded 3d model to be rendered
+ * @example
+ * <div>
+ * <code>
+ * //draw a spinning teapot
+ * var teapot;
+ *
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ *
+ *   teapot = loadModel('assets/teapot.obj');
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateY(frameCount * 0.01);
+ *   model(teapot);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * Vertically rotating 3-d teapot with red, green and blue gradient.
+ *
+ */
+p5.prototype.model = function ( model ) {
+  if (model.vertices.length > 0) {
+    if (!this._renderer.geometryInHash(model.gid)) {
+      this._renderer.createBuffers(model.gid, model);
+    }
+
+    this._renderer.drawBuffers(model.gid);
+  }
+};
+
+module.exports = p5;
+
+},{"../core/core":5,"./p5.Geometry":26}],25:[function(_dereq_,module,exports){
+/**
+ * @module Lights, Camera
+ * @submodule Material
+ * @for p5
+ * @requires core
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+//require('./p5.Texture');
+
+/**
+ * Normal material for geometry. You can view all
+ * possible materials in this
+ * <a href="https://p5js.org/examples/3d-materials.html">example</a>.
+ * @method normalMaterial
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *  background(200);
+ *  normalMaterial();
+ *  sphere(50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * Red, green and blue gradient.
+ *
+ */
+p5.prototype.normalMaterial = function(){
+  this._renderer._getShader('normalVert', 'normalFrag');
+  return this;
+};
+
+/**
+ * Texture for geometry.  You can view other possible materials in this
+ * <a href="https://p5js.org/examples/3d-materials.html">example</a>.
+ * @method texture
+ * @param {p5.Image | p5.MediaElement | p5.Graphics} tex 2-dimensional graphics
+ *                    to render as texture
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * var img;
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ *   img = loadImage("assets/laDefense.jpg");
+ * }
+ *
+ * function draw(){
+ *   background(0);
+ *   rotateZ(frameCount * 0.01);
+ *   rotateX(frameCount * 0.01);
+ *   rotateY(frameCount * 0.01);
+ *   //pass image as texture
+ *   texture(img);
+ *   box(200, 200, 200);
+ * }
+ * </code>
+ * </div>
+ *
+ * <div>
+ * <code>
+ * var pg;
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ *   pg = createGraphics(200, 200);
+ *   pg.textSize(100);
+ * }
+ *
+ * function draw(){
+ *   background(0);
+ *   pg.background(255);
+ *   pg.text('hello!', 0, 100);
+ *   //pass image as texture
+ *   texture(pg);
+ *   plane(200);
+ * }
+ * </code>
+ * </div>
+ *
+ * <div>
+ * <code>
+ * var vid;
+ * function preload(){
+ *   vid = createVideo("assets/fingers.mov");
+ *   vid.hide();
+ *   vid.loop();
+ * }
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(0);
+ *   //pass video frame as texture
+ *   texture(vid);
+ *   plane(200);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * Rotating view of many images umbrella and grid roof on a 3d plane
+ * black canvas
+ * black canvas
+ *
+ */
+p5.prototype.texture = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var gl = this._renderer.GL;
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  this._renderer.drawMode = 'texture';
+  var shaderProgram = this._renderer._getShader('lightVert',
+    'lightTextureFrag');
+  gl.useProgram(shaderProgram);
+  var textureData;
+  //if argument is not already a texture
+  //create a new one
+  if(!args[0].isTexture){
+    if (args[0] instanceof p5.Image) {
+      textureData = args[0].canvas;
+    }
+    //if param is a video
+    else if (typeof p5.MediaElement !== 'undefined' &&
+            args[0] instanceof p5.MediaElement){
+      if(!args[0].loadedmetadata) {return;}
+      textureData = args[0].elt;
+    }
+    //used with offscreen 2d graphics renderer
+    else if(args[0] instanceof p5.Graphics){
+      textureData = args[0].elt;
+    }
+    var tex = gl.createTexture();
+    args[0]._setProperty('tex', tex);
+    args[0]._setProperty('isTexture', true);
+    this._renderer._bind.call(this, tex, textureData);
+  }
+  else {
+    if(args[0] instanceof p5.Graphics ||
+      (typeof p5.MediaElement !== 'undefined' &&
+      args[0] instanceof p5.MediaElement)){
+      textureData = args[0].elt;
+    }
+    else if(args[0] instanceof p5.Image){
+      textureData = args[0].canvas;
+    }
+    this._renderer._bind.call(this, args[0].tex, textureData);
+  }
+  //this is where we'd activate multi textures
+  //eg. gl.activeTexture(gl.TEXTURE0 + (unit || 0));
+  //but for now we just have a single texture.
+  //@TODO need to extend this functionality
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, args[0].tex);
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'isTexture'), true);
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'uSampler'), 0);
+  return this;
+};
+
+/**
+ * Texture Util functions
+ */
+p5.RendererGL.prototype._bind = function(tex, data){
+  var gl = this._renderer.GL;
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.texImage2D(gl.TEXTURE_2D, 0,
+    gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, data);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.texParameteri(gl.TEXTURE_2D,
+  gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,
+  gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,
+  gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,
+  gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.bindTexture(gl.TEXTURE_2D, null);
+};
+
+/**
+ * Checks whether val is a pot
+ * more info on power of 2 here:
+ * https://www.opengl.org/wiki/NPOT_Texture
+ * @param  {Number}  value
+ * @return {Boolean}
+ */
+// function _isPowerOf2 (value){
+//   return (value & (value - 1)) === 0;
+// }
+
+/**
+ * returns the next highest power of 2 value
+ * @param  {Number} value [description]
+ * @return {Number}       [description]
+ */
+// function _nextHighestPOT (value){
+//   --value;
+//   for (var i = 1; i < 32; i <<= 1) {
+//     value = value | value >> i;
+//   }
+//   return value + 1;
+
+/**
+ * Ambient material for geometry with a given color. You can view all
+ * possible materials in this
+ * <a href="https://p5js.org/examples/3d-materials.html">example</a>.
+ * @method  ambientMaterial
+ * @param  {Number|Array|String|p5.Color} v1  gray value,
+ * red or hue value (depending on the current color mode),
+ * or color Array, or CSS color string
+ * @param  {Number}            [v2] optional: green or saturation value
+ * @param  {Number}            [v3] optional: blue or brightness value
+ * @param  {Number}            [a]  optional: opacity
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ * function draw(){
+ *  background(0);
+ *  ambientLight(100);
+ *  pointLight(250, 250, 250, 100, 100, 0);
+ *  ambientMaterial(250);
+ *  sphere(50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * radiating light source from top right of canvas
+ *
+ */
+p5.prototype.ambientMaterial = function(v1, v2, v3, a) {
+  var gl = this._renderer.GL;
+  var shaderProgram =
+    this._renderer._getShader('lightVert', 'lightTextureFrag');
+
+  gl.useProgram(shaderProgram);
+  shaderProgram.uMaterialColor = gl.getUniformLocation(
+    shaderProgram, 'uMaterialColor' );
+  var colors = this._renderer._applyColorBlend.apply(this._renderer, arguments);
+
+  gl.uniform4f(shaderProgram.uMaterialColor,
+    colors[0], colors[1], colors[2], colors[3]);
+
+  shaderProgram.uSpecular = gl.getUniformLocation(
+    shaderProgram, 'uSpecular' );
+  gl.uniform1i(shaderProgram.uSpecular, false);
+
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'isTexture'), false);
+
+  return this;
+};
+
+/**
+ * Specular material for geometry with a given color. You can view all
+ * possible materials in this
+ * <a href="https://p5js.org/examples/3d-materials.html">example</a>.
+ * @method specularMaterial
+ * @param  {Number|Array|String|p5.Color} v1  gray value,
+ * red or hue value (depending on the current color mode),
+ * or color Array, or CSS color string
+ * @param  {Number}            [v2] optional: green or saturation value
+ * @param  {Number}            [v3] optional: blue or brightness value
+ * @param  {Number}            [a]  optional: opacity
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ * function draw(){
+ *  background(0);
+ *  ambientLight(100);
+ *  pointLight(250, 250, 250, 100, 100, 0);
+ *  specularMaterial(250);
+ *  sphere(50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * diffused radiating light source from top right of canvas
+ *
+ */
+p5.prototype.specularMaterial = function(v1, v2, v3, a) {
+  var gl = this._renderer.GL;
+  var shaderProgram =
+    this._renderer._getShader('lightVert', 'lightTextureFrag');
+  gl.useProgram(shaderProgram);
+  gl.uniform1i(gl.getUniformLocation(shaderProgram, 'isTexture'), false);
+  shaderProgram.uMaterialColor = gl.getUniformLocation(
+    shaderProgram, 'uMaterialColor' );
+  var colors = this._renderer._applyColorBlend.apply(this._renderer, arguments);
+  gl.uniform4f(shaderProgram.uMaterialColor,
+    colors[0], colors[1], colors[2], colors[3]);
+  shaderProgram.uSpecular = gl.getUniformLocation(
+    shaderProgram, 'uSpecular' );
+  gl.uniform1i(shaderProgram.uSpecular, true);
+
+  return this;
+};
+
+/**
+ * @private blends colors according to color components.
+ * If alpha value is less than 1, we need to enable blending
+ * on our gl context.  Otherwise opaque objects need to a depthMask.
+ * @param  {Number} v1 [description]
+ * @param  {Number} v2 [description]
+ * @param  {Number} v3 [description]
+ * @param  {Number} a  [description]
+ * @return {[Number]}  Normalized numbers array
+ */
+p5.RendererGL.prototype._applyColorBlend = function(v1,v2,v3,a){
+  var gl = this.GL;
+  var color = this._pInst.color.apply(
+    this._pInst, arguments);
+  var colors = color._array;
+  if(colors[colors.length-1] < 1.0){
+    gl.depthMask(false);
+    gl.enable(gl.BLEND);
+    gl.blendEquation( gl.FUNC_ADD );
+    gl.blendFunc( gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA );
+  } else {
+    gl.depthMask(true);
+    gl.disable(gl.BLEND);
+  }
+  return colors;
 };
 
 module.exports = p5;
 
 },{"../core/core":5}],26:[function(_dereq_,module,exports){
-/**
- * @module Math
- * @submodule Trigonometry
- * @for p5
- * @requires core
- * @requires polargeometry
- * @requires constants
- */
+//some of the functions are adjusted from Three.js(http://threejs.org)
 
 'use strict';
 
 var p5 = _dereq_('../core/core');
-var polarGeometry = _dereq_('./polargeometry');
-var constants = _dereq_('../core/constants');
-
-p5.prototype._angleMode = constants.RADIANS;
 
 /**
- * The inverse of cos(), returns the arc cosine of a value. This function
- * expects the values in the range of -1 to 1 and values are returned in
- * the range 0 to PI (3.1415927).
+ * p5 Geometry class
+ * @class p5.Geometry
+ * @constructor
+ * @param  {function | Object} vertData callback function or Object
+ *                     containing routine(s) for vertex data generation
+ * @param  {Number} [detailX] number of vertices on horizontal surface
+ * @param  {Number} [detailY] number of vertices on horizontal surface
+ * @param {function} [callback] function to call upon object instantiation.
  *
- * @method acos
- * @param  {Number} value the value whose arc cosine is to be returned
- * @return {Number}       the arc cosine of the given value
- *
- * @example
- * <div class= “norender">
- * <code>
- * var a = PI;
- * var c = cos(a);
- * var ac = acos(c);
- * // Prints: "3.1415927 : -1.0 : 3.1415927"
- * print(a + " : " + c + " : " +  ac);
- * </code>
- * </div>
- *
- * <div class= “norender">
- * <code>
- * var a = PI + PI/4.0;
- * var c = cos(a);
- * var ac = acos(c);
- * // Prints: "3.926991 : -0.70710665 : 2.3561943"
- * print(a + " : " + c + " : " +  ac);
- * </code>
- * </div>
  */
-p5.prototype.acos = function(ratio) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.acos(ratio);
-  } else {
-    return polarGeometry.radiansToDegrees(Math.acos(ratio));
+p5.Geometry = function
+(detailX, detailY, callback){
+  //an array containing every vertex
+  //@type [p5.Vector]
+  this.vertices = [];
+  //an array containing 1 normal per vertex
+  //@type [p5.Vector]
+  //[p5.Vector, p5.Vector, p5.Vector,p5.Vector, p5.Vector, p5.Vector,...]
+  this.vertexNormals = [];
+  //an array containing each three vertex indices that form a face
+  //[[0, 1, 2], [2, 1, 3], ...]
+  this.faces = [];
+  //a 2D array containing uvs for every vertex
+  //[[0.0,0.0],[1.0,0.0], ...]
+  this.uvs = [];
+  this.detailX = (detailX !== undefined) ? detailX: 1;
+  this.detailY = (detailY !== undefined) ? detailY: 1;
+  if(callback instanceof Function){
+    callback.call(this);
   }
+  return this; // TODO: is this a constructor?
 };
 
-/**
- * The inverse of sin(), returns the arc sine of a value. This function
- * expects the values in the range of -1 to 1 and values are returned
- * in the range -PI/2 to PI/2.
- *
- * @method asin
- * @param  {Number} value the value whose arc sine is to be returned
- * @return {Number}       the arc sine of the given value
- *
- * @example
- * <div class= “norender">
- * <code>
- * var a = PI + PI/3;
- * var s = sin(a);
- * var as = asin(s);
- * // Prints: "1.0471976 : 0.86602545 : 1.0471976"
- * print(a + " : " + s + " : " +  as);
- * </code>
- * </div>
- *
- * <div class= “norender">
- * <code>
- * var a = PI + PI/3.0;
- * var s = sin(a);
- * var as = asin(s);
- * // Prints: "4.1887903 : -0.86602545 : -1.0471976"
- * print(a + " : " + s + " : " +  as);
- * </code>
- * </div>
- *
- */
-p5.prototype.asin = function(ratio) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.asin(ratio);
-  } else {
-    return polarGeometry.radiansToDegrees(Math.asin(ratio));
+p5.Geometry.prototype.computeFaces = function(){
+  var sliceCount = this.detailX + 1;
+  var a, b, c, d;
+  for (var i = 0; i < this.detailY; i++){
+    for (var j = 0; j < this.detailX; j++){
+      a = i * sliceCount + j;// + offset;
+      b = i * sliceCount + j + 1;// + offset;
+      c = (i + 1)* sliceCount + j + 1;// + offset;
+      d = (i + 1)* sliceCount + j;// + offset;
+      this.faces.push([a, b, d]);
+      this.faces.push([d, b, c]);
+    }
   }
+  return this;
 };
 
+p5.Geometry.prototype._getFaceNormal = function(faceId,vertId){
+  //This assumes that vA->vB->vC is a counter-clockwise ordering
+  var face = this.faces[faceId];
+  var vA = this.vertices[face[vertId%3]];
+  var vB = this.vertices[face[(vertId+1)%3]];
+  var vC = this.vertices[face[(vertId+2)%3]];
+  var n = p5.Vector.cross(
+    p5.Vector.sub(vB,vA),
+    p5.Vector.sub(vC,vA));
+  var sinAlpha = p5.Vector.mag(n) /
+  (p5.Vector.mag(p5.Vector.sub(vB,vA))*
+    p5.Vector.mag(p5.Vector.sub(vC,vA)));
+  n = n.normalize();
+  return n.mult(Math.asin(sinAlpha));
+};
 /**
- * The inverse of tan(), returns the arc tangent of a value. This function
- * expects the values in the range of -Infinity to Infinity (exclusive) and
- * values are returned in the range -PI/2 to PI/2.
- *
- * @method atan
- * @param  {Number} value the value whose arc tangent is to be returned
- * @return {Number}       the arc tangent of the given value
- *
- * @example
- * <div class= “norender">
- * <code>
- * var a = PI + PI/3;
- * var t = tan(a);
- * var at = atan(t);
- * // Prints: "1.0471976 : 1.7320509 : 1.0471976"
- * print(a + " : " + t + " : " +  at);
- * </code>
- * </div>
- *
- * <div class= “norender">
- * <code>
- * var a = PI + PI/3.0;
- * var t = tan(a);
- * var at = atan(t);
- * // Prints: "4.1887903 : 1.7320513 : 1.0471977"
- * print(a + " : " + t + " : " +  at);
- * </code>
- * </div>
- *
+ * computes smooth normals per vertex as an average of each
+ * face.
+ * @chainable
  */
-p5.prototype.atan = function(ratio) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.atan(ratio);
-  } else {
-    return polarGeometry.radiansToDegrees(Math.atan(ratio));
+p5.Geometry.prototype.computeNormals = function (){
+  for(var v=0; v < this.vertices.length; v++){
+    var normal = new p5.Vector();
+    for(var i=0; i < this.faces.length; i++){
+      //if our face contains a given vertex
+      //calculate an average of the normals
+      //of the triangles adjacent to that vertex
+      if(this.faces[i][0] === v ||
+        this.faces[i][1] === v ||
+        this.faces[i][2] === v)
+      {
+        normal = normal.add(this._getFaceNormal(i, v));
+      }
+    }
+    normal = normal.normalize();
+    this.vertexNormals.push(normal);
   }
+  return this;
 };
 
 /**
- * Calculates the angle (in radians) from a specified point to the coordinate
- * origin as measured from the positive x-axis. Values are returned as a
- * float in the range from PI to -PI. The atan2() function is most often used
- * for orienting geometry to the position of the cursor.
- * <br><br>
- * Note: The y-coordinate of the point is the first parameter, and the
- * x-coordinate is the second parameter, due the the structure of calculating
- * the tangent.
- *
- * @method atan2
- * @param  {Number} y y-coordinate of the point
- * @param  {Number} x x-coordinate of the point
- * @return {Number}   the arc tangent of the given point
- *
- * @example
- * <div>
- * <code>
- * function draw() {
- *   background(204);
- *   translate(width/2, height/2);
- *   var a = atan2(mouseY-height/2, mouseX-width/2);
- *   rotate(a);
- *   rect(-30, -5, 60, 10);
- * }
- * </code>
- * </div>
- *
- * @alt
- * 60 by 10 rect at center of canvas rotates with mouse movements
- *
+ * Averages the vertex normals. Used in curved
+ * surfaces
+ * @chainable
  */
-p5.prototype.atan2 = function (y, x) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.atan2(y, x);
-  } else {
-    return polarGeometry.radiansToDegrees(Math.atan2(y, x));
+p5.Geometry.prototype.averageNormals = function() {
+
+  for(var i = 0; i <= this.detailY; i++){
+    var offset = this.detailX + 1;
+    var temp = p5.Vector
+      .add(this.vertexNormals[i*offset],
+        this.vertexNormals[i*offset + this.detailX]);
+    temp = p5.Vector.div(temp, 2);
+    this.vertexNormals[i*offset] = temp;
+    this.vertexNormals[i*offset + this.detailX] = temp;
   }
+  return this;
 };
 
 /**
- * Calculates the cosine of an angle. This function takes into account the
- * current angleMode. Values are returned in the range -1 to 1.
- *
- * @method cos
- * @param  {Number} angle the angle
- * @return {Number}       the cosine of the angle
- *
- * @example
- * <div>
- * <code>
- * var a = 0.0;
- * var inc = TWO_PI/25.0;
- * for (var i = 0; i < 25; i++) {
- *   line(i*4, 50, i*4, 50+cos(a)*40.0);
- *   a = a + inc;
- * }
- * </code>
- * </div>
- *
- * @alt
- * vertical black lines form wave patterns, extend-down on left and right side
- *
+ * Averages pole normals.  Used in spherical primitives
+ * @chainable
  */
-p5.prototype.cos = function(angle) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.cos(angle);
-  } else {
-    return Math.cos(this.radians(angle));
+p5.Geometry.prototype.averagePoleNormals = function() {
+
+  //average the north pole
+  var sum = new p5.Vector(0, 0, 0);
+  for(var i = 0; i < this.detailX; i++){
+    sum.add(this.vertexNormals[i]);
   }
-};
+  sum = p5.Vector.div(sum, this.detailX);
 
-/**
- * Calculates the sine of an angle. This function takes into account the
- * current angleMode. Values are returned in the range -1 to 1.
- *
- * @method sin
- * @param  {Number} angle the angle
- * @return {Number}       the sine of the angle
- *
- * @example
- * <div>
- * <code>
- * var a = 0.0;
- * var inc = TWO_PI/25.0;
- * for (var i = 0; i < 25; i++) {
- *   line(i*4, 50, i*4, 50+sin(a)*40.0);
- *   a = a + inc;
- * }
- * </code>
- * </div>
- *
- * @alt
- * vertical black lines extend down and up from center to form wave pattern
- *
- */
-p5.prototype.sin = function(angle) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.sin(angle);
-  } else {
-    return Math.sin(this.radians(angle));
+  for(i = 0; i < this.detailX; i++){
+    this.vertexNormals[i] = sum;
   }
-};
 
-/**
- * Calculates the tangent of an angle. This function takes into account
- * the current angleMode. Values are returned in the range -1 to 1.
- *
- * @method tan
- * @param  {Number} angle the angle
- * @return {Number}       the tangent of the angle
- *
- * @example
- * <div>
- * <code>
- *   var a = 0.0;
- *   var inc = TWO_PI/50.0;
- *   for (var i = 0; i < 100; i = i+2) {
- *     line(i, 50, i, 50+tan(a)*2.0);
- *     a = a + inc;
- *   }
- * </code>
- *
- *
- * @alt
- * vertical black lines end down and up from center to form spike pattern
- *
- */
-p5.prototype.tan = function(angle) {
-  if (this._angleMode === constants.RADIANS) {
-    return Math.tan(angle);
-  } else {
-    return Math.tan(this.radians(angle));
+  //average the south pole
+  sum = new p5.Vector(0, 0, 0);
+  for(i = this.vertices.length - 1;
+    i > this.vertices.length - 1 - this.detailX; i--){
+    sum.add(this.vertexNormals[i]);
   }
-};
+  sum = p5.Vector.div(sum, this.detailX);
 
-/**
- * Converts a radian measurement to its corresponding value in degrees.
- * Radians and degrees are two ways of measuring the same thing. There are
- * 360 degrees in a circle and 2*PI radians in a circle. For example,
- * 90° = PI/2 = 1.5707964.
- *
- * @method degrees
- * @param  {Number} radians the radians value to convert to degrees
- * @return {Number}         the converted angle
- *
- *
- * @example
- * <div class= “norender">
- * <code>
- * var rad = PI/4;
- * var deg = degrees(rad);
- * print(rad + " radians is " + deg + " degrees");
- * // Prints: 0.7853981633974483 radians is 45 degrees
- * </code>
- * </div>
- *
- */
-p5.prototype.degrees = function(angle) {
-  return polarGeometry.radiansToDegrees(angle);
-};
-
-/**
- * Converts a degree measurement to its corresponding value in radians.
- * Radians and degrees are two ways of measuring the same thing. There are
- * 360 degrees in a circle and 2*PI radians in a circle. For example,
- * 90° = PI/2 = 1.5707964.
- *
- * @method radians
- * @param  {Number} degrees the degree value to convert to radians
- * @return {Number}         the converted angle
- *
- * @example
- * <div class= “norender">
- * <code>
- * var deg = 45.0;
- * var rad = radians(deg);
- * print(deg + " degrees is " + rad + " radians");
- * // Prints: 45 degrees is 0.7853981633974483 radians
- * </code>
- * </div>
- */
-p5.prototype.radians = function(angle) {
-  return polarGeometry.degreesToRadians(angle);
-};
-
-/**
- * Sets the current mode of p5 to given mode. Default mode is RADIANS.
- *
- * @method angleMode
- * @param {Constant} mode either RADIANS or DEGREES
- *
- * @example
- * <div>
- * <code>
- * function draw(){
- *   background(204);
- *   angleMode(DEGREES); // Change the mode to DEGREES
- *   var a = atan2(mouseY-height/2, mouseX-width/2);
- *   translate(width/2, height/2);
- *   push();
- *   rotate(a);
- *   rect(-20, -5, 40, 10); // Larger rectangle is rotating in degrees
- *   pop();
- *   angleMode(RADIANS); // Change the mode to RADIANS
- *   rotate(a); // var a stays the same
- *   rect(-40, -5, 20, 10); // Smaller rectangle is rotating in radians
- * }
- * </code>
- * </div>
- *
- * @alt
- * 40 by 10 rect in center rotates with mouse moves. 20 by 10 rect moves faster.
- *
- *
- */
-p5.prototype.angleMode = function(mode) {
-  if (mode === constants.DEGREES || mode === constants.RADIANS) {
-    this._angleMode = mode;
+  for(i = this.vertices.length - 1;
+    i > this.vertices.length - 1 - this.detailX; i--){
+    this.vertexNormals[i] = sum;
   }
+  return this;
 };
 
-module.exports = p5;
+/**
+ * Modifies all vertices to be centered within the range -100 to 100.
+ * @chainable
+ */
+p5.Geometry.prototype.normalize = function() {
+  if(this.vertices.length > 0) {
+    // Find the corners of our bounding box
+    var maxPosition = this.vertices[0].copy();
+    var minPosition = this.vertices[0].copy();
 
-},{"../core/constants":4,"../core/core":5,"./polargeometry":24}],27:[function(_dereq_,module,exports){
+    for(var i = 0; i < this.vertices.length; i++) {
+      maxPosition.x = Math.max(maxPosition.x, this.vertices[i].x);
+      minPosition.x = Math.min(minPosition.x, this.vertices[i].x);
+      maxPosition.y = Math.max(maxPosition.y, this.vertices[i].y);
+      minPosition.y = Math.min(minPosition.y, this.vertices[i].y);
+      maxPosition.z = Math.max(maxPosition.z, this.vertices[i].z);
+      minPosition.z = Math.min(minPosition.z, this.vertices[i].z);
+    }
+
+    var center = p5.Vector.lerp(maxPosition, minPosition, 0.5);
+    var dist = p5.Vector.sub(maxPosition, minPosition);
+    var longestDist = Math.max(Math.max(dist.x, dist.y), dist.z);
+    var scale = 200 / longestDist;
+
+    for(i = 0; i < this.vertices.length; i++) {
+      this.vertices[i].sub(center);
+      this.vertices[i].mult(scale);
+    }
+  }
+  return this;
+};
+
+module.exports = p5.Geometry;
+
+},{"../core/core":5}],27:[function(_dereq_,module,exports){
 /**
 * @requires constants
 * @todo see methods below needing further implementation.
@@ -12096,7 +10480,350 @@ p5.Matrix.prototype.ortho = function(left,right,bottom,top,near,far){
 
 module.exports = p5.Matrix;
 
-},{"../core/constants":4,"../core/core":5,"../math/polargeometry":24}],28:[function(_dereq_,module,exports){
+},{"../core/constants":4,"../core/core":5,"../math/polargeometry":20}],28:[function(_dereq_,module,exports){
+/**
+ * Welcome to RendererGL Immediate Mode.
+ * Immediate mode is used for drawing custom shapes
+ * from a set of vertices.  Immediate Mode is activated
+ * when you call beginShape() & de-activated when you call endShape().
+ * Immediate mode is a style of programming borrowed
+ * from OpenGL's (now-deprecated) immediate mode.
+ * It differs from p5.js' default, Retained Mode, which caches
+ * geometries and buffers on the CPU to reduce the number of webgl
+ * draw calls. Retained mode is more efficient & performative,
+ * however, Immediate Mode is useful for sketching quick
+ * geometric ideas.
+ */
+'use strict';
+
+var p5 = _dereq_('../core/core');
+var constants = _dereq_('../core/constants');
+
+/**
+ * Begin shape drawing.  This is a helpful way of generating
+ * custom shapes quickly.  However in WEBGL mode, application
+ * performance will likely drop as a result of too many calls to
+ * beginShape() / endShape().  As a high performance alternative,
+ * please use p5.js geometry primitives.
+ * @param  {Number} mode webgl primitives mode.  beginShape supports the
+ *                       following modes:
+ *                       POINTS,LINES,LINE_STRIP,LINE_LOOP,TRIANGLES,
+ *                       TRIANGLE_STRIP,and TRIANGLE_FAN.
+ * @chainable
+ */
+p5.RendererGL.prototype.beginShape = function(mode){
+  //default shape mode is line_strip
+  this.immediateMode.shapeMode = (mode !== undefined ) ?
+    mode : constants.LINE_STRIP;
+  //if we haven't yet initialized our
+  //immediateMode vertices & buffers, create them now!
+  if(this.immediateMode.vertexPositions === undefined){
+    this.immediateMode.vertexPositions = [];
+    this.immediateMode.vertexColors = [];
+    this.immediateMode.vertexBuffer = this.GL.createBuffer();
+    this.immediateMode.colorBuffer = this.GL.createBuffer();
+  } else {
+    this.immediateMode.vertexPositions.length = 0;
+    this.immediateMode.vertexColors.length = 0;
+  }
+  this.isImmediateDrawing = true;
+  return this;
+};
+/**
+ * adds a vertex to be drawn in a custom Shape.
+ * @param  {Number} x x-coordinate of vertex
+ * @param  {Number} y y-coordinate of vertex
+ * @param  {Number} z z-coordinate of vertex
+ * @chainable
+ * @TODO implement handling of p5.Vector args
+ */
+p5.RendererGL.prototype.vertex = function(x, y, z){
+  this.immediateMode.vertexPositions.push(x, y, z);
+  var vertexColor = this.curFillColor || [0.5, 0.5, 0.5, 1.0];
+  this.immediateMode.vertexColors.push(
+    vertexColor[0],
+    vertexColor[1],
+    vertexColor[2],
+    vertexColor[3]);
+  return this;
+};
+
+/**
+ * End shape drawing and render vertices to screen.
+ * @chainable
+ */
+p5.RendererGL.prototype.endShape =
+function(mode, isCurve, isBezier,isQuadratic, isContour, shapeKind){
+  var gl = this.GL;
+  this._bindImmediateBuffers(
+    this.immediateMode.vertexPositions,
+    this.immediateMode.vertexColors);
+  if(mode){
+    if(this.drawMode === 'fill' || this.drawMode ==='texture'){
+      switch(this.immediateMode.shapeMode){
+        case constants.LINE_STRIP:
+          this.immediateMode.shapeMode = constants.TRIANGLE_FAN;
+          break;
+        case constants.LINES:
+          this.immediateMode.shapeMode = constants.TRIANGLE_FAN;
+          break;
+        case constants.TRIANGLES:
+          this.immediateMode.shapeMode = constants.TRIANGLE_FAN;
+          break;
+      }
+    } else {
+      switch(this.immediateMode.shapeMode){
+        case constants.LINE_STRIP:
+          this.immediateMode.shapeMode = constants.LINE_LOOP;
+          break;
+        case constants.LINES:
+          this.immediateMode.shapeMode = constants.LINE_LOOP;
+          break;
+      }
+    }
+  }
+  //QUADS & QUAD_STRIP are not supported primitives modes
+  //in webgl.
+  if(this.immediateMode.shapeMode === constants.QUADS ||
+    this.immediateMode.shapeMode === constants.QUAD_STRIP){
+    throw new Error('sorry, ' + this.immediateMode.shapeMode+
+      ' not yet implemented in webgl mode.');
+  }
+  else {
+    gl.enable(gl.BLEND);
+    gl.drawArrays(this.immediateMode.shapeMode, 0,
+      this.immediateMode.vertexPositions.length / 3);
+  }
+  //clear out our vertexPositions & colors arrays
+  //after rendering
+  this.immediateMode.vertexPositions.length = 0;
+  this.immediateMode.vertexColors.length = 0;
+  this.isImmediateDrawing = false;
+  return this;
+};
+/**
+ * Bind immediateMode buffers to data,
+ * then draw gl arrays
+ * @param  {Number[]} vertices Numbers array representing
+ *                          vertex positions
+ * @chainable
+ */
+p5.RendererGL.prototype._bindImmediateBuffers = function(vertices, colors){
+  this._setDefaultCamera();
+  var gl = this.GL;
+  var shaderKey = this._getCurShaderId();
+  var shaderProgram = this.mHash[shaderKey];
+  //vertex position Attribute
+  shaderProgram.vertexPositionAttribute =
+    gl.getAttribLocation(shaderProgram, 'aPosition');
+  gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.immediateMode.vertexBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+  gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  shaderProgram.vertexColorAttribute =
+    gl.getAttribLocation(shaderProgram, 'aVertexColor');
+  gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.immediateMode.colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER,
+    new Float32Array(colors),gl.DYNAMIC_DRAW);
+  gl.vertexAttribPointer(shaderProgram.vertexColorAttribute,
+    4, gl.FLOAT, false, 0, 0);
+  //matrix
+  this._setMatrixUniforms(shaderKey);
+  //@todo implement in all shaders (not just immediateVert)
+  //set our default point size
+  // this._setUniform1f(shaderKey,
+  //   'uPointSize',
+  //   this.pointSize);
+  return this;
+};
+
+//////////////////////////////////////////////
+// COLOR
+//////////////////////////////////////////////
+
+p5.RendererGL.prototype._getColorVertexShader = function(){
+  var gl = this.GL;
+  var mId = 'immediateVert|vertexColorFrag';
+  var shaderProgram;
+
+  if(!this.materialInHash(mId)){
+    shaderProgram =
+      this._initShaders('immediateVert', 'vertexColorFrag', true);
+    this.mHash[mId] = shaderProgram;
+    shaderProgram.vertexColorAttribute =
+    gl.getAttribLocation(shaderProgram, 'aVertexColor');
+    gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+  }else{
+    shaderProgram = this.mHash[mId];
+  }
+  return shaderProgram;
+};
+
+module.exports = p5.RendererGL;
+},{"../core/constants":4,"../core/core":5}],29:[function(_dereq_,module,exports){
+//Retained Mode. The default mode for rendering 3D primitives
+//in WEBGL.
+'use strict';
+
+var p5 = _dereq_('../core/core');
+var hashCount = 0;
+/**
+ * _initBufferDefaults
+ * @description initializes buffer defaults. runs each time a new geometry is
+ * registered
+ * @param  {String} gId  key of the geometry object
+ */
+p5.RendererGL.prototype._initBufferDefaults = function(gId) {
+  //@TODO remove this limit on hashes in gHash
+  hashCount ++;
+  if(hashCount > 1000){
+    var key = Object.keys(this.gHash)[0];
+    delete this.gHash[key];
+    hashCount --;
+  }
+
+  var gl = this.GL;
+  //create a new entry in our gHash
+  this.gHash[gId] = {};
+  this.gHash[gId].vertexBuffer = gl.createBuffer();
+  this.gHash[gId].normalBuffer = gl.createBuffer();
+  this.gHash[gId].uvBuffer = gl.createBuffer();
+  this.gHash[gId].indexBuffer = gl.createBuffer();
+};
+/**
+ * createBuffers description
+ * @param  {String} gId    key of the geometry object
+ * @param  {p5.Geometry}  obj contains geometry data
+ */
+p5.RendererGL.prototype.createBuffers = function(gId, obj) {
+  var gl = this.GL;
+  this._setDefaultCamera();
+  //initialize the gl buffers for our geom groups
+  this._initBufferDefaults(gId);
+  //return the current shaderProgram from our material hash
+  var shaderProgram = this.mHash[this._getCurShaderId()];
+  //@todo rename "numberOfItems" property to something more descriptive
+  //we mult the num geom faces by 3
+  this.gHash[gId].numberOfItems = obj.faces.length * 3;
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].vertexBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array( vToNArray(obj.vertices) ),
+    gl.STATIC_DRAW);
+  //vertex position
+  shaderProgram.vertexPositionAttribute =
+    gl.getAttribLocation(shaderProgram, 'aPosition');
+  gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+
+  gl.vertexAttribPointer(
+    shaderProgram.vertexPositionAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].normalBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array( vToNArray(obj.vertexNormals) ),
+    gl.STATIC_DRAW);
+  //vertex normal
+  shaderProgram.vertexNormalAttribute =
+    gl.getAttribLocation(shaderProgram, 'aNormal');
+  gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+
+  gl.vertexAttribPointer(
+    shaderProgram.vertexNormalAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].uvBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array( flatten(obj.uvs) ),
+    gl.STATIC_DRAW);
+  //texture coordinate Attribute
+  shaderProgram.textureCoordAttribute =
+    gl.getAttribLocation(shaderProgram, 'aTexCoord');
+  gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
+  gl.vertexAttribPointer(
+    shaderProgram.textureCoordAttribute,
+    2, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.gHash[gId].indexBuffer);
+  gl.bufferData(
+    gl.ELEMENT_ARRAY_BUFFER,
+    new Uint16Array( flatten(obj.faces) ),
+    gl.STATIC_DRAW);
+};
+
+/**
+ * Draws buffers given a geometry key ID
+ * @param  {String} gId     ID in our geom hash
+ * @chainable
+ */
+p5.RendererGL.prototype.drawBuffers = function(gId) {
+  this._setDefaultCamera();
+  var gl = this.GL;
+  var shaderKey = this._getCurShaderId();
+  var shaderProgram = this.mHash[shaderKey];
+  //vertex position buffer
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].vertexBuffer);
+  gl.vertexAttribPointer(
+    shaderProgram.vertexPositionAttribute,
+    3, gl.FLOAT, false, 0, 0);
+  //normal buffer
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].normalBuffer);
+  gl.vertexAttribPointer(
+    shaderProgram.vertexNormalAttribute,
+    3, gl.FLOAT, false, 0, 0);
+  // uv buffer
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].uvBuffer);
+  gl.vertexAttribPointer(
+    shaderProgram.textureCoordAttribute,
+    2, gl.FLOAT, false, 0, 0);
+  //vertex index buffer
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.gHash[gId].indexBuffer);
+  this._setMatrixUniforms(shaderKey);
+  gl.drawElements(
+    gl.TRIANGLES, this.gHash[gId].numberOfItems,
+    gl.UNSIGNED_SHORT, 0);
+  return this;
+};
+///////////////////////////////
+//// UTILITY FUNCTIONS
+//////////////////////////////
+/**
+ * turn a two dimensional array into one dimensional array
+ * @param  {Array} arr 2-dimensional array
+ * @return {Array}     1-dimensional array
+ * [[1, 2, 3],[4, 5, 6]] -> [1, 2, 3, 4, 5, 6]
+ */
+function flatten(arr){
+  if (arr.length>0){
+    return arr.reduce(function(a, b){
+      return a.concat(b);
+    });
+  } else {
+    return [];
+  }
+}
+
+/**
+ * turn a p5.Vector Array into a one dimensional number array
+ * @param  {p5.Vector[]} arr  an array of p5.Vector
+ * @return {Number[]}         a one dimensional array of numbers
+ * [p5.Vector(1, 2, 3), p5.Vector(4, 5, 6)] ->
+ * [1, 2, 3, 4, 5, 6]
+ */
+function vToNArray(arr){
+  return flatten(arr.map(function(item){
+    return [item.x, item.y, item.z];
+  }));
+}
+module.exports = p5.RendererGL;
+
+},{"../core/core":5}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var p5 = _dereq_('../core/core');
@@ -12587,7 +11314,843 @@ p5.RendererGL.prototype._applyTextProperties = function() {
 };
 module.exports = p5.RendererGL;
 
-},{"../core/core":5,"../core/p5.Renderer":12,"./p5.Matrix":27,"./shader":29}],29:[function(_dereq_,module,exports){
+},{"../core/core":5,"../core/p5.Renderer":12,"./p5.Matrix":27,"./shader":32}],31:[function(_dereq_,module,exports){
+/**
+ * @module Shape
+ * @submodule 3D Primitives
+ * @for p5
+ * @requires core
+ * @requires p5.Geometry
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+_dereq_('./p5.Geometry');
+/**
+ * Draw a plane with given a width and height
+ * @method plane
+ * @param  {Number} width      width of the plane
+ * @param  {Number} height     height of the plane
+ * @param  {Number} [detailX]  Optional number of triangle
+ *                             subdivisions in x-dimension
+ * @param {Number} [detailY]   Optional number of triangle
+ *                             subdivisions in y-dimension
+ * @return {p5}                the p5 object
+ * @example
+ * <div>
+ * <code>
+ * //draw a plane with width 200 and height 200
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   plane(50, 50);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * Nothing displayed on canvas
+ * Rotating interior view of a box with sides that change color.
+ * 3d red and green gradient.
+ * Rotating interior view of a cylinder with sides that change color.
+ * Rotating view of a cylinder with sides that change color.
+ * 3d red and green gradient.
+ * rotating view of a multi-colored cylinder with concave sides.
+ */
+p5.prototype.plane = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var width = args[0] || 50;
+  var height = args[1] || width;
+  var detailX = typeof args[2] === 'number' ? args[2] : 1;
+  var detailY = typeof args[3] === 'number' ? args[3] : 1;
+
+  var gId = 'plane|'+width+'|'+height+'|'+detailX+'|'+detailY;
+
+  if(!this._renderer.geometryInHash(gId)){
+    var _plane = function(){
+      var u,v,p;
+      for (var i = 0; i <= this.detailY; i++){
+        v = i / this.detailY;
+        for (var j = 0; j <= this.detailX; j++){
+          u = j / this.detailX;
+          p = new p5.Vector(width * u - width/2,
+            height * v - height/2,
+            0);
+          this.vertices.push(p);
+          this.uvs.push([u,v]);
+        }
+      }
+    };
+    var planeGeom =
+    new p5.Geometry(detailX, detailY, _plane);
+    planeGeom
+      .computeFaces()
+      .computeNormals();
+    this._renderer.createBuffers(gId, planeGeom);
+  }
+
+  this._renderer.drawBuffers(gId);
+
+};
+
+/**
+ * Draw a box with given width, height and depth
+ * @method  box
+ * @param  {Number} width     width of the box
+ * @param  {Number} [Height]    height of the box
+ * @param  {Number} [depth]     depth of the box
+ * @param {Number} [detailX]  Optional number of triangle
+ *                            subdivisions in x-dimension
+ * @param {Number} [detailY]  Optional number of triangle
+ *                            subdivisions in y-dimension
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * //draw a spinning box with width, height and depth 200
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateY(frameCount * 0.01);
+ *   box(200, 200, 200);
+ * }
+ * </code>
+ * </div>
+ */
+p5.prototype.box = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var width = args[0] || 50;
+  var height = args[1] || width;
+  var depth = args[2] || width;
+
+  var detailX = typeof args[3] === 'number' ? args[3] : 4;
+  var detailY = typeof args[4] === 'number' ? args[4] : 4;
+  var gId = 'box|'+width+'|'+height+'|'+depth+'|'+detailX+'|'+detailY;
+
+  if(!this._renderer.geometryInHash(gId)){
+    var _box = function(){
+      var cubeIndices = [
+        [0, 4, 2, 6],// -1, 0, 0],// -x
+        [1, 3, 5, 7],// +1, 0, 0],// +x
+        [0, 1, 4, 5],// 0, -1, 0],// -y
+        [2, 6, 3, 7],// 0, +1, 0],// +y
+        [0, 2, 1, 3],// 0, 0, -1],// -z
+        [4, 5, 6, 7]// 0, 0, +1] // +z
+      ];
+      var id=0;
+      for (var i = 0; i < cubeIndices.length; i++) {
+        var cubeIndex = cubeIndices[i];
+        var v = i * 4;
+        for (var j = 0; j < 4; j++) {
+          var d = cubeIndex[j];
+          //inspired by lightgl:
+          //https://github.com/evanw/lightgl.js
+          //octants:https://en.wikipedia.org/wiki/Octant_(solid_geometry)
+          var octant = new p5.Vector(
+            ((d & 1) * 2 - 1)*width/2,
+            ((d & 2) - 1) *height/2,
+            ((d & 4) / 2 - 1) * depth/2);
+          this.vertices.push( octant );
+          this.uvs.push([j & 1, (j & 2) / 2]);
+          id++;
+        }
+        this.faces.push([v, v + 1, v + 2]);
+        this.faces.push([v + 2, v + 1, v + 3]);
+      }
+    };
+    var boxGeom = new p5.Geometry(detailX,detailY, _box);
+    boxGeom.computeNormals();
+    //initialize our geometry buffer with
+    //the key val pair:
+    //geometry Id, Geom object
+    this._renderer.createBuffers(gId, boxGeom);
+  }
+  this._renderer.drawBuffers(gId);
+
+  return this;
+
+};
+
+/**
+ * Draw a sphere with given radius
+ * @method sphere
+ * @param  {Number} radius            radius of circle
+ * @param  {Number} [detailX]         optional: number of segments,
+ *                                    the more segments the smoother geometry
+ *                                    default is 24
+ * @param  {Number} [detailY]         optional: number of segments,
+ *                                    the more segments the smoother geometry
+ *                                    default is 16
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * // draw a sphere with radius 200
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   sphere(50);
+ * }
+ * </code>
+ * </div>
+ */
+p5.prototype.sphere = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var radius = args[0] || 50;
+  var detailX = typeof args[1] === 'number' ? args[1] : 24;
+  var detailY = typeof args[2] === 'number' ? args[2] : 16;
+  var gId = 'sphere|'+radius+'|'+detailX+'|'+detailY;
+  if(!this._renderer.geometryInHash(gId)){
+    var _sphere = function(){
+      var u,v,p;
+      for (var i = 0; i <= this.detailY; i++){
+        v = i / this.detailY;
+        for (var j = 0; j <= this.detailX; j++){
+          u = j / this.detailX;
+          var theta = 2 * Math.PI * u;
+          var phi = Math.PI * v - Math.PI / 2;
+          p = new p5.Vector(radius * Math.cos(phi) * Math.sin(theta),
+            radius * Math.sin(phi),
+            radius * Math.cos(phi) * Math.cos(theta));
+          this.vertices.push(p);
+          this.uvs.push([u,v]);
+        }
+      }
+    };
+    var sphereGeom = new p5.Geometry(detailX, detailY, _sphere);
+    sphereGeom
+      .computeFaces()
+      .computeNormals()
+      .averageNormals()
+      .averagePoleNormals();
+    this._renderer.createBuffers(gId, sphereGeom);
+  }
+  this._renderer.drawBuffers(gId);
+
+  return this;
+};
+
+
+/**
+* @private
+* helper function for creating both cones and cyllinders
+*/
+var _truncatedCone = function(
+  bottomRadius,
+  topRadius,
+  height,
+  detailX,
+  detailY,
+  topCap,
+  bottomCap) {
+  detailX = (detailX < 3) ? 3 : detailX;
+  detailY = (detailY < 1) ? 1 : detailY;
+  topCap = (topCap === undefined) ? true : topCap;
+  bottomCap = (bottomCap === undefined) ? true : bottomCap;
+  var extra = (topCap ? 2 : 0) + (bottomCap ? 2 : 0);
+  var vertsAroundEdge = detailX + 1;
+
+  // ensure constant slant
+  var slant = Math.atan2(bottomRadius - topRadius, height);
+  var start = topCap ? -2 : 0;
+  var end = detailY + (bottomCap ? 2 : 0);
+  var yy, ii;
+  for (yy = start; yy <= end; ++yy) {
+    var v = yy / detailY;
+    var y = height * v;
+    var ringRadius;
+    if (yy < 0) {
+      y = 0;
+      v = 1;
+      ringRadius = bottomRadius;
+    } else if (yy > detailY) {
+      y = height;
+      v = 1;
+      ringRadius = topRadius;
+    } else {
+      ringRadius = bottomRadius +
+        (topRadius - bottomRadius) * (yy / detailY);
+    }
+    if (yy === -2 || yy === detailY + 2) {
+      ringRadius = 0;
+      v = 0;
+    }
+    y -= height / 2;
+    for (ii = 0; ii < vertsAroundEdge; ++ii) {
+      //VERTICES
+      this.vertices.push(
+        new p5.Vector(
+          Math.sin(ii*Math.PI * 2 /detailX) * ringRadius,
+          y,
+          Math.cos(ii*Math.PI * 2 /detailX) * ringRadius)
+        );
+      //VERTEX NORMALS
+      this.vertexNormals.push(
+        new p5.Vector(
+          (yy < 0 || yy > detailY) ? 0 :
+          (Math.sin(ii * Math.PI * 2 / detailX) * Math.cos(slant)),
+          (yy < 0) ? -1 : (yy > detailY ? 1 : Math.sin(slant)),
+          (yy < 0 || yy > detailY) ? 0 :
+          (Math.cos(ii * Math.PI * 2 / detailX) * Math.cos(slant)))
+        );
+      //UVs
+      this.uvs.push([(ii / detailX), v]);
+    }
+  }
+  for (yy = 0; yy < detailY + extra; ++yy) {
+    for (ii = 0; ii < detailX; ++ii) {
+      this.faces.push([vertsAroundEdge * (yy + 0) + 0 + ii,
+        vertsAroundEdge * (yy + 0) + 1 + ii,
+        vertsAroundEdge * (yy + 1) + 1 + ii]);
+      this.faces.push([vertsAroundEdge * (yy + 0) + 0 + ii,
+        vertsAroundEdge * (yy + 1) + 1 + ii,
+        vertsAroundEdge * (yy + 1) + 0 + ii]);
+    }
+  }
+};
+
+/**
+ * Draw a cylinder with given radius and height
+ * @method  cylinder
+ * @param  {Number} radius     radius of the surface
+ * @param  {Number} height     height of the cylinder
+ * @param  {Number} [detailX]  optional: number of segments,
+ *                             the more segments the smoother geometry
+ *                             default is 24
+ * @param {Number} [detailY]   optional: number of segments in y-dimension,
+ *                             the more segments the smoother geometry
+ *                             default is 16
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * //draw a spinning cylinder with radius 200 and height 200
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateZ(frameCount * 0.01);
+ *   cylinder(200, 200);
+ * }
+ * </code>
+ * </div>
+ */
+p5.prototype.cylinder = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var radius = args[0] || 50;
+  var height = args[1] || radius;
+  var detailX = typeof args[2] === 'number' ? args[2] : 24;
+  var detailY = typeof args[3] === 'number' ? args[3] : 16;
+  var gId = 'cylinder|'+radius+'|'+height+'|'+detailX+'|'+detailY;
+  if(!this._renderer.geometryInHash(gId)){
+    var cylinderGeom = new p5.Geometry(detailX, detailY);
+    _truncatedCone.call(
+      cylinderGeom,
+      radius,
+      radius,
+      height,
+      detailX,
+      detailY,
+      true,true);
+    cylinderGeom.computeNormals();
+    this._renderer.createBuffers(gId, cylinderGeom);
+  }
+
+  this._renderer.drawBuffers(gId);
+
+  return this;
+};
+
+
+/**
+ * Draw a cone with given radius and height
+ * @method cone
+ * @param  {Number} radius            radius of the bottom surface
+ * @param  {Number} height            height of the cone
+ * @param  {Number} [detailX]         optional: number of segments,
+ *                                    the more segments the smoother geometry
+ *                                    default is 24
+ * @param  {Number} [detailY]         optional: number of segments,
+ *                                    the more segments the smoother geometry
+ *                                    default is 16
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * //draw a spinning cone with radius 200 and height 200
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateZ(frameCount * 0.01);
+ *   cone(200, 200);
+ * }
+ * </code>
+ * </div>
+ */
+p5.prototype.cone = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var baseRadius = args[0] || 50;
+  var height = args[1] || baseRadius;
+  var detailX = typeof args[2] === 'number' ? args[2] : 24;
+  var detailY = typeof args[3] === 'number' ? args[3] : 16;
+  var gId = 'cone|'+baseRadius+'|'+height+'|'+detailX+'|'+detailY;
+  if(!this._renderer.geometryInHash(gId)){
+    var coneGeom = new p5.Geometry(detailX, detailY);
+    _truncatedCone.call(coneGeom,
+      baseRadius,
+      0,//top radius 0
+      height,
+      detailX,
+      detailY,
+      true,
+      true);
+    //for cones we need to average Normals
+    coneGeom
+      .computeNormals();
+    this._renderer.createBuffers(gId, coneGeom);
+  }
+
+  this._renderer.drawBuffers(gId);
+
+  return this;
+};
+
+/**
+ * Draw an ellipsoid with given radius
+ * @method ellipsoid
+ * @param  {Number} radiusx           xradius of circle
+ * @param  {Number} radiusy           yradius of circle
+ * @param  {Number} radiusz           zradius of circle
+ * @param  {Number} [detailX]         optional: number of segments,
+ *                                    the more segments the smoother geometry
+ *                                    default is 24. Avoid detail number above
+ *                                    150, it may crash the browser.
+ * @param  {Number} [detailY]         optional: number of segments,
+ *                                    the more segments the smoother geometry
+ *                                    default is 16. Avoid detail number above
+ *                                    150, it may crash the browser.
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * // draw an ellipsoid with radius 20, 30 and 40.
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   ellipsoid(20, 30, 40);
+ * }
+ * </code>
+ * </div>
+ */
+p5.prototype.ellipsoid = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var detailX = typeof args[3] === 'number' ? args[3] : 24;
+  var detailY = typeof args[4] === 'number' ? args[4] : 24;
+  var radiusX = args[0] || 50;
+  var radiusY = args[1] || radiusX;
+  var radiusZ = args[2] || radiusX;
+
+  var gId = 'ellipsoid|'+radiusX+'|'+radiusY+
+  '|'+radiusZ+'|'+detailX+'|'+detailY;
+
+
+  if(!this._renderer.geometryInHash(gId)){
+    var _ellipsoid = function(){
+      var u,v,p;
+      for (var i = 0; i <= this.detailY; i++){
+        v = i / this.detailY;
+        for (var j = 0; j <= this.detailX; j++){
+          u = j / this.detailX;
+          var theta = 2 * Math.PI * u;
+          var phi = Math.PI * v - Math.PI / 2;
+          p = new p5.Vector(radiusX * Math.cos(phi) * Math.sin(theta),
+            radiusY * Math.sin(phi),
+            radiusZ * Math.cos(phi) * Math.cos(theta));
+          this.vertices.push(p);
+          this.uvs.push([u,v]);
+        }
+      }
+    };
+    var ellipsoidGeom = new p5.Geometry(detailX, detailY,_ellipsoid);
+    ellipsoidGeom
+      .computeFaces()
+      .computeNormals();
+    this._renderer.createBuffers(gId, ellipsoidGeom);
+  }
+
+  this._renderer.drawBuffers(gId);
+
+  return this;
+};
+
+/**
+ * Draw a torus with given radius and tube radius
+ * @method torus
+ * @param  {Number} radius        radius of the whole ring
+ * @param  {Number} tubeRadius    radius of the tube
+ * @param  {Number} [detailX]     optional: number of segments in x-dimension,
+ *                                the more segments the smoother geometry
+ *                                default is 24
+ * @param  {Number} [detailY]     optional: number of segments in y-dimension,
+ *                                the more segments the smoother geometry
+ *                                default is 16
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * //draw a spinning torus with radius 200 and tube radius 60
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateY(frameCount * 0.01);
+ *   torus(200, 60);
+ * }
+ * </code>
+ * </div>
+ */
+p5.prototype.torus = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var detailX = typeof args[2] === 'number' ? args[2] : 24;
+  var detailY = typeof args[3] === 'number' ? args[3] : 16;
+
+  var radius = args[0] || 50;
+  var tubeRadius = args[1] || 10;
+
+  var gId = 'torus|'+radius+'|'+tubeRadius+'|'+detailX+'|'+detailY;
+
+  if(!this._renderer.geometryInHash(gId)){
+    var _torus = function(){
+      var u,v,p;
+      for (var i = 0; i <= this.detailY; i++){
+        v = i / this.detailY;
+        for (var j = 0; j <= this.detailX; j++){
+          u = j / this.detailX;
+          var theta = 2 * Math.PI * u;
+          var phi = 2 * Math.PI * v;
+          p = new p5.Vector(
+            (radius + tubeRadius * Math.cos(phi)) * Math.cos(theta),
+            (radius + tubeRadius * Math.cos(phi)) * Math.sin(theta),
+            tubeRadius * Math.sin(phi));
+          this.vertices.push(p);
+          this.uvs.push([u,v]);
+        }
+      }
+    };
+    var torusGeom = new p5.Geometry(detailX, detailY, _torus);
+    torusGeom
+      .computeFaces()
+      .computeNormals()
+      .averageNormals();
+    this._renderer.createBuffers(gId, torusGeom);
+  }
+
+  this._renderer.drawBuffers(gId);
+
+  return this;
+};
+
+///////////////////////
+/// 2D primitives
+/////////////////////////
+
+//@TODO
+p5.RendererGL.prototype.point = function(x, y, z){
+  console.log('point not yet implemented in webgl');
+  return this;
+};
+
+p5.RendererGL.prototype.triangle = function
+(args){
+  var x1=args[0], y1=args[1];
+  var x2=args[2], y2=args[3];
+  var x3=args[4], y3=args[5];
+  var gId = 'tri|'+x1+'|'+y1+'|'+
+  x2+'|'+y2+'|'+
+  x3+'|'+y3;
+  if(!this.geometryInHash(gId)){
+    var _triangle = function(){
+      var vertices = [];
+      vertices.push(new p5.Vector(x1,y1,0));
+      vertices.push(new p5.Vector(x2,y2,0));
+      vertices.push(new p5.Vector(x3,y3,0));
+      this.vertices = vertices;
+      this.faces = [[0,1,2]];
+      this.uvs = [[0,0],[0,1],[1,1]];
+    };
+    var triGeom = new p5.Geometry(1,1,_triangle);
+    triGeom.computeNormals();
+    this.createBuffers(gId, triGeom);
+  }
+
+  this.drawBuffers(gId);
+  return this;
+};
+
+p5.RendererGL.prototype.ellipse = function
+(args){
+  var x = args[0];
+  var y = args[1];
+  var width = args[2];
+  var height = args[3];
+  //detailX and Y are optional 6th & 7th
+  //arguments
+  var detailX = args[4] || 24;
+  var detailY = args[5] || 16;
+  var gId = 'ellipse|'+args[0]+'|'+args[1]+'|'+args[2]+'|'+
+  args[3];
+  if(!this.geometryInHash(gId)){
+    var _ellipse = function(){
+      var u,v,p;
+      var centerX = x+width*0.5;
+      var centerY = y+height*0.5;
+      for (var i = 0; i <= this.detailY; i++){
+        v = i / this.detailY;
+        for (var j = 0; j <= this.detailX; j++){
+          u = j / this.detailX;
+          var theta = 2 * Math.PI * u;
+          if(v === 0){
+            p = new p5.Vector(centerX, centerY, 0);
+          }
+          else{
+            var _x = centerX + width*0.5 * Math.cos(theta);
+            var _y = centerY + height*0.5 * Math.sin(theta);
+            p = new p5.Vector(_x, _y, 0);
+          }
+          this.vertices.push(p);
+          this.uvs.push([u,v]);
+        }
+      }
+    };
+    var ellipseGeom = new p5.Geometry(detailX,detailY,_ellipse);
+    ellipseGeom
+      .computeFaces()
+      .computeNormals();
+    this.createBuffers(gId, ellipseGeom);
+  }
+  this.drawBuffers(gId);
+  return this;
+};
+
+p5.RendererGL.prototype.rect = function
+(args){
+  var gId = 'rect|'+args[0]+'|'+args[1]+'|'+args[2]+'|'+
+  args[3];
+  var x = args[0];
+  var y = args[1];
+  var width = args[2];
+  var height = args[3];
+  var detailX = args[4] || 24;
+  var detailY = args[5] || 16;
+  if(!this.geometryInHash(gId)){
+    var _rect = function(){
+      var u,v,p;
+      for (var i = 0; i <= this.detailY; i++){
+        v = i / this.detailY;
+        for (var j = 0; j <= this.detailX; j++){
+          u = j / this.detailX;
+          // var _x = x-width/2;
+          // var _y = y-height/2;
+          p = new p5.Vector(
+            x + (width*u),
+            y + (height*v),
+            0
+          );
+          this.vertices.push(p);
+          this.uvs.push([u,v]);
+        }
+      }
+    };
+    var rectGeom = new p5.Geometry(detailX,detailY,_rect);
+    rectGeom
+      .computeFaces()
+      .computeNormals();
+    this.createBuffers(gId, rectGeom);
+  }
+  this.drawBuffers(gId);
+  return this;
+};
+
+p5.RendererGL.prototype.quad = function(){
+  var args = new Array(arguments.length);
+  for (var i = 0; i < args.length; ++i) {
+    args[i] = arguments[i];
+  }
+  var x1 = args[0],
+    y1 = args[1],
+    x2 = args[2],
+    y2 = args[3],
+    x3 = args[4],
+    y3 = args[5],
+    x4 = args[6],
+    y4 = args[7];
+  var gId = 'quad|'+x1+'|'+y1+'|'+
+  x2+'|'+y2+'|'+
+  x3+'|'+y3+'|'+
+  x4+'|'+y4;
+  if(!this.geometryInHash(gId)){
+    var _quad = function(){
+      this.vertices.push(new p5.Vector(x1,y1,0));
+      this.vertices.push(new p5.Vector(x2,y2,0));
+      this.vertices.push(new p5.Vector(x3,y3,0));
+      this.vertices.push(new p5.Vector(x4,y4,0));
+      this.uvs.push([0, 0], [1, 0], [1, 1], [0, 1]);
+    };
+    var quadGeom = new p5.Geometry(2,2,_quad);
+    quadGeom.computeNormals();
+    quadGeom.faces = [[0,1,2],[2,3,0]];
+    this.createBuffers(gId, quadGeom);
+  }
+  this.drawBuffers(gId);
+  return this;
+};
+
+//this implementation of bezier curve
+//is based on Bernstein polynomial
+p5.RendererGL.prototype.bezier = function
+(args){
+  var bezierDetail=args[12] || 20;//value of Bezier detail
+  this.beginShape();
+  var coeff=[0,0,0,0];//  Bernstein polynomial coeffecients
+  var vertex=[0,0,0]; //(x,y,z) coordinates of points in bezier curve
+  for(var i=0; i<=bezierDetail; i++){
+    coeff[0]=Math.pow(1-(i/bezierDetail),3);
+    coeff[1]=(3*(i/bezierDetail)) * (Math.pow(1-(i/bezierDetail),2));
+    coeff[2]=(3*Math.pow(i/bezierDetail,2)) * (1-(i/bezierDetail));
+    coeff[3]=Math.pow(i/bezierDetail,3);
+    vertex[0]=args[0]*coeff[0] + args[3]*coeff[1] +
+              args[6]*coeff[2] + args[9]*coeff[3];
+    vertex[1]=args[1]*coeff[0] + args[4]*coeff[1] +
+              args[7]*coeff[2] + args[10]*coeff[3];
+    vertex[2]=args[2]*coeff[0] + args[5]*coeff[1] +
+              args[8]*coeff[2] + args[11]*coeff[3];
+    this.vertex(vertex[0],vertex[1],vertex[2]);
+  }
+  this.endShape();
+  return this;
+};
+
+p5.RendererGL.prototype.curve=function
+(args){
+  var curveDetail=args[12];
+  this.beginShape();
+  var coeff=[0,0,0,0];//coeffecients of the equation
+  var vertex=[0,0,0]; //(x,y,z) coordinates of points in bezier curve
+  for(var i=0; i<=curveDetail; i++){
+    coeff[0]=Math.pow((i/curveDetail),3) * 0.5;
+    coeff[1]=Math.pow((i/curveDetail),2) * 0.5;
+    coeff[2]=(i/curveDetail) * 0.5;
+    coeff[3]=0.5;
+    vertex[0]=coeff[0]*(-args[0] + (3*args[3]) - (3*args[6]) +args[9]) +
+              coeff[1]*((2*args[0]) - (5*args[3]) + (4*args[6]) - args[9]) +
+              coeff[2]*(-args[0] + args[6]) +
+              coeff[3]*(2*args[3]);
+    vertex[1]=coeff[0]*(-args[1] + (3*args[4]) - (3*args[7]) +args[10]) +
+              coeff[1]*((2*args[1]) - (5*args[4]) + (4*args[7]) - args[10]) +
+              coeff[2]*(-args[1] + args[7]) +
+              coeff[3]*(2*args[4]);
+    vertex[2]=coeff[0]*(-args[2] + (3*args[5]) - (3*args[8]) +args[11]) +
+              coeff[1]*((2*args[2]) - (5*args[5]) + (4*args[8]) - args[11]) +
+              coeff[2]*(-args[2] + args[8]) +
+              coeff[3]*(2*args[5]);
+    this.vertex(vertex[0],vertex[1],vertex[2]);
+  }
+  this.endShape();
+  return this;
+};
+
+/**
+ * Draw a line given two points
+ * @param {Number} x0 x-coordinate of first vertex
+ * @param {Number} y0 y-coordinate of first vertex
+ * @param {Number} z0 z-coordinate of first vertex
+ * @param {Number} x1 x-coordinate of second vertex
+ * @param {Number} y1 y-coordinate of second vertex
+ * @param {Number} z1 z-coordinate of second vertex
+ * @chainable
+ * @example
+ * <div>
+ * <code>
+ * //draw a line
+ * function setup(){
+ *   createCanvas(100, 100, WEBGL);
+ * }
+ *
+ * function draw(){
+ *   background(200);
+ *   rotateX(frameCount * 0.01);
+ *   rotateY(frameCount * 0.01);
+ *   // Use fill instead of stroke to change the color of shape.
+ *   fill(255, 0, 0);
+ *   line(10, 10, 0, 60, 60, 20);
+ * }
+ * </code>
+ * </div>
+ */
+p5.RendererGL.prototype.line = function(x0,y0,z0,x1,y1,z1) {
+  if (typeof x0 !== 'undefined' ||
+      typeof y0 !== 'undefined' ||
+      typeof z0 !== 'undefined' ||
+      typeof x1 !== 'undefined' ||
+      typeof y1 !== 'undefined' ||
+      typeof z1 !== 'undefined')
+  {
+    this.beginShape();
+    this.vertex(x0, y0, z0);
+    this.vertex(x1, y1, z1);
+    this.endShape();
+  }
+  return this;
+};
+
+module.exports = p5;
+
+},{"../core/core":5,"./p5.Geometry":26}],32:[function(_dereq_,module,exports){
 
 
 module.exports = {
@@ -12608,5 +12171,5 @@ module.exports = {
   lightTextureFrag:
     "precision mediump float;\n\nuniform vec4 uMaterialColor;\nuniform sampler2D uSampler;\nuniform bool isTexture;\n\nvarying vec3 vLightWeighting;\nvarying highp vec2 vVertTexCoord;\n\nvoid main(void) {\n  if(!isTexture){\n    gl_FragColor = vec4(vec3(uMaterialColor.rgb * vLightWeighting), uMaterialColor.a);\n  }else{\n    vec4 textureColor = texture2D(uSampler, vVertTexCoord);\n    if(vLightWeighting == vec3(0., 0., 0.)){\n      gl_FragColor = textureColor;\n    }else{\n      gl_FragColor = vec4(vec3(textureColor.rgb * vLightWeighting), textureColor.a);\n    }\n  }\n}"
 };
-},{}]},{},[5,10,11,13,23,4,7,21,20,25,22,26,14,1,2,6,18,16,17,9])(26)
+},{}]},{},[5,10,11,13,4,7,14,1,2,6,18,16,17,30,26,29,28,31,24,27,25,23,32,21,22,9])(32)
 });

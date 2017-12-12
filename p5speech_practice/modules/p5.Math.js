@@ -1,4 +1,4 @@
-/*! p5.p5.Util.js v0.5.11 July 21, 2017 */
+/*! p5.p5.Math.js v0.5.11 July 21, 2017 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.p5 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /**
  * @module Shape
@@ -6441,7 +6441,7 @@ p5.prototype.blendMode = function(mode) {
 
 module.exports = p5;
 
-},{"../webgl/p5.RendererGL":26,"./constants":4,"./core":5,"./p5.Graphics":11,"./p5.Renderer2D":13}],15:[function(_dereq_,module,exports){
+},{"../webgl/p5.RendererGL":28,"./constants":4,"./core":5,"./p5.Graphics":11,"./p5.Renderer2D":13}],15:[function(_dereq_,module,exports){
 
 // requestAnim shim layer by Paul Irish
 window.requestAnimationFrame = (function(){
@@ -8530,6 +8530,2242 @@ Filters.blur = function(canvas, radius){
 module.exports = Filters;
 
 },{}],20:[function(_dereq_,module,exports){
+/**
+ * @module Math
+ * @submodule Calculation
+ * @for p5
+ * @requires core
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+
+/**
+ * Calculates the absolute value (magnitude) of a number. Maps to Math.abs().
+ * The absolute value of a number is always positive.
+ *
+ * @method abs
+ * @param  {Number} n number to compute
+ * @return {Number}   absolute value of given number
+ * @example
+ * <div class = "norender"><code>
+ * function setup() {
+ *   var x = -3;
+ *   var y = abs(x);
+ *
+ *   print(x); // -3
+ *   print(y); // 3
+ * }
+ * </code></div>
+ *
+ * @alt
+ * no image displayed
+ *
+ */
+p5.prototype.abs = Math.abs;
+
+/**
+ * Calculates the closest int value that is greater than or equal to the
+ * value of the parameter. Maps to Math.ceil(). For example, ceil(9.03)
+ * returns the value 10.
+ *
+ * @method ceil
+ * @param  {Number} n number to round up
+ * @return {Number}   rounded up number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   // map, mouseX between 0 and 5.
+ *   var ax = map(mouseX, 0, 100, 0, 5);
+ *   var ay = 66;
+ *
+ *   //Get the ceiling of the mapped number.
+ *   var bx = ceil(map(mouseX, 0, 100, 0,5));
+ *   var by = 33;
+ *
+ *   // Multiply the mapped numbers by 20 to more easily
+ *   // see the changes.
+ *   stroke(0);
+ *   fill(0);
+ *   line(0, ay, ax * 20, ay);
+ *   line(0, by, bx * 20, by);
+ *
+ *   // Reformat the float returned by map and draw it.
+ *   noStroke();
+ *   text(nfc(ax, 2,2), ax, ay - 5);
+ *   text(nfc(bx,1,1), bx, by - 5);
+ * }
+ * </code></div>
+  *
+ * @alt
+ * 2 horizontal lines & number sets. increase with mouse x. bottom to 2 decimals
+ *
+ */
+p5.prototype.ceil = Math.ceil;
+
+/**
+ * Constrains a value between a minimum and maximum value.
+ *
+ * @method constrain
+ * @param  {Number} n    number to constrain
+ * @param  {Number} low  minimum limit
+ * @param  {Number} high maximum limit
+ * @return {Number}      constrained number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *
+ *   var leftWall = 25;
+ *   var rightWall = 75;
+ *
+ *   // xm is just the mouseX, while
+ *   // xc is the mouseX, but constrained
+ *   // between the leftWall and rightWall!
+ *   var xm = mouseX;
+ *   var xc = constrain(mouseX, leftWall, rightWall);
+ *
+ *   // Draw the walls.
+ *   stroke(150);
+ *   line(leftWall, 0, leftWall, height);
+ *   line(rightWall, 0, rightWall, height);
+ *
+ *   // Draw xm and xc as circles.
+ *   noStroke();
+ *   fill(150);
+ *   ellipse(xm, 33, 9,9); // Not Constrained
+ *   fill(0);
+ *   ellipse(xc, 66, 9,9); // Constrained
+ * }
+ * </code></div>
+ *
+ * @alt
+ * 2 vertical lines. 2 ellipses move with mouse X 1 does not move passed lines
+ *
+ */
+p5.prototype.constrain = function(n, low, high) {
+  return Math.max(Math.min(n, high), low);
+};
+
+/**
+ * Calculates the distance between two points.
+ *
+ * @method dist
+ * @param  {Number} x1 x-coordinate of the first point
+ * @param  {Number} y1 y-coordinate of the first point
+ * @param  {Number} x2 x-coordinate of the second point
+ * @param  {Number} y2 y-coordinate of the second point
+ * @return {Number}    distance between the two points
+ */
+/**
+ * @method dist
+ * @param  {Number} x1
+ * @param  {Number} y1
+ * @param  {Number} z1 z-coordinate of the first point
+ * @param  {Number} x2
+ * @param  {Number} y2
+ * @param  {Number} z2 z-coordinate of the second point
+ * @return {Number}    distance between the two points
+ * @example
+ * <div><code>
+ * // Move your mouse inside the canvas to see the
+ * // change in distance between two points!
+ * function draw() {
+ *   background(200);
+ *   fill(0);
+ *
+ *   var x1 = 10;
+ *   var y1 = 90;
+ *   var x2 = mouseX;
+ *   var y2 = mouseY;
+ *
+ *   line(x1, y1, x2, y2);
+ *   ellipse(x1, y1, 7, 7);
+ *   ellipse(x2, y2, 7, 7);
+ *
+ *   // d is the length of the line
+ *   // the distance from point 1 to point 2.
+ *   var d = int(dist(x1, y1, x2, y2));
+ *
+ *   // Let's write d along the line we are drawing!
+ *   push();
+ *   translate( (x1+x2)/2, (y1+y2)/2 );
+ *   rotate( atan2(y2-y1,x2-x1) );
+ *   text(nfc(d,1,1), 0, -5);
+ *   pop();
+ *   // Fancy!
+ * }
+ * </code></div>
+ *
+ * @alt
+ * 2 ellipses joined by line. 1 ellipse moves with mouse X&Y. Distance displayed.
+ *
+ */
+p5.prototype.dist = function(x1, y1, z1, x2, y2, z2) {
+  if (arguments.length === 4) {
+    // In the case of 2d: z1 means x2 and x2 means y2
+    return hypot(z1-x1, x2-y1);
+  } else if (arguments.length === 6) {
+    return hypot(x2-x1, y2-y1, z2-z1);
+  }
+};
+
+/**
+ * Returns Euler's number e (2.71828...) raised to the power of the n
+ * parameter. Maps to Math.exp().
+ *
+ * @method exp
+ * @param  {Number} n exponent to raise
+ * @return {Number}   e^n
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *
+ *   // Compute the exp() function with a value between 0 and 2
+ *   var xValue = map(mouseX, 0, width, 0, 2);
+ *   var yValue = exp(xValue);
+ *
+ *   var y = map(yValue, 0, 8, height, 0);
+ *
+ *   var legend = "exp (" + nfc(xValue, 3) +")\n= " + nf(yValue, 1, 4);
+ *   stroke(150);
+ *   line(mouseX, y, mouseX, height);
+ *   fill(0);
+ *   text(legend, 5, 15);
+ *   noStroke();
+ *   ellipse (mouseX,y, 7, 7);
+ *
+ *   // Draw the exp(x) curve,
+ *   // over the domain of x from 0 to 2
+ *   noFill();
+ *   stroke(0);
+ *   beginShape();
+ *   for (var x = 0; x < width; x++) {
+ *     xValue = map(x, 0, width, 0, 2);
+ *     yValue = exp(xValue);
+ *     y = map(yValue, 0, 8, height, 0);
+ *     vertex(x, y);
+ *   }
+ *
+ *   endShape();
+ *   line(0, 0, 0, height);
+ *   line(0, height-1, width, height-1);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * ellipse moves along a curve with mouse x. e^n displayed.
+ *
+ */
+p5.prototype.exp = Math.exp;
+
+/**
+ * Calculates the closest int value that is less than or equal to the
+ * value of the parameter. Maps to Math.floor().
+ *
+ * @method floor
+ * @param  {Number} n number to round down
+ * @return {Number}   rounded down number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   //map, mouseX between 0 and 5.
+ *   var ax = map(mouseX, 0, 100, 0, 5);
+ *   var ay = 66;
+ *
+ *   //Get the floor of the mapped number.
+ *   var bx = floor(map(mouseX, 0, 100, 0,5));
+ *   var by = 33;
+ *
+ *   // Multiply the mapped numbers by 20 to more easily
+ *   // see the changes.
+ *   stroke(0);
+ *   fill(0);
+ *   line(0, ay, ax * 20, ay);
+ *   line(0, by, bx * 20, by);
+ *
+ *   // Reformat the float returned by map and draw it.
+ *   noStroke();
+ *   text(nfc(ax, 2,2), ax, ay - 5);
+ *   text(nfc(bx,1,1), bx, by - 5);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * 2 horizontal lines & number sets. increase with mouse x. bottom to 2 decimals
+ *
+ */
+p5.prototype.floor = Math.floor;
+
+/**
+ * Calculates a number between two numbers at a specific increment. The amt
+ * parameter is the amount to interpolate between the two values where 0.0
+ * equal to the first point, 0.1 is very near the first point, 0.5 is
+ * half-way in between, etc. The lerp function is convenient for creating
+ * motion along a straight path and for drawing dotted lines.
+ *
+ * @method lerp
+ * @param  {Number} start first value
+ * @param  {Number} stop  second value
+ * @param  {Number} amt   number between 0.0 and 1.0
+ * @return {Number}       lerped value
+ * @example
+ * <div><code>
+ * function setup() {
+ *   background(200);
+ *   var a = 20;
+ *   var b = 80;
+ *   var c = lerp(a,b, .2);
+ *   var d = lerp(a,b, .5);
+ *   var e = lerp(a,b, .8);
+ *
+ *   var y = 50
+ *
+ *   strokeWeight(5);
+ *   stroke(0); // Draw the original points in black
+ *   point(a, y);
+ *   point(b, y);
+ *
+ *   stroke(100); // Draw the lerp points in gray
+ *   point(c, y);
+ *   point(d, y);
+ *   point(e, y);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * 5 points horizontally staggered mid-canvas. mid 3 are grey, outer black
+ *
+ */
+p5.prototype.lerp = function(start, stop, amt) {
+  return amt*(stop-start)+start;
+};
+
+/**
+ * Calculates the natural logarithm (the base-e logarithm) of a number. This
+ * function expects the n parameter to be a value greater than 0.0. Maps to
+ * Math.log().
+ *
+ * @method log
+ * @param  {Number} n number greater than 0
+ * @return {Number}   natural logarithm of n
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   var maxX = 2.8;
+ *   var maxY = 1.5;
+ *
+ *   // Compute the natural log of a value between 0 and maxX
+ *   var xValue = map(mouseX, 0, width, 0, maxX);
+ *   if (xValue > 0) { // Cannot take the log of a negative number.
+ *     var yValue = log(xValue);
+ *     var y = map(yValue, -maxY, maxY, height, 0);
+ *
+ *     // Display the calculation occurring.
+ *     var legend = "log(" + nf(xValue, 1, 2) + ")\n= " + nf(yValue, 1, 3);
+ *     stroke(150);
+ *     line(mouseX, y, mouseX, height);
+ *     fill(0);
+ *     text (legend, 5, 15);
+ *     noStroke();
+ *     ellipse (mouseX, y, 7, 7);
+ *   }
+ *
+ *   // Draw the log(x) curve,
+ *   // over the domain of x from 0 to maxX
+ *   noFill();
+ *   stroke(0);
+ *   beginShape();
+ *   for(var x=0; x < width; x++) {
+ *     xValue = map(x, 0, width, 0, maxX);
+ *     yValue = log(xValue);
+ *     y = map(yValue, -maxY, maxY, height, 0);
+ *     vertex(x, y);
+ *   }
+ *   endShape();
+ *   line(0,0,0,height);
+ *   line(0,height/2,width, height/2);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * ellipse moves along a curve with mouse x. natural logarithm of n displayed.
+ *
+ */
+p5.prototype.log = Math.log;
+
+/**
+ * Calculates the magnitude (or length) of a vector. A vector is a direction
+ * in space commonly used in computer graphics and linear algebra. Because it
+ * has no "start" position, the magnitude of a vector can be thought of as
+ * the distance from the coordinate 0,0 to its x,y value. Therefore, mag() is
+ * a shortcut for writing dist(0, 0, x, y).
+ *
+ * @method mag
+ * @param  {Number} a first value
+ * @param  {Number} b second value
+ * @return {Number}   magnitude of vector from (0,0) to (a,b)
+ * @example
+ * <div><code>
+ * function setup() {
+ *   var x1 = 20;
+ *   var x2 = 80;
+ *   var y1 = 30;
+ *   var y2 = 70;
+ *
+ *   line(0, 0, x1, y1);
+ *   print(mag(x1, y1));  // Prints "36.05551275463989"
+ *   line(0, 0, x2, y1);
+ *   print(mag(x2, y1));  // Prints "85.44003745317531"
+ *   line(0, 0, x1, y2);
+ *   print(mag(x1, y2));  // Prints "72.80109889280519"
+ *   line(0, 0, x2, y2);
+ *   print(mag(x2, y2));  // Prints "106.3014581273465"
+ * }
+ * </code></div>
+ *
+ * @alt
+ * 4 lines of different length radiate from top left of canvas.
+ *
+ */
+p5.prototype.mag = function(x, y) {
+  return hypot(x, y);
+};
+
+/**
+ * Re-maps a number from one range to another.
+ * <br><br>
+ * In the first example above, the number 25 is converted from a value in the
+ * range of 0 to 100 into a value that ranges from the left edge of the
+ * window (0) to the right edge (width).
+ *
+ * @method map
+ * @param  {Number} value  the incoming value to be converted
+ * @param  {Number} start1 lower bound of the value's current range
+ * @param  {Number} stop1  upper bound of the value's current range
+ * @param  {Number} start2 lower bound of the value's target range
+ * @param  {Number} stop2  upper bound of the value's target range
+ * @return {Number}        remapped number
+ * @example
+ *   <div><code>
+ *     var value = 25;
+ *     var m = map(value, 0, 100, 0, width);
+ *     ellipse(m, 50, 10, 10);
+ *   </code></div>
+ *
+ *   <div><code>
+ *     function setup() {
+ *       noStroke();
+ *     }
+ *
+ *     function draw() {
+ *       background(204);
+ *       var x1 = map(mouseX, 0, width, 25, 75);
+ *       ellipse(x1, 25, 25, 25);
+ *       var x2 = map(mouseX, 0, width, 0, 100);
+ *       ellipse(x2, 75, 25, 25);
+ *     }
+ *   </code></div>
+ *
+ * @alt
+ * 10 by 10 white ellipse with in mid left canvas
+ * 2 25 by 25 white ellipses move with mouse x. Bottom has more range from X
+ *
+ */
+p5.prototype.map = function(n, start1, stop1, start2, stop2) {
+  return ((n-start1)/(stop1-start1))*(stop2-start2)+start2;
+};
+
+/**
+ * Determines the largest value in a sequence of numbers, and then returns
+ * that value. max() accepts any number of Number parameters, or an Array
+ * of any length.
+ *
+ * @method max
+ * @param  {Number|Array} n0 Numbers to compare
+ * @return {Number}          maximum Number
+ * @example
+ * <div><code>
+ * function setup() {
+ *   // Change the elements in the array and run the sketch
+ *   // to show how max() works!
+ *   numArray = new Array(2,1,5,4,8,9);
+ *   fill(0);
+ *   noStroke();
+ *   text("Array Elements", 0, 10);
+ *   // Draw all numbers in the array
+ *   var spacing = 15;
+ *   var elemsY = 25;
+ *   for(var i = 0; i < numArray.length; i++) {
+ *     text(numArray[i], i * spacing, elemsY);
+ *   }
+ *   maxX = 33;
+ *   maxY = 80;
+ *   // Draw the Maximum value in the array.
+ *   textSize(32);
+ *   text(max(numArray), maxX, maxY);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * Small text at top reads: Array Elements 2 1 5 4 8 9. Large text at center: 9
+ *
+ */
+p5.prototype.max = function() {
+  if (arguments[0] instanceof Array) {
+    return Math.max.apply(null,arguments[0]);
+  } else {
+    return Math.max.apply(null,arguments);
+  }
+};
+
+/**
+ * Determines the smallest value in a sequence of numbers, and then returns
+ * that value. min() accepts any number of Number parameters, or an Array
+ * of any length.
+ *
+ * @method min
+ * @param  {Number|Array} n0 Numbers to compare
+ * @return {Number}          minimum Number
+ * @example
+ * <div><code>
+ * function setup() {
+ *   // Change the elements in the array and run the sketch
+ *   // to show how min() works!
+ *   numArray = new Array(2,1,5,4,8,9);
+ *   fill(0);
+ *   noStroke();
+ *   text("Array Elements", 0, 10);
+ *   // Draw all numbers in the array
+ *   var spacing = 15;
+ *   var elemsY = 25;
+ *   for(var i = 0; i < numArray.length; i++) {
+ *     text(numArray[i], i * spacing, elemsY);
+ *   }
+ *   maxX = 33;
+ *   maxY = 80;
+ *   // Draw the Minimum value in the array.
+ *   textSize(32);
+ *   text(min(numArray), maxX, maxY);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * Small text at top reads: Array Elements 2 1 5 4 8 9. Large text at center: 1
+ *
+ */
+p5.prototype.min = function() {
+  if (arguments[0] instanceof Array) {
+    return Math.min.apply(null,arguments[0]);
+  } else {
+    return Math.min.apply(null,arguments);
+  }
+};
+
+/**
+ * Normalizes a number from another range into a value between 0 and 1.
+ * Identical to map(value, low, high, 0, 1).
+ * Numbers outside of the range are not clamped to 0 and 1, because
+ * out-of-range values are often intentional and useful. (See the second
+ * example above.)
+ *
+ * @method norm
+ * @param  {Number} value incoming value to be normalized
+ * @param  {Number} start lower bound of the value's current range
+ * @param  {Number} stop  upper bound of the value's current range
+ * @return {Number}       normalized number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   currentNum = mouseX;
+ *   lowerBound = 0;
+ *   upperBound = width; //100;
+ *   normalized = norm(currentNum, lowerBound, upperBound);
+ *   lineY = 70
+ *   line(0, lineY, width, lineY);
+ *   //Draw an ellipse mapped to the non-normalized value.
+ *   noStroke();
+ *   fill(50)
+ *   var s = 7; // ellipse size
+ *   ellipse(currentNum, lineY, s, s);
+ *
+ *   // Draw the guide
+ *   guideY = lineY + 15;
+ *   text("0", 0, guideY);
+ *   textAlign(RIGHT);
+ *   text("100", width, guideY);
+ *
+ *   // Draw the normalized value
+ *   textAlign(LEFT);
+ *   fill(0);
+ *   textSize(32);
+ *   normalY = 40;
+ *   normalX = 20;
+ *   text(normalized, normalX, normalY);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * ellipse moves with mouse. 0 shown left & 100 right and updating values center
+ *
+ */
+p5.prototype.norm = function(n, start, stop) {
+  return this.map(n, start, stop, 0, 1);
+};
+
+/**
+ * Facilitates exponential expressions. The pow() function is an efficient
+ * way of multiplying numbers by themselves (or their reciprocals) in large
+ * quantities. For example, pow(3, 5) is equivalent to the expression
+ * 3*3*3*3*3 and pow(3, -5) is equivalent to 1 / 3*3*3*3*3. Maps to
+ * Math.pow().
+ *
+ * @method pow
+ * @param  {Number} n base of the exponential expression
+ * @param  {Number} e power by which to raise the base
+ * @return {Number}   n^e
+ * @example
+ * <div><code>
+ * function setup() {
+ *   //Exponentially increase the size of an ellipse.
+ *   eSize = 3; // Original Size
+ *   eLoc = 10; // Original Location
+ *
+ *   ellipse(eLoc, eLoc, eSize, eSize);
+ *
+ *   ellipse(eLoc*2, eLoc*2, pow(eSize, 2), pow(eSize, 2));
+ *
+ *   ellipse(eLoc*4, eLoc*4, pow(eSize, 3), pow(eSize, 3));
+ *
+ *   ellipse(eLoc*8, eLoc*8, pow(eSize, 4), pow(eSize, 4));
+ * }
+ * </code></div>
+ *
+ * @alt
+ * small to large ellipses radiating from top left of canvas
+ *
+ */
+p5.prototype.pow = Math.pow;
+
+/**
+ * Calculates the integer closest to the n parameter. For example,
+ * round(133.8) returns the value 134. Maps to Math.round().
+ *
+ * @method round
+ * @param  {Number} n number to round
+ * @return {Number}   rounded number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   //map, mouseX between 0 and 5.
+ *   var ax = map(mouseX, 0, 100, 0, 5);
+ *   var ay = 66;
+ *
+ *   // Round the mapped number.
+ *   var bx = round(map(mouseX, 0, 100, 0,5));
+ *   var by = 33;
+ *
+ *   // Multiply the mapped numbers by 20 to more easily
+ *   // see the changes.
+ *   stroke(0);
+ *   fill(0);
+ *   line(0, ay, ax * 20, ay);
+ *   line(0, by, bx * 20, by);
+ *
+ *   // Reformat the float returned by map and draw it.
+ *   noStroke();
+ *   text(nfc(ax, 2,2), ax, ay - 5);
+ *   text(nfc(bx,1,1), bx, by - 5);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * horizontal center line squared values displayed on top and regular on bottom.
+ *
+ */
+p5.prototype.round = Math.round;
+
+/**
+ * Squares a number (multiplies a number by itself). The result is always a
+ * positive number, as multiplying two negative numbers always yields a
+ * positive result. For example, -1 * -1 = 1.
+ *
+ * @method sq
+ * @param  {Number} n number to square
+ * @return {Number}   squared number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   eSize = 7;
+ *   x1 = map(mouseX, 0, width, 0, 10);
+ *   y1 = 80;
+ *   x2 = sq(x1);
+ *   y2 = 20;
+ *
+ *   // Draw the non-squared.
+ *   line(0, y1, width, y1);
+ *   ellipse(x1, y1, eSize, eSize);
+ *
+ *   // Draw the squared.
+ *   line(0, y2, width, y2);
+ *   ellipse(x2, y2, eSize, eSize);
+ *
+ *   // Draw dividing line.
+ *   stroke(100)
+ *   line(0, height/2, width, height/2);
+ *
+ *   // Draw text.
+ *   var spacing = 15;
+ *   noStroke();
+ *   fill(0);
+ *   text("x = " + x1, 0, y1 + spacing);
+ *   text("sq(x) = " + x2, 0, y2 + spacing);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * horizontal center line squared values displayed on top and regular on bottom.
+ *
+ */
+p5.prototype.sq = function(n) { return n*n; };
+
+/**
+ * Calculates the square root of a number. The square root of a number is
+ * always positive, even though there may be a valid negative root. The
+ * square root s of number a is such that s*s = a. It is the opposite of
+ * squaring. Maps to Math.sqrt().
+ *
+ * @method sqrt
+ * @param  {Number} n non-negative number to square root
+ * @return {Number}   square root of number
+ * @example
+ * <div><code>
+ * function draw() {
+ *   background(200);
+ *   eSize = 7;
+ *   x1 = mouseX;
+ *   y1 = 80;
+ *   x2 = sqrt(x1);
+ *   y2 = 20;
+ *
+ *   // Draw the non-squared.
+ *   line(0, y1, width, y1);
+ *   ellipse(x1, y1, eSize, eSize);
+ *
+ *   // Draw the squared.
+ *   line(0, y2, width, y2);
+ *   ellipse(x2, y2, eSize, eSize);
+ *
+ *   // Draw dividing line.
+ *   stroke(100)
+ *   line(0, height/2, width, height/2);
+ *
+ *   // Draw text.
+ *   noStroke();
+ *   fill(0);
+ *   var spacing = 15;
+ *   text("x = " + x1, 0, y1 + spacing);
+ *   text("sqrt(x) = " + x2, 0, y2 + spacing);
+ * }
+ * </code></div>
+ *
+ * @alt
+ * horizontal center line squareroot values displayed on top and regular on bottom.
+ *
+ */
+p5.prototype.sqrt = Math.sqrt;
+
+// Calculate the length of the hypotenuse of a right triangle
+// This won't under- or overflow in intermediate steps
+// https://en.wikipedia.org/wiki/Hypot
+function hypot(x, y, z) {
+  // Use the native implementation if it's available
+  if (typeof Math.hypot === 'function') {
+    return Math.hypot.apply(null, arguments);
+  }
+
+  // Otherwise use the V8 implementation
+  // https://github.com/v8/v8/blob/8cd3cf297287e581a49e487067f5cbd991b27123/src/js/math.js#L217
+  var length = arguments.length;
+  var args = [];
+  var max = 0;
+  for (var i = 0; i < length; i++) {
+    var n = arguments[i];
+    n = +n;
+    if (n === Infinity || n === -Infinity) {
+      return Infinity;
+    }
+    n = Math.abs(n);
+    if (n > max) {
+      max = n;
+    }
+    args[i] = n;
+  }
+
+  if (max === 0) {
+    max = 1;
+  }
+  var sum = 0;
+  var compensation = 0;
+  for (var j = 0; j < length; j++) {
+    var m = args[j] / max;
+    var summand = m * m - compensation;
+    var preliminary = sum + summand;
+    compensation = (preliminary - sum) - summand;
+    sum = preliminary;
+  }
+  return Math.sqrt(sum) * max;
+}
+
+module.exports = p5;
+
+},{"../core/core":5}],21:[function(_dereq_,module,exports){
+/**
+ * @module Math
+ * @submodule Math
+ * @for p5
+ * @requires core
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+
+
+/**
+ * Creates a new p5.Vector (the datatype for storing vectors). This provides a
+ * two or three dimensional vector, specifically a Euclidean (also known as
+ * geometric) vector. A vector is an entity that has both magnitude and
+ * direction.
+ *
+ * @method createVector
+ * @param {Number} [x] x component of the vector
+ * @param {Number} [y] y component of the vector
+ * @param {Number} [z] z component of the vector
+ * @return {p5.Vector}
+ */
+p5.prototype.createVector = function (x, y, z) {
+  if (this instanceof p5) {
+    return new p5.Vector(this, arguments);
+  } else {
+    return new p5.Vector(x, y, z);
+  }
+};
+
+module.exports = p5;
+
+},{"../core/core":5}],22:[function(_dereq_,module,exports){
+//////////////////////////////////////////////////////////////
+
+// http://mrl.nyu.edu/~perlin/noise/
+// Adapting from PApplet.java
+// which was adapted from toxi
+// which was adapted from the german demo group farbrausch
+// as used in their demo "art": http://www.farb-rausch.de/fr010src.zip
+
+// someday we might consider using "improved noise"
+// http://mrl.nyu.edu/~perlin/paper445.pdf
+// See: https://github.com/shiffman/The-Nature-of-Code-Examples-p5.js/
+//      blob/master/introduction/Noise1D/noise.js
+
+/**
+ * @module Math
+ * @submodule Noise
+ * @for p5
+ * @requires core
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+
+var PERLIN_YWRAPB = 4;
+var PERLIN_YWRAP = 1<<PERLIN_YWRAPB;
+var PERLIN_ZWRAPB = 8;
+var PERLIN_ZWRAP = 1<<PERLIN_ZWRAPB;
+var PERLIN_SIZE = 4095;
+
+var perlin_octaves = 4; // default to medium smooth
+var perlin_amp_falloff = 0.5; // 50% reduction/octave
+
+var scaled_cosine = function(i) {
+  return 0.5*(1.0-Math.cos(i*Math.PI));
+};
+
+var perlin; // will be initialized lazily by noise() or noiseSeed()
+
+
+/**
+ * Returns the Perlin noise value at specified coordinates. Perlin noise is
+ * a random sequence generator producing a more natural ordered, harmonic
+ * succession of numbers compared to the standard <b>random()</b> function.
+ * It was invented by Ken Perlin in the 1980s and been used since in
+ * graphical applications to produce procedural textures, natural motion,
+ * shapes, terrains etc.<br /><br /> The main difference to the
+ * <b>random()</b> function is that Perlin noise is defined in an infinite
+ * n-dimensional space where each pair of coordinates corresponds to a
+ * fixed semi-random value (fixed only for the lifespan of the program; see
+ * the noiseSeed() function). p5.js can compute 1D, 2D and 3D noise,
+ * depending on the number of coordinates given. The resulting value will
+ * always be between 0.0 and 1.0. The noise value can be animated by moving
+ * through the noise space as demonstrated in the example above. The 2nd
+ * and 3rd dimension can also be interpreted as time.<br /><br />The actual
+ * noise is structured similar to an audio signal, in respect to the
+ * function's use of frequencies. Similar to the concept of harmonics in
+ * physics, perlin noise is computed over several octaves which are added
+ * together for the final result. <br /><br />Another way to adjust the
+ * character of the resulting sequence is the scale of the input
+ * coordinates. As the function works within an infinite space the value of
+ * the coordinates doesn't matter as such, only the distance between
+ * successive coordinates does (eg. when using <b>noise()</b> within a
+ * loop). As a general rule the smaller the difference between coordinates,
+ * the smoother the resulting noise sequence will be. Steps of 0.005-0.03
+ * work best for most applications, but this will differ depending on use.
+ *
+ *
+ * @method noise
+ * @param  {Number} x   x-coordinate in noise space
+ * @param  {Number} [y] y-coordinate in noise space
+ * @param  {Number} [z] z-coordinate in noise space
+ * @return {Number}     Perlin noise value (between 0 and 1) at specified
+ *                      coordinates
+ * @example
+ * <div>
+ * <code>var xoff = 0.0;
+ *
+ * function draw() {
+ *   background(204);
+ *   xoff = xoff + .01;
+ *   var n = noise(xoff) * width;
+ *   line(n, 0, n, height);
+ * }
+ * </code>
+ * </div>
+ * <div>
+ * <code>var noiseScale=0.02;
+ *
+ * function draw() {
+ *   background(0);
+ *   for (var x=0; x < width; x++) {
+ *     var noiseVal = noise((mouseX+x)*noiseScale, mouseY*noiseScale);
+ *     stroke(noiseVal*255);
+ *     line(x, mouseY+noiseVal*80, x, height);
+ *   }
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * vertical line moves left to right with updating noise values.
+ * horizontal wave pattern effected by mouse x-position & updating noise values.
+ *
+ */
+
+p5.prototype.noise = function(x,y,z) {
+  y = y || 0;
+  z = z || 0;
+
+  if (perlin == null) {
+    perlin = new Array(PERLIN_SIZE + 1);
+    for (var i = 0; i < PERLIN_SIZE + 1; i++) {
+      perlin[i] = Math.random();
+    }
+  }
+
+  if (x<0) { x=-x; }
+  if (y<0) { y=-y; }
+  if (z<0) { z=-z; }
+
+  var xi=Math.floor(x), yi=Math.floor(y), zi=Math.floor(z);
+  var xf = x - xi;
+  var yf = y - yi;
+  var zf = z - zi;
+  var rxf, ryf;
+
+  var r=0;
+  var ampl=0.5;
+
+  var n1,n2,n3;
+
+  for (var o=0; o<perlin_octaves; o++) {
+    var of=xi+(yi<<PERLIN_YWRAPB)+(zi<<PERLIN_ZWRAPB);
+
+    rxf = scaled_cosine(xf);
+    ryf = scaled_cosine(yf);
+
+    n1  = perlin[of&PERLIN_SIZE];
+    n1 += rxf*(perlin[(of+1)&PERLIN_SIZE]-n1);
+    n2  = perlin[(of+PERLIN_YWRAP)&PERLIN_SIZE];
+    n2 += rxf*(perlin[(of+PERLIN_YWRAP+1)&PERLIN_SIZE]-n2);
+    n1 += ryf*(n2-n1);
+
+    of += PERLIN_ZWRAP;
+    n2  = perlin[of&PERLIN_SIZE];
+    n2 += rxf*(perlin[(of+1)&PERLIN_SIZE]-n2);
+    n3  = perlin[(of+PERLIN_YWRAP)&PERLIN_SIZE];
+    n3 += rxf*(perlin[(of+PERLIN_YWRAP+1)&PERLIN_SIZE]-n3);
+    n2 += ryf*(n3-n2);
+
+    n1 += scaled_cosine(zf)*(n2-n1);
+
+    r += n1*ampl;
+    ampl *= perlin_amp_falloff;
+    xi<<=1;
+    xf*=2;
+    yi<<=1;
+    yf*=2;
+    zi<<=1;
+    zf*=2;
+
+    if (xf>=1.0) { xi++; xf--; }
+    if (yf>=1.0) { yi++; yf--; }
+    if (zf>=1.0) { zi++; zf--; }
+  }
+  return r;
+};
+
+
+/**
+ *
+ * Adjusts the character and level of detail produced by the Perlin noise
+ * function. Similar to harmonics in physics, noise is computed over
+ * several octaves. Lower octaves contribute more to the output signal and
+ * as such define the overall intensity of the noise, whereas higher octaves
+ * create finer grained details in the noise sequence.
+ * <br><br>
+ * By default, noise is computed over 4 octaves with each octave contributing
+ * exactly half than its predecessor, starting at 50% strength for the 1st
+ * octave. This falloff amount can be changed by adding an additional function
+ * parameter. Eg. a falloff factor of 0.75 means each octave will now have
+ * 75% impact (25% less) of the previous lower octave. Any value between
+ * 0.0 and 1.0 is valid, however note that values greater than 0.5 might
+ * result in greater than 1.0 values returned by <b>noise()</b>.
+ * <br><br>
+ * By changing these parameters, the signal created by the <b>noise()</b>
+ * function can be adapted to fit very specific needs and characteristics.
+ *
+ * @method noiseDetail
+ * @param {Number} lod number of octaves to be used by the noise
+ * @param {Number} falloff falloff factor for each octave
+ * @example
+ * <div>
+ * <code>
+ *
+ * var noiseVal;
+ * var noiseScale=0.02;
+ *
+ * function setup() {
+ *   createCanvas(100,100);
+ * }
+ *
+ * function draw() {
+ *   background(0);
+ *   for (var y = 0; y < height; y++) {
+ *     for (var x = 0; x < width/2; x++) {
+ *       noiseDetail(2,0.2);
+ *       noiseVal = noise((mouseX+x) * noiseScale,
+ *                        (mouseY+y) * noiseScale);
+ *       stroke(noiseVal*255);
+ *       point(x,y);
+ *       noiseDetail(8,0.65);
+ *       noiseVal = noise((mouseX + x + width/2) * noiseScale,
+ *                        (mouseY + y) * noiseScale);
+ *       stroke(noiseVal*255);
+ *       point(x + width/2, y);
+ *     }
+ *   }
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * 2 vertical grey smokey patterns affected my mouse x-position and noise.
+ *
+ */
+p5.prototype.noiseDetail = function(lod, falloff) {
+  if (lod>0)     { perlin_octaves=lod; }
+  if (falloff>0) { perlin_amp_falloff=falloff; }
+};
+
+/**
+ * Sets the seed value for <b>noise()</b>. By default, <b>noise()</b>
+ * produces different results each time the program is run. Set the
+ * <b>value</b> parameter to a constant to return the same pseudo-random
+ * numbers each time the software is run.
+ *
+ * @method noiseSeed
+ * @param {Number} seed   the seed value
+ * @example
+ * <div>
+ * <code>var xoff = 0.0;
+ *
+ * function setup() {
+ *   noiseSeed(99);
+ *   stroke(0, 10);
+ * }
+ *
+ * function draw() {
+ *   xoff = xoff + .01;
+ *   var n = noise(xoff) * width;
+ *   line(n, 0, n, height);
+ * }
+ * </code>
+ * </div>
+ *
+ * @alt
+ * vertical grey lines drawing in pattern affected by noise.
+ *
+ */
+p5.prototype.noiseSeed = function(seed) {
+  // Linear Congruential Generator
+  // Variant of a Lehman Generator
+  var lcg = (function() {
+    // Set to values from http://en.wikipedia.org/wiki/Numerical_Recipes
+    // m is basically chosen to be large (as it is the max period)
+    // and for its relationships to a and c
+    var m = 4294967296,
+    // a - 1 should be divisible by m's prime factors
+    a = 1664525,
+     // c and m should be co-prime
+    c = 1013904223,
+    seed, z;
+    return {
+      setSeed : function(val) {
+        // pick a random seed if val is undefined or null
+        // the >>> 0 casts the seed to an unsigned 32-bit integer
+        z = seed = (val == null ? Math.random() * m : val) >>> 0;
+      },
+      getSeed : function() {
+        return seed;
+      },
+      rand : function() {
+        // define the recurrence relationship
+        z = (a * z + c) % m;
+        // return a float in [0, 1)
+        // if z = m then z / m = 0 therefore (z % m) / m < 1 always
+        return z / m;
+      }
+    };
+  }());
+
+  lcg.setSeed(seed);
+  perlin = new Array(PERLIN_SIZE + 1);
+  for (var i = 0; i < PERLIN_SIZE + 1; i++) {
+    perlin[i] = lcg.rand();
+  }
+};
+
+module.exports = p5;
+
+},{"../core/core":5}],23:[function(_dereq_,module,exports){
+/**
+ * @module Math
+ * @submodule Math
+ * @requires constants
+ */
+
+'use strict';
+
+var p5 = _dereq_('../core/core');
+var polarGeometry = _dereq_('./polargeometry');
+var constants = _dereq_('../core/constants');
+
+/**
+ * A class to describe a two or three dimensional vector, specifically
+ * a Euclidean (also known as geometric) vector. A vector is an entity
+ * that has both magnitude and direction. The datatype, however, stores
+ * the components of the vector (x, y for 2D, and x, y, z for 3D). The magnitude
+ * and direction can be accessed via the methods mag() and heading().
+ * <br><br>
+ * In many of the p5.js examples, you will see p5.Vector used to describe a
+ * position, velocity, or acceleration. For example, if you consider a rectangle
+ * moving across the screen, at any given instant it has a position (a vector
+ * that points from the origin to its location), a velocity (the rate at which
+ * the object's position changes per time unit, expressed as a vector), and
+ * acceleration (the rate at which the object's velocity changes per time
+ * unit, expressed as a vector).
+ * <br><br>
+ * Since vectors represent groupings of values, we cannot simply use
+ * traditional addition/multiplication/etc. Instead, we'll need to do some
+ * "vector" math, which is made easy by the methods inside the p5.Vector class.
+ *
+ * @class p5.Vector
+ * @constructor
+ * @param {Number} [x] x component of the vector
+ * @param {Number} [y] y component of the vector
+ * @param {Number} [z] z component of the vector
+ * @example
+ * <div>
+ * <code>
+ * var v1 = createVector(40, 50);
+ * var v2 = createVector(40, 50);
+ *
+ * ellipse(v1.x, v1.y, 50, 50);
+ * ellipse(v2.x, v2.y, 50, 50);
+ * v1.add(v2);
+ * ellipse(v1.x, v1.y, 50, 50);
+ * </code>
+ * </div>
+ *
+ * @alt
+ * 2 white ellipses. One center-left the other bottom right and off canvas
+ *
+ */
+p5.Vector = function() {
+  var x,y,z;
+  // This is how it comes in with createVector()
+  if(arguments[0] instanceof p5) {
+    // save reference to p5 if passed in
+    this.p5 = arguments[0];
+    x  = arguments[1][0] || 0;
+    y  = arguments[1][1] || 0;
+    z  = arguments[1][2] || 0;
+  // This is what we'll get with new p5.Vector()
+  } else {
+    x = arguments[0] || 0;
+    y = arguments[1] || 0;
+    z = arguments[2] || 0;
+  }
+  /**
+   * The x component of the vector
+   * @property x {Number}
+   */
+  this.x = x;
+  /**
+   * The y component of the vector
+   * @property y {Number}
+   */
+  this.y = y;
+  /**
+   * The z component of the vector
+   * @property z {Number}
+   */
+  this.z = z;
+};
+
+/**
+ * Returns a string representation of a vector v by calling String(v)
+ * or v.toString(). This method is useful for logging vectors in the
+ * console.
+ * @method  toString
+ * @example
+ * <div class = "norender"><code>
+ * function setup() {
+ *   var v = createVector(20,30);
+ *   print(String(v)); // prints "p5.Vector Object : [20, 30, 0]"
+ * }
+ * </div></code>
+ *
+ */
+p5.Vector.prototype.toString = function p5VectorToString() {
+  return 'p5.Vector Object : ['+ this.x +', '+ this.y +', '+ this.z + ']';
+};
+
+/**
+ * Sets the x, y, and z component of the vector using two or three separate
+ * variables, the data from a p5.Vector, or the values from a float array.
+ * @method set
+ * @param {Number|p5.Vector|Array} [x] the x component of the vector or a
+ *                                     p5.Vector or an Array
+ * @param {Number}                 [y] the y component of the vector
+ * @param {Number}                 [z] the z component of the vector
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * function setup() {
+ *    var v = createVector(1, 2, 3);
+ *    v.set(4,5,6); // Sets vector to [4, 5, 6]
+ *
+ *    var v1 = createVector(0, 0, 0);
+ *    var arr = [1, 2, 3];
+ *    v1.set(arr); // Sets vector to [1, 2, 3]
+ * }
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.set = function (x, y, z) {
+  if (x instanceof p5.Vector) {
+    this.x = x.x || 0;
+    this.y = x.y || 0;
+    this.z = x.z || 0;
+    return this;
+  }
+  if (x instanceof Array) {
+    this.x = x[0] || 0;
+    this.y = x[1] || 0;
+    this.z = x[2] || 0;
+    return this;
+  }
+  this.x = x || 0;
+  this.y = y || 0;
+  this.z = z || 0;
+  return this;
+};
+
+/**
+ * Gets a copy of the vector, returns a p5.Vector object.
+ *
+ * @method copy
+ * @return {p5.Vector} the copy of the p5.Vector object
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(1, 2, 3);
+ * var v2 = v1.copy();
+ * print(v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
+ * // Prints "true"
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.copy = function () {
+  if (this.p5) {
+    return new p5.Vector(this.p5,[this.x, this.y, this.z]);
+  } else {
+    return new p5.Vector(this.x,this.y,this.z);
+  }
+};
+
+/**
+ * Adds x, y, and z components to a vector, adds one vector to another, or
+ * adds two independent vectors together. The version of the method that adds
+ * two vectors together is a static method and returns a p5.Vector, the others
+ * acts directly on the vector. See the examples for more context.
+ *
+ * @method add
+ * @param  {Number|p5.Vector|Array} x   the x component of the vector to be
+ *                                      added or a p5.Vector or an Array
+ * @param  {Number}                 [y] the y component of the vector to be
+ *                                      added
+ * @param  {Number}                 [z] the z component of the vector to be
+ *                                      added
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(1, 2, 3);
+ * v.add(4,5,6);
+ * // v's components are set to [5, 7, 9]
+ * </code>
+ * </div>
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1 = createVector(1, 2, 3);
+ * var v2 = createVector(2, 3, 4);
+ *
+ * var v3 = p5.Vector.add(v1, v2);
+ * // v3 has components [3, 5, 7]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.add = function (x, y, z) {
+  if (x instanceof p5.Vector) {
+    this.x += x.x || 0;
+    this.y += x.y || 0;
+    this.z += x.z || 0;
+    return this;
+  }
+  if (x instanceof Array) {
+    this.x += x[0] || 0;
+    this.y += x[1] || 0;
+    this.z += x[2] || 0;
+    return this;
+  }
+  this.x += x || 0;
+  this.y += y || 0;
+  this.z += z || 0;
+  return this;
+};
+
+/**
+ * Subtracts x, y, and z components from a vector, subtracts one vector from
+ * another, or subtracts two independent vectors. The version of the method
+ * that subtracts two vectors is a static method and returns a p5.Vector, the
+ * other acts directly on the vector. See the examples for more context.
+ *
+ * @method sub
+ * @param  {Number|p5.Vector|Array} x   the x component of the vector or a
+ *                                      p5.Vector or an Array
+ * @param  {Number}                 [y] the y component of the vector
+ * @param  {Number}                 [z] the z component of the vector
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(4, 5, 6);
+ * v.sub(1, 1, 1);
+ * // v's components are set to [3, 4, 5]
+ * </code>
+ * </div>
+ *
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1 = createVector(2, 3, 4);
+ * var v2 = createVector(1, 2, 3);
+ *
+ * var v3 = p5.Vector.sub(v1, v2);
+ * // v3 has components [1, 1, 1]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.sub = function (x, y, z) {
+  if (x instanceof p5.Vector) {
+    this.x -= x.x || 0;
+    this.y -= x.y || 0;
+    this.z -= x.z || 0;
+    return this;
+  }
+  if (x instanceof Array) {
+    this.x -= x[0] || 0;
+    this.y -= x[1] || 0;
+    this.z -= x[2] || 0;
+    return this;
+  }
+  this.x -= x || 0;
+  this.y -= y || 0;
+  this.z -= z || 0;
+  return this;
+};
+
+/**
+ * Multiply the vector by a scalar. The static version of this method
+ * creates a new p5.Vector while the non static version acts on the vector
+ * directly. See the examples for more context.
+ *
+ * @method mult
+ * @param  {Number}    n the number to multiply with the vector
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(1, 2, 3);
+ * v.mult(2);
+ * // v's components are set to [2, 4, 6]
+ * </code>
+ * </div>
+ *
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1 = createVector(1, 2, 3);
+ * var v2 = p5.Vector.mult(v1, 2);
+ * // v2 has components [2, 4, 6]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.mult = function (n) {
+  this.x *= n || 0;
+  this.y *= n || 0;
+  this.z *= n || 0;
+  return this;
+};
+
+/**
+ * Divide the vector by a scalar. The static version of this method creates a
+ * new p5.Vector while the non static version acts on the vector directly.
+ * See the examples for more context.
+ *
+ * @method div
+ * @param  {number}    n the number to divide the vector by
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(6, 4, 2);
+ * v.div(2); //v's components are set to [3, 2, 1]
+ * </code>
+ * </div>
+ *
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1  = createVector(6, 4, 2);
+ * var v2 = p5.Vector.div(v, 2);
+ * // v2 has components [3, 2, 1]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.div = function (n) {
+  this.x /= n;
+  this.y /= n;
+  this.z /= n;
+  return this;
+};
+
+/**
+ * Calculates the magnitude (length) of the vector and returns the result as
+ * a float (this is simply the equation sqrt(x*x + y*y + z*z).)
+ *
+ * @method mag
+ * @return {Number} magnitude of the vector
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(20.0, 30.0, 40.0);
+ * var m = v.mag();
+ * print(m); // Prints "53.85164807134504"
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.mag = function () {
+  return Math.sqrt(this.magSq());
+};
+
+/**
+ * Calculates the squared magnitude of the vector and returns the result
+ * as a float (this is simply the equation <em>(x*x + y*y + z*z)</em>.)
+ * Faster if the real length is not required in the
+ * case of comparing vectors, etc.
+ *
+ * @method magSq
+ * @return {number} squared magnitude of the vector
+ * @example
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1 = createVector(6, 4, 2);
+ * print(v1.magSq()); // Prints "56"
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.magSq = function () {
+  var x = this.x, y = this.y, z = this.z;
+  return (x * x + y * y + z * z);
+};
+
+/**
+ * Calculates the dot product of two vectors. The version of the method
+ * that computes the dot product of two independent vectors is a static
+ * method. See the examples for more context.
+ *
+ *
+ * @method dot
+ * @param  {Number|p5.Vector} x   x component of the vector or a p5.Vector
+ * @param  {Number}           [y] y component of the vector
+ * @param  {Number}           [z] z component of the vector
+ * @return {Number}                 the dot product
+ *
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(1, 2, 3);
+ * var v2 = createVector(2, 3, 4);
+ *
+ * print(v1.dot(v2)); // Prints "20"
+ * </code>
+ * </div>
+ *
+ * <div class="norender">
+ * <code>
+ * //Static method
+ * var v1 = createVector(1, 2, 3);
+ * var v2 = createVector(3, 2, 1);
+ * print (p5.Vector.dot(v1, v2)); // Prints "10"
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.dot = function (x, y, z) {
+  if (x instanceof p5.Vector) {
+    return this.dot(x.x, x.y, x.z);
+  }
+  return this.x * (x || 0) +
+         this.y * (y || 0) +
+         this.z * (z || 0);
+};
+
+/**
+ * Calculates and returns a vector composed of the cross product between
+ * two vectors. Both the static and non static methods return a new p5.Vector.
+ * See the examples for more context.
+ *
+ * @method cross
+ * @param  {p5.Vector} v p5.Vector to be crossed
+ * @return {p5.Vector}   p5.Vector composed of cross product
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(1, 2, 3);
+ * var v2 = createVector(1, 2, 3);
+ *
+ * v1.cross(v2); // v's components are [0, 0, 0]
+ * </code>
+ * </div>
+ *
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1 = createVector(1, 0, 0);
+ * var v2 = createVector(0, 1, 0);
+ *
+ * var crossProduct = p5.Vector.cross(v1, v2);
+ * // crossProduct has components [0, 0, 1]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.cross = function (v) {
+  var x = this.y * v.z - this.z * v.y;
+  var y = this.z * v.x - this.x * v.z;
+  var z = this.x * v.y - this.y * v.x;
+  if (this.p5) {
+    return new p5.Vector(this.p5,[x,y,z]);
+  } else {
+    return new p5.Vector(x,y,z);
+  }
+};
+
+/**
+ * Calculates the Euclidean distance between two points (considering a
+ * point as a vector object).
+ *
+ * @method dist
+ * @param  {p5.Vector} v the x, y, and z coordinates of a p5.Vector
+ * @return {Number}      the distance
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(1, 0, 0);
+ * var v2 = createVector(0, 1, 0);
+ *
+ * var distance = v1.dist(v2); // distance is 1.4142...
+ * </code>
+ * </div>
+ * <div class="norender">
+ * <code>
+ * // Static method
+ * var v1 = createVector(1, 0, 0);
+ * var v2 = createVector(0, 1, 0);
+ *
+ * var distance = p5.Vector.dist(v1,v2);
+ * // distance is 1.4142...
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.dist = function (v) {
+  var d = v.copy().sub(this);
+  return d.mag();
+};
+
+/**
+ * Normalize the vector to length 1 (make it a unit vector).
+ *
+ * @method normalize
+ * @return {p5.Vector} normalized p5.Vector
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(10, 20, 2);
+ * // v has components [10.0, 20.0, 2.0]
+ * v.normalize();
+ * // v's components are set to
+ * // [0.4454354, 0.8908708, 0.089087084]
+ * </code>
+ * </div>
+ *
+ */
+p5.Vector.prototype.normalize = function () {
+  return this.mag() === 0 ? this : this.div(this.mag());
+};
+
+/**
+ * Limit the magnitude of this vector to the value used for the <b>max</b>
+ * parameter.
+ *
+ * @method limit
+ * @param  {Number}    max the maximum magnitude for the vector
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(10, 20, 2);
+ * // v has components [10.0, 20.0, 2.0]
+ * v.limit(5);
+ * // v's components are set to
+ * // [2.2271771, 4.4543543, 0.4454354]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.limit = function (max) {
+  var mSq = this.magSq();
+  if(mSq > max*max) {
+    this.div(Math.sqrt(mSq)); //normalize it
+    this.mult(max);
+  }
+  return this;
+};
+
+/**
+ * Set the magnitude of this vector to the value used for the <b>len</b>
+ * parameter.
+ *
+ * @method setMag
+ * @param  {number}    len the new length for this vector
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(10, 20, 2);
+ * // v has components [10.0, 20.0, 2.0]
+ * v.setMag(10);
+ * // v's components are set to [6.0, 8.0, 0.0]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.setMag = function (n) {
+  return this.normalize().mult(n);
+};
+
+/**
+ * Calculate the angle of rotation for this vector (only 2D vectors)
+ *
+ * @method heading
+ * @return {Number} the angle of rotation
+ * @example
+ * <div class = "norender"><code>
+ * function setup() {
+ *   var v1 = createVector(30,50);
+ *   print(v1.heading()); // 1.0303768265243125
+ *
+ *   var v1 = createVector(40,50);
+ *   print(v1.heading()); // 0.8960553845713439
+ *
+ *   var v1 = createVector(30,70);
+ *   print(v1.heading()); // 1.1659045405098132
+ * }
+ * </div></code>
+ */
+p5.Vector.prototype.heading = function () {
+  var h = Math.atan2(this.y, this.x);
+  if (this.p5) {
+    if (this.p5._angleMode === constants.RADIANS) {
+      return h;
+    } else {
+      return polarGeometry.radiansToDegrees(h);
+    }
+  } else {
+    return h;
+  }
+};
+
+/**
+ * Rotate the vector by an angle (only 2D vectors), magnitude remains the
+ * same
+ *
+ * @method rotate
+ * @param  {number}    angle the angle of rotation
+ * @chainable
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(10.0, 20.0);
+ * // v has components [10.0, 20.0, 0.0]
+ * v.rotate(HALF_PI);
+ * // v's components are set to [-20.0, 9.999999, 0.0]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.rotate = function (a) {
+  var newHeading = this.heading() + a;
+  if (this.p5) {
+    if (this.p5._angleMode === constants.DEGREES) {
+      newHeading = polarGeometry.degreesToRadians(newHeading);
+    }
+  }
+  var mag = this.mag();
+  this.x = Math.cos(newHeading) * mag;
+  this.y = Math.sin(newHeading) * mag;
+  return this;
+};
+
+/**
+ * Calculates and returns the angle (in radians) between two vectors.
+ * @method angleBetween
+ * @param  {p5.Vector}    the x, y, and z components of a p5.Vector
+ * @return {Number}       the angle between (in radians)
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(1, 0, 0);
+ * var v2 = createVector(0, 1, 0);
+ *
+ * var angle = v1.angleBetween(v2);
+ * // angle is PI/2
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.angleBetween = function (v) {
+  var angle = Math.acos(this.dot(v) / (this.mag() * v.mag()));
+  if (this.p5) {
+    if (this.p5._angleMode === constants.DEGREES) {
+      angle = polarGeometry.radiansToDegrees(angle);
+    }
+  }
+  return angle;
+};
+
+/**
+ * Linear interpolate the vector to another vector
+ *
+ * @method lerp
+ * @param  {p5.Vector} x   the x component
+ * @param  {p5.Vector} y   the y component
+ * @param  {p5.Vector} z   the z component
+ * @param  {Number}    amt the amount of interpolation; some value between 0.0
+ *                         (old vector) and 1.0 (new vector). 0.1 is very near
+ *                         the new vector. 0.5 is halfway in between.
+ * @chainable
+ */
+/**
+ * @method lerp
+ * @param  {p5.Vector} v   the p5.Vector to lerp to
+ * @param  {Number}    amt
+ * @chainable
+ *
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = createVector(1, 1, 0);
+ *
+ * v.lerp(3, 3, 0, 0.5); // v now has components [2,2,0]
+ * </code>
+ * </div>
+ *
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(0, 0, 0);
+ * var v2 = createVector(100, 100, 0);
+ *
+ * var v3 = p5.Vector.lerp(v1, v2, 0.5);
+ * // v3 has components [50,50,0]
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.lerp = function (x, y, z, amt) {
+  if (x instanceof p5.Vector) {
+    return this.lerp(x.x, x.y, x.z, y);
+  }
+  this.x += (x - this.x) * amt || 0;
+  this.y += (y - this.y) * amt || 0;
+  this.z += (z - this.z) * amt || 0;
+  return this;
+};
+
+/**
+ * Return a representation of this vector as a float array. This is only
+ * for temporary use. If used in any other fashion, the contents should be
+ * copied by using the <b>p5.Vector.copy()</b> method to copy into your own
+ * array.
+ *
+ * @method array
+ * @return {Number[]} an Array with the 3 values
+ * @example
+ * <div class = "norender"><code>
+ * function setup() {
+ *   var v = createVector(20,30);
+ *   print(v.array()); // Prints : Array [20, 30, 0]
+ * }
+ * </div></code>
+ * <div class="norender">
+ * <code>
+ * var v = createVector(10.0, 20.0, 30.0);
+ * var f = v.array();
+ * print(f[0]); // Prints "10.0"
+ * print(f[1]); // Prints "20.0"
+ * print(f[2]); // Prints "30.0"
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.array = function () {
+  return [this.x || 0, this.y || 0, this.z || 0];
+};
+
+/**
+ * Equality check against a p5.Vector
+ *
+ * @method equals
+ * @param {Number|p5.Vector|Array} [x] the x component of the vector or a
+ *                                     p5.Vector or an Array
+ * @param {Number}                 [y] the y component of the vector
+ * @param {Number}                 [z] the z component of the vector
+ * @return {Boolean} whether the vectors are equals
+ * @example
+ * <div class = "norender"><code>
+ * v1 = createVector(5,10,20);
+ * v2 = createVector(5,10,20);
+ * v3 = createVector(13,10,19);
+ *
+ * print(v1.equals(v2.x,v2.y,v2.z)); // true
+ * print(v1.equals(v3.x,v3.y,v3.z)); // false
+ * </div></code>
+ * <div class="norender">
+ * <code>
+ * var v1 = createVector(10.0, 20.0, 30.0);
+ * var v2 = createVector(10.0, 20.0, 30.0);
+ * var v3 = createVector(0.0, 0.0, 0.0);
+ * print (v1.equals(v2)) // true
+ * print (v1.equals(v3)) // false
+ * </code>
+ * </div>
+ */
+p5.Vector.prototype.equals = function (x, y, z) {
+  var a, b, c;
+  if (x instanceof p5.Vector) {
+    a = x.x || 0;
+    b = x.y || 0;
+    c = x.z || 0;
+  } else if (x instanceof Array) {
+    a = x[0] || 0;
+    b = x[1] || 0;
+    c = x[2] || 0;
+  } else {
+    a = x || 0;
+    b = y || 0;
+    c = z || 0;
+  }
+  return this.x === a && this.y === b && this.z === c;
+};
+
+
+// Static Methods
+
+
+/**
+ * Make a new 2D unit vector from an angle
+ *
+ * @method fromAngle
+ * @static
+ * @param {Number}     angle the desired angle
+ * @return {p5.Vector}       the new p5.Vector object
+ * @example
+ * <div>
+ * <code>
+ * function draw() {
+ *   background (200);
+ *
+ *   // Create a variable, proportional to the mouseX,
+ *   // varying from 0-360, to represent an angle in degrees.
+ *   angleMode(DEGREES);
+ *   var myDegrees = map(mouseX, 0,width, 0,360);
+ *
+ *   // Display that variable in an onscreen text.
+ *   // (Note the nfc() function to truncate additional decimal places,
+ *   // and the "\xB0" character for the degree symbol.)
+ *   var readout = "angle = " + nfc(myDegrees,1,1) + "\xB0"
+ *   noStroke();
+ *   fill (0);
+ *   text (readout, 5, 15);
+ *
+ *   // Create a p5.Vector using the fromAngle function,
+ *   // and extract its x and y components.
+ *   var v = p5.Vector.fromAngle(radians(myDegrees));
+ *   var vx = v.x;
+ *   var vy = v.y;
+ *
+ *   push();
+ *   translate (width/2, height/2);
+ *   noFill();
+ *   stroke (150);
+ *   line (0,0, 30,0);
+ *   stroke (0);
+ *   line (0,0, 30*vx, 30*vy);
+ *   pop()
+ * }
+ * </code>
+ * </div>
+ */
+p5.Vector.fromAngle = function(angle) {
+  if (this.p5) {
+    if (this.p5._angleMode === constants.DEGREES) {
+      angle = polarGeometry.degreesToRadians(angle);
+    }
+  }
+  if (this.p5) {
+    return new p5.Vector(this.p5,[Math.cos(angle),Math.sin(angle),0]);
+  } else {
+    return new p5.Vector(Math.cos(angle),Math.sin(angle),0);
+  }
+};
+
+/**
+ * Make a new 2D unit vector from a random angle
+ *
+ * @method random2D
+ * @static
+ * @return {p5.Vector} the new p5.Vector object
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = p5.Vector.random2D();
+ * // May make v's attributes something like:
+ * // [0.61554617, -0.51195765, 0.0] or
+ * // [-0.4695841, -0.14366731, 0.0] or
+ * // [0.6091097, -0.22805278, 0.0]
+ * </code>
+ * </div>
+ */
+p5.Vector.random2D = function () {
+  var angle;
+  // A lot of nonsense to determine if we know about a
+  // p5 sketch and whether we should make a random angle in degrees or radians
+  if (this.p5) {
+    if (this.p5._angleMode === constants.DEGREES) {
+      angle = this.p5.random(360);
+    } else {
+      angle = this.p5.random(constants.TWO_PI);
+    }
+  } else {
+    angle = Math.random()*Math.PI*2;
+  }
+  return this.fromAngle(angle);
+};
+
+/**
+ * Make a new random 3D unit vector.
+ *
+ * @method random3D
+ * @static
+ * @return {p5.Vector} the new p5.Vector object
+ * @example
+ * <div class="norender">
+ * <code>
+ * var v = p5.Vector.random3D();
+ * // May make v's attributes something like:
+ * // [0.61554617, -0.51195765, 0.599168] or
+ * // [-0.4695841, -0.14366731, -0.8711202] or
+ * // [0.6091097, -0.22805278, -0.7595902]
+ * </code>
+ * </div>
+ */
+p5.Vector.random3D = function () {
+  var angle,vz;
+  // If we know about p5
+  if (this.p5) {
+    angle = this.p5.random(0,constants.TWO_PI);
+    vz = this.p5.random(-1,1);
+  } else {
+    angle = Math.random()*Math.PI*2;
+    vz = Math.random()*2-1;
+  }
+  var vx = Math.sqrt(1-vz*vz)*Math.cos(angle);
+  var vy = Math.sqrt(1-vz*vz)*Math.sin(angle);
+  if (this.p5) {
+    return new p5.Vector(this.p5,[vx,vy,vz]);
+  } else {
+    return new p5.Vector(vx,vy,vz);
+  }
+};
+
+// Adds two vectors together and returns a new one.
+/**
+ * @method add
+ * @static
+ * @param  {p5.Vector} v1 a p5.Vector to add
+ * @param  {p5.Vector} v2 a p5.Vector to add
+ * @param  {p5.Vector} target the vector to receive the result
+ */
+/**
+ * @method add
+ * @static
+ * @param  {p5.Vector} v1
+ * @param  {p5.Vector} v2
+ * @return {p5.Vector} the resulting p5.Vector
+ *
+ */
+
+p5.Vector.add = function (v1, v2, target) {
+  if (!target) {
+    target = v1.copy();
+  } else {
+    target.set(v1);
+  }
+  target.add(v2);
+  return target;
+};
+
+/*
+ * Subtracts one p5.Vector from another and returns a new one.  The second
+ * vector (v2) is subtracted from the first (v1), resulting in v1-v2.
+ */
+/**
+ * @method sub
+ * @static
+ * @param  {p5.Vector} v1 a p5.Vector to subtract from
+ * @param  {p5.Vector} v2 a p5.Vector to subtract
+ * @param  {p5.Vector} target if undefined a new vector will be created
+ */
+/**
+ * @method sub
+ * @static
+ * @param  {p5.Vector} v1
+ * @param  {p5.Vector} v2
+ * @return {p5.Vector} the resulting p5.Vector
+ */
+
+p5.Vector.sub = function (v1, v2, target) {
+  if (!target) {
+    target = v1.copy();
+  } else {
+    target.set(v1);
+  }
+  target.sub(v2);
+  return target;
+};
+
+
+/**
+ * Multiplies a vector by a scalar and returns a new vector.
+ */
+/**
+ * @method mult
+ * @static
+ * @param  {p5.Vector} v the vector to multiply
+ * @param  {Number}  n
+ * @param  {p5.Vector} target if undefined a new vector will be created
+ */
+/**
+ * @method mult
+ * @static
+ * @param  {p5.Vector} v
+ * @param  {Number}  n
+ * @return {p5.Vector}  the resulting new p5.Vector
+ */
+p5.Vector.mult = function (v, n, target) {
+  if (!target) {
+    target = v.copy();
+  } else {
+    target.set(v);
+  }
+  target.mult(n);
+  return target;
+};
+
+/**
+ * Divides a vector by a scalar and returns a new vector.
+ */
+/**
+ * @method div
+ * @static
+ * @param  {p5.Vector} v the vector to divide
+ * @param  {Number}  n
+ * @param  {p5.Vector} target if undefined a new vector will be created
+ */
+/**
+ * @method div
+ * @static
+ * @param  {p5.Vector} v
+ * @param  {Number}  n
+ * @return {p5.Vector} the resulting new p5.Vector
+ */
+p5.Vector.div = function (v, n, target) {
+  if (!target) {
+    target = v.copy();
+  } else {
+    target.set(v);
+  }
+  target.div(n);
+  return target;
+};
+
+
+/**
+ * Calculates the dot product of two vectors.
+ */
+/**
+ * @method dot
+ * @static
+ * @param  {p5.Vector} v1 the first p5.Vector
+ * @param  {p5.Vector} v2 the second p5.Vector
+ * @return {Number}     the dot product
+ */
+p5.Vector.dot = function (v1, v2) {
+  return v1.dot(v2);
+};
+
+/**
+ * Calculates the cross product of two vectors.
+ */
+/**
+ * @method cross
+ * @static
+ * @param  {p5.Vector} v1 the first p5.Vector
+ * @param  {p5.Vector} v2 the second p5.Vector
+ * @return {Number}     the cross product
+ */
+p5.Vector.cross = function (v1, v2) {
+  return v1.cross(v2);
+};
+
+/**
+ * Calculates the Euclidean distance between two points (considering a
+ * point as a vector object).
+ */
+/**
+ * @method dist
+ * @static
+ * @param  {p5.Vector} v1 the first p5.Vector
+ * @param  {p5.Vector} v2 the second p5.Vector
+ * @return {Number}     the distance
+ */
+p5.Vector.dist = function (v1,v2) {
+  return v1.dist(v2);
+};
+
+/**
+ * Linear interpolate a vector to another vector and return the result as a
+ * new vector.
+ */
+/**
+ * @method lerp
+ * @static
+ * @param {p5.Vector} v1
+ * @param {p5.Vector} v2
+ * @param {Number} amt
+ * @param {p5.Vector} target if undefined a new vector will be created
+ */
+/**
+ * @method lerp
+ * @static
+ * @param {p5.Vector} v1
+ * @param {p5.Vector} v2
+ * @param {Number} amt
+ * @return {Number}      the lerped value
+ */
+p5.Vector.lerp = function (v1, v2, amt, target) {
+  if (!target) {
+    target = v1.copy();
+  } else {
+    target.set(v1);
+  }
+  target.lerp(v2, amt);
+  return target;
+};
+
+/**
+ * @method mag
+ * @param {p5.Vector} vecT the vector to return the magnitude of
+ * @return {Number}        the magnitude of vecT
+ * @static
+ */
+p5.Vector.mag = function (vecT){
+  var x = vecT.x,
+    y = vecT.y,
+    z = vecT.z;
+  var magSq = x * x + y * y + z * z;
+  return Math.sqrt(magSq);
+};
+
+module.exports = p5.Vector;
+
+},{"../core/constants":4,"../core/core":5,"./polargeometry":24}],24:[function(_dereq_,module,exports){
 
 module.exports = {
 
@@ -8543,10 +10779,10 @@ module.exports = {
 
 };
 
-},{}],21:[function(_dereq_,module,exports){
+},{}],25:[function(_dereq_,module,exports){
 /**
- * @module Data
- * @submodule Array Functions
+ * @module Math
+ * @submodule Random
  * @for p5
  * @requires core
  */
@@ -8555,1389 +10791,600 @@ module.exports = {
 
 var p5 = _dereq_('../core/core');
 
-/**
- * Adds a value to the end of an array. Extends the length of
- * the array by one. Maps to Array.push().
- *
- * @method append
- * @param {Array} array Array to append
- * @param {any} value to be added to the Array
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *
- * var myArray = new Array("Mango", "Apple", "Papaya")
- * print(myArray) // ["Mango", "Apple", "Papaya"]
- *
- * append(myArray, "Peach")
- * print(myArray) // ["Mango", "Apple", "Papaya", "Peach"]
- *
- * }
- * </div></code>
- */
-p5.prototype.append = function(array, value) {
-  array.push(value);
-  return array;
-};
+var seeded = false;
+var previous = false;
+var y2 = 0;
 
-/**
- * Copies an array (or part of an array) to another array. The src array is
- * copied to the dst array, beginning at the position specified by
- * srcPosition and into the position specified by dstPosition. The number of
- * elements to copy is determined by length. Note that copying values
- * overwrites existing values in the destination array. To append values
- * instead of overwriting them, use concat().
- * <br><br>
- * The simplified version with only two arguments, arrayCopy(src, dst),
- * copies an entire array to another of the same size. It is equivalent to
- * arrayCopy(src, 0, dst, 0, src.length).
- * <br><br>
- * Using this function is far more efficient for copying array data than
- * iterating through a for() loop and copying each element individually.
- *
- * @method arrayCopy
- * @param {Array}  src           the source Array
- * @param {Number} srcPosition   starting position in the source Array
- * @param {Array}  dst           the destination Array
- * @param {Number} dstPosition   starting position in the destination Array
- * @param {Number} length        number of Array elements to be copied
- */
-/**
- * @method arrayCopy
- * @param {Array}  src
- * @param {Array}  dst
- * @param {Number} [length]
- *
- * @example
- *  <div class="norender"><code>
- *  function setup() {
- *
- *    var src = new Array("A", "B", "C");
- *    var dst = new Array( 1 ,  2 ,  3 );
- *    var srcPosition = 1;
- *    var dstPosition = 0;
- *    var length = 2;
- *
- *    print(src); // ["A", "B", "C"]
- *    print(dst); // [ 1 ,  2 ,  3 ]
- *
- *    arrayCopy(src, srcPosition, dst, dstPosition, length);
- *    print(dst); // ["B", "C", 3]
- *
- *    }
- *  </div></code>
- */
-p5.prototype.arrayCopy = function(
-  src,
-  srcPosition,
-  dst,
-  dstPosition,
-  length) {
-
-  // the index to begin splicing from dst array
-  var start,
-      end;
-
-  if (typeof length !== 'undefined') {
-
-    end = Math.min(length, src.length);
-    start = dstPosition;
-    src = src.slice(srcPosition, end + srcPosition);
-
-  } else {
-
-    if (typeof dst !== 'undefined') { // src, dst, length
-      // rename  so we don't get confused
-      end = dst;
-      end = Math.min(end, src.length);
-    } else { // src, dst
-      end = src.length;
+// Linear Congruential Generator
+// Variant of a Lehman Generator
+var lcg = (function() {
+  // Set to values from http://en.wikipedia.org/wiki/Numerical_Recipes
+  // m is basically chosen to be large (as it is the max period)
+  // and for its relationships to a and c
+  var m = 4294967296,
+    // a - 1 should be divisible by m's prime factors
+    a = 1664525,
+    // c and m should be co-prime
+    c = 1013904223,
+    seed, z;
+  return {
+    setSeed : function(val) {
+      // pick a random seed if val is undefined or null
+      // the >>> 0 casts the seed to an unsigned 32-bit integer
+      z = seed = (val == null ? Math.random() * m : val) >>> 0;
+    },
+    getSeed : function() {
+      return seed;
+    },
+    rand : function() {
+      // define the recurrence relationship
+      z = (a * z + c) % m;
+      // return a float in [0, 1)
+      // if z = m then z / m = 0 therefore (z % m) / m < 1 always
+      return z / m;
     }
-
-    start = 0;
-    // rename  so we don't get confused
-    dst = srcPosition;
-    src = src.slice(0, end);
-  }
-
-  // Since we are not returning the array and JavaScript is pass by reference
-  // we must modify the actual values of the array
-  // instead of reassigning arrays
-  Array.prototype.splice.apply(dst, [start, end].concat(src));
-
-};
+  };
+}());
 
 /**
- * Concatenates two arrays, maps to Array.concat(). Does not modify the
- * input arrays.
+ * Sets the seed value for random().
  *
- * @method concat
- * @param {Array} a first Array to concatenate
- * @param {Array} b second Array to concatenate
- * @return {Array} concatenated array
+ * By default, random() produces different results each time the program
+ * is run. Set the seed parameter to a constant to return the same
+ * pseudo-random numbers each time the software is run.
  *
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var arr1 = new Array("A", "B", "C");
- *   var arr2 = new Array( 1 ,  2 ,  3 );
- *
- *   print(arr1); // ["A","B","C"]
- *   print(arr2); // [1,2,3]
- *
- *   var arr3 = concat(arr1, arr2);
- *
- *   print(arr1); // ["A","B","C"]
- *   print(arr2); // [1,2,3]
- *   print(arr3); // ["A","B","C",1,2,3]
- *
- * }
- * </div></code>
- */
-p5.prototype.concat = function(list0, list1) {
-  return list0.concat(list1);
-};
-
-/**
- * Reverses the order of an array, maps to Array.reverse()
- *
- * @method reverse
- * @param {Array} list Array to reverse
- * @example
- * <div class="norender"><code>
- * function setup() {
- *   var myArray = new Array("A", "B", "C");
- *   print(myArray); // ["A","B","C"]
- *
- *   reverse(myArray);
- *   print(myArray); // ["C","B","A"]
- * }
- * </div></code>
- */
-p5.prototype.reverse = function(list) {
-  return list.reverse();
-};
-
-/**
- * Decreases an array by one element and returns the shortened array,
- * maps to Array.pop().
- *
- * @method shorten
- * @param  {Array} list Array to shorten
- * @return {Array} shortened Array
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var myArray = new Array("A", "B", "C");
- *   print(myArray); // ["A","B","C"]
- *
- *   var newArray = shorten(myArray);
- *   print(myArray); // ["A","B","C"]
- *   print(newArray); // ["A","B"]
- * }
- * </div></code>
- */
-p5.prototype.shorten = function(list) {
-  list.pop();
-  return list;
-};
-
-/**
- * Randomizes the order of the elements of an array. Implements
- * <a href="http://Bost.Ocks.org/mike/shuffle/" target=_blank>
- * Fisher-Yates Shuffle Algorithm</a>.
- *
- * @method shuffle
- * @param  {Array}   array  Array to shuffle
- * @param  {Boolean} [bool] modify passed array
- * @return {Array}   shuffled Array
- * @example
- * <div><code>
- * function setup() {
- *   var regularArr = ['ABC', 'def', createVector(), TAU, Math.E];
- *   print(regularArr);
- *   shuffle(regularArr, true); // force modifications to passed array
- *   print(regularArr);
- *
- *   // By default shuffle() returns a shuffled cloned array:
- *   var newArr = shuffle(regularArr);
- *   print(regularArr);
- *   print(newArr);
- * }
- * </code></div>
- */
-p5.prototype.shuffle = function(arr, bool) {
-  var isView = ArrayBuffer && ArrayBuffer.isView && ArrayBuffer.isView(arr);
-  arr = bool || isView ? arr : arr.slice();
-
-  var rnd, tmp, idx = arr.length;
-  while (idx > 1) {
-    rnd = Math.random()*idx | 0;
-
-    tmp = arr[--idx];
-    arr[idx] = arr[rnd];
-    arr[rnd] = tmp;
-  }
-
-  return arr;
-};
-
-/**
- * Sorts an array of numbers from smallest to largest, or puts an array of
- * words in alphabetical order. The original array is not modified; a
- * re-ordered array is returned. The count parameter states the number of
- * elements to sort. For example, if there are 12 elements in an array and
- * count is set to 5, only the first 5 elements in the array will be sorted.
- *
- * @method sort
- * @param {Array} list Array to sort
- * @param {Number} [count] number of elements to sort, starting from 0
- *
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var words = new Array("banana", "apple", "pear","lime");
- *   print(words); // ["banana", "apple", "pear", "lime"]
- *   var count = 4; // length of array
- *
- *   words = sort(words, count);
- *   print(words); // ["apple", "banana", "lime", "pear"]
- * }
- * </div></code>
- * <div class = "norender"><code>
- * function setup() {
- *   var numbers = new Array(2,6,1,5,14,9,8,12);
- *   print(numbers); // [2,6,1,5,14,9,8,12]
- *   var count = 5; // Less than the length of the array
- *
- *   numbers = sort(numbers, count);
- *   print(numbers); // [1,2,5,6,14,9,8,12]
- * }
- * </div></code>
- */
-p5.prototype.sort = function(list, count) {
-  var arr = count ? list.slice(0, Math.min(count, list.length)) : list;
-  var rest = count ? list.slice(Math.min(count, list.length)) : [];
-  if (typeof arr[0] === 'string') {
-    arr = arr.sort();
-  } else {
-    arr = arr.sort(function(a,b){return a-b;});
-  }
-  return arr.concat(rest);
-};
-
-/**
- * Inserts a value or an array of values into an existing array. The first
- * parameter specifies the initial array to be modified, and the second
- * parameter defines the data to be inserted. The third parameter is an index
- * value which specifies the array position from which to insert data.
- * (Remember that array index numbering starts at zero, so the first position
- * is 0, the second position is 1, and so on.)
- *
- * @method splice
- * @param {Array}  list Array to splice into
- * @param {any}    value value to be spliced in
- * @param {Number} position in the array from which to insert data
- *
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var myArray = new Array(0,1,2,3,4);
- *   var insArray = new Array("A","B","C");
- *   print(myArray); // [0,1,2,3,4]
- *   print(insArray); // ["A","B","C"]
- *
- *   splice(myArray, insArray, 3);
- *   print(myArray); // [0,1,2,"A","B","C",3,4]
- * }
- * </div></code>
- */
-p5.prototype.splice = function(list, value, index) {
-
-  // note that splice returns spliced elements and not an array
-  Array.prototype.splice.apply(list, [index, 0].concat(value));
-
-  return list;
-};
-
-/**
- * Extracts an array of elements from an existing array. The list parameter
- * defines the array from which the elements will be copied, and the start
- * and count parameters specify which elements to extract. If no count is
- * given, elements will be extracted from the start to the end of the array.
- * When specifying the start, remember that the first array element is 0.
- * This function does not change the source array.
- *
- * @method subset
- * @param  {Array}  list    Array to extract from
- * @param  {Number} start   position to begin
- * @param  {Number} [count] number of values to extract
- * @return {Array}          Array of extracted elements
- *
- * @example
- * <div class = "norender"><code>
- * function setup() {
- *   var myArray = new Array(1,2,3,4,5);
- *   print(myArray); // [1,2,3,4,5]
- *
- *   var sub1 = subset(myArray, 0, 3);
- *   var sub2 = subset(myArray, 2, 2);
- *   print(sub1); // [1,2,3]
- *   print(sub2); // [3,4]
- * }
- * </div></code>
- */
-p5.prototype.subset = function(list, start, count) {
-  if (typeof count !== 'undefined') {
-    return list.slice(start, start + count);
-  } else {
-    return list.slice(start, list.length);
-  }
-};
-
-module.exports = p5;
-
-},{"../core/core":5}],22:[function(_dereq_,module,exports){
-/**
- * @module Data
- * @submodule Conversion
- * @for p5
- * @requires core
- */
-
-'use strict';
-
-var p5 = _dereq_('../core/core');
-
-/**
- * Converts a string to its floating point representation. The contents of a
- * string must resemble a number, or NaN (not a number) will be returned.
- * For example, float("1234.56") evaluates to 1234.56, but float("giraffe")
- * will return NaN.
- *
- * When an array of values is passed in, then an array of floats of the same
- * length is returned.
- *
- * @method float
- * @param {String}  str float string to parse
- * @return {Number}     floating point representation of string
- * @example
- * <div><code>
- * var str = '20';
- * var diameter = float(str);
- * ellipse(width/2, height/2, diameter, diameter);
- * </code></div>
- *
- * @alt
- * 20 by 20 white ellipse in the center of the canvas
- *
- */
-p5.prototype.float = function(str) {
-  if (str instanceof Array) {
-    return str.map(parseFloat);
-  }
-  return parseFloat(str);
-};
-
-/**
- * Converts a boolean, string, or float to its integer representation.
- * When an array of values is passed in, then an int array of the same length
- * is returned.
- *
- * @method int
- * @param {String|Boolean|Number}       n value to parse
- * @return {Number}                     integer representation of value
- */
-/**
- * @method int
- * @param {Array} ns                    values to parse
- * @return {Number[]}                   integer representation of values
- *
- * @example
- * <div class='norender'><code>
- * print(int("10")); // 10
- * print(int(10.31)); // 10
- * print(int(-10)); // -10
- * print(int(true)); // 1
- * print(int(false)); // 0
- * print(int([false, true, "10.3", 9.8])); // [0, 1, 10, 9]
- * </code></div>
- */
-p5.prototype.int = function(n, radix) {
-  radix = radix || 10;
-  if (typeof n === 'string') {
-    return parseInt(n, radix);
-  } else if (typeof n === 'number') {
-    return n | 0;
-  } else if (typeof n === 'boolean') {
-    return n ? 1 : 0;
-  } else if (n instanceof Array) {
-    return n.map(function(n) { return p5.prototype.int(n, radix); });
-  }
-};
-
-/**
- * Converts a boolean, string or number to its string representation.
- * When an array of values is passed in, then an array of strings of the same
- * length is returned.
- *
- * @method str
- * @param {String|Boolean|Number|Array} n value to parse
- * @return {String}                     string representation of value
- * @example
- * <div class='norender'><code>
- * print(str("10"));  // "10"
- * print(str(10.31)); // "10.31"
- * print(str(-10));   // "-10"
- * print(str(true));  // "true"
- * print(str(false)); // "false"
- * print(str([true, "10.3", 9.8])); // [ "true", "10.3", "9.8" ]
- * </code></div>
- */
-p5.prototype.str = function(n) {
-  if (n instanceof Array) {
-    return n.map(p5.prototype.str);
-  } else {
-    return String(n);
-  }
-};
-
-/**
- * Converts a number or string to its boolean representation.
- * For a number, any non-zero value (positive or negative) evaluates to true,
- * while zero evaluates to false. For a string, the value "true" evaluates to
- * true, while any other value evaluates to false. When an array of number or
- * string values is passed in, then a array of booleans of the same length is
- * returned.
- *
- * @method boolean
- * @param {String|Boolean|Number|Array} n value to parse
- * @return {Boolean}                    boolean representation of value
- * @example
- * <div class='norender'><code>
- * print(boolean(0));               // false
- * print(boolean(1));               // true
- * print(boolean("true"));          // true
- * print(boolean("abcd"));          // false
- * print(boolean([0, 12, "true"])); // [false, true, false]
- * </code></div>
- */
-p5.prototype.boolean = function(n) {
-  if (typeof n === 'number') {
-    return n !== 0;
-  } else if (typeof n === 'string') {
-    return n.toLowerCase() === 'true';
-  } else if (typeof n === 'boolean') {
-    return n;
-  } else if (n instanceof Array) {
-    return n.map(p5.prototype.boolean);
-  }
-};
-
-/**
- * Converts a number, string or boolean to its byte representation.
- * A byte can be only a whole number between -128 and 127, so when a value
- * outside of this range is converted, it wraps around to the corresponding
- * byte representation. When an array of number, string or boolean values is
- * passed in, then an array of bytes the same length is returned.
- *
- * @method byte
- * @param {String|Boolean|Number}       n value to parse
- * @return {Number}                     byte representation of value
- */
-/**
- * @method byte
- * @param {Array} ns                   values to parse
- * @return {Number[]}                  array of byte representation of values
- * @example
- * <div class='norender'><code>
- * print(byte(127));               // 127
- * print(byte(128));               // -128
- * print(byte(23.4));              // 23
- * print(byte("23.4"));            // 23
- * print(byte(true));              // 1
- * print(byte([0, 255, "100"]));   // [0, -1, 100]
- * </code></div>
- */
-p5.prototype.byte = function(n) {
-  var nn = p5.prototype.int(n, 10);
-  if (typeof nn === 'number') {
-    return ((nn + 128) % 256) - 128;
-  } else if (nn instanceof Array) {
-    return nn.map(p5.prototype.byte);
-  }
-};
-
-/**
- * Converts a number or string to its corresponding single-character
- * string representation. If a string parameter is provided, it is first
- * parsed as an integer and then translated into a single-character string.
- * When an array of number or string values is passed in, then an array of
- * single-character strings of the same length is returned.
- *
- * @method char
- * @param {String|Number}       n value to parse
- * @return {String}             string representation of value
- */
-/**
- * @method char
- * @param {Array} ns              values to parse
- * @return {String[]}             array of string representation of values
- * @example
- * <div class='norender'><code>
- * print(char(65));                     // "A"
- * print(char("65"));                   // "A"
- * print(char([65, 66, 67]));           // [ "A", "B", "C" ]
- * print(join(char([65, 66, 67]), '')); // "ABC"
- * </code></div>
- */
-p5.prototype.char = function(n) {
-  if (typeof n === 'number' && !isNaN(n)) {
-    return String.fromCharCode(n);
-  } else if (n instanceof Array) {
-    return n.map(p5.prototype.char);
-  } else if (typeof n === 'string') {
-    return p5.prototype.char(parseInt(n, 10));
-  }
-};
-
-/**
- * Converts a single-character string to its corresponding integer
- * representation. When an array of single-character string values is passed
- * in, then an array of integers of the same length is returned.
- *
- * @method unchar
- * @param {String} n     value to parse
- * @return {Number}      integer representation of value
- */
-/**
- * @method unchar
- * @param {Array} ns       values to parse
- * @return {Number[]}      integer representation of values
- * @example
- * <div class='norender'><code>
- * print(unchar("A"));               // 65
- * print(unchar(["A", "B", "C"]));   // [ 65, 66, 67 ]
- * print(unchar(split("ABC", "")));  // [ 65, 66, 67 ]
- * </code></div>
- */
-p5.prototype.unchar = function(n) {
-  if (typeof n === 'string' && n.length === 1) {
-    return n.charCodeAt(0);
-  } else if (n instanceof Array) {
-    return n.map(p5.prototype.unchar);
-  }
-};
-
-/**
- * Converts a number to a string in its equivalent hexadecimal notation. If a
- * second parameter is passed, it is used to set the number of characters to
- * generate in the hexadecimal notation. When an array is passed in, an
- * array of strings in hexadecimal notation of the same length is returned.
- *
- * @method hex
- * @param {Number} n     value to parse
- * @param {Number} [digits]
- * @return {String}      hexadecimal string representation of value
- */
-/**
- * @method hex
- * @param {Number[]} ns    array of values to parse
- * @param {Number} [digits]
- * @return {String[]}      hexadecimal string representation of values
- * @example
- * <div class='norender'><code>
- * print(hex(255));               // "000000FF"
- * print(hex(255, 6));            // "0000FF"
- * print(hex([0, 127, 255], 6));  // [ "000000", "00007F", "0000FF" ]
- * </code></div>
- */
-p5.prototype.hex = function(n, digits) {
-  digits = (digits === undefined || digits === null) ? digits = 8 : digits;
-  if (n instanceof Array) {
-    return n.map(function(n) { return p5.prototype.hex(n, digits); });
-  } else if (typeof n === 'number') {
-    if (n < 0) {
-      n = 0xFFFFFFFF + n + 1;
-    }
-    var hex = Number(n).toString(16).toUpperCase();
-    while (hex.length < digits) {
-      hex = '0' + hex;
-    }
-    if (hex.length >= digits) {
-      hex = hex.substring(hex.length - digits, hex.length);
-    }
-    return hex;
-  }
-};
-
-/**
- * Converts a string representation of a hexadecimal number to its equivalent
- * integer value. When an array of strings in hexadecimal notation is passed
- * in, an array of integers of the same length is returned.
- *
- * @method unhex
- * @param {String} n value to parse
- * @return {Number}      integer representation of hexadecimal value
- */
-/**
- * @method unhex
- * @param {Array} ns values to parse
- * @return {Number[]}      integer representations of hexadecimal value
- * @example
- * <div class='norender'><code>
- * print(unhex("A"));                // 10
- * print(unhex("FF"));               // 255
- * print(unhex(["FF", "AA", "00"])); // [ 255, 170, 0 ]
- * </code></div>
- */
-p5.prototype.unhex = function(n) {
-  if (n instanceof Array) {
-    return n.map(p5.prototype.unhex);
-  } else {
-    return parseInt('0x' + n, 16);
-  }
-};
-
-module.exports = p5;
-
-},{"../core/core":5}],23:[function(_dereq_,module,exports){
-/**
- * @module Data
- * @submodule String Functions
- * @for p5
- * @requires core
- */
-
-'use strict';
-
-var p5 = _dereq_('../core/core');
-
-//return p5; //LM is this a mistake?
-
-/**
- * Combines an array of Strings into one String, each separated by the
- * character(s) used for the separator parameter. To join arrays of ints or
- * floats, it's necessary to first convert them to Strings using nf() or
- * nfs().
- *
- * @method join
- * @param  {Array}  list      array of Strings to be joined
- * @param  {String} separator String to be placed between each item
- * @return {String}           joined String
+ * @method randomSeed
+ * @param {Number} seed   the seed value
  * @example
  * <div>
  * <code>
- * var array = ["Hello", "world!"]
- * var separator = " "
- * var message = join(array, separator);
- * text(message, 5, 50);
- * </code>
- * </div>
- *
- * @alt
- * "hello world!" displayed middle left of canvas.
- *
- */
-p5.prototype.join = function(list, separator) {
-  return list.join(separator);
-};
-
-/**
- * This function is used to apply a regular expression to a piece of text,
- * and return matching groups (elements found inside parentheses) as a
- * String array. If there are no matches, a null value will be returned.
- * If no groups are specified in the regular expression, but the sequence
- * matches, an array of length 1 (with the matched text as the first element
- * of the array) will be returned.
- * <br><br>
- * To use the function, first check to see if the result is null. If the
- * result is null, then the sequence did not match at all. If the sequence
- * did match, an array is returned.
- * <br><br>
- * If there are groups (specified by sets of parentheses) in the regular
- * expression, then the contents of each will be returned in the array.
- * Element [0] of a regular expression match returns the entire matching
- * string, and the match groups start at element [1] (the first group is [1],
- * the second [2], and so on).
- *
- * @method match
- * @param  {String} str    the String to be searched
- * @param  {String} regexp the regexp to be used for matching
- * @return {String[]}      Array of Strings found
- * @example
- * <div>
- * <code>
- * var string = "Hello p5js*!"
- * var regexp = "p5js\\*"
- * var match = match(string, regexp);
- * text(match, 5, 50);
- * </code>
- * </div>
- *
- * @alt
- * "p5js*" displayed middle left of canvas.
- *
- */
-p5.prototype.match =  function(str, reg) {
-  return str.match(reg);
-};
-
-/**
- * This function is used to apply a regular expression to a piece of text,
- * and return a list of matching groups (elements found inside parentheses)
- * as a two-dimensional String array. If there are no matches, a null value
- * will be returned. If no groups are specified in the regular expression,
- * but the sequence matches, a two dimensional array is still returned, but
- * the second dimension is only of length one.
- * <br><br>
- * To use the function, first check to see if the result is null. If the
- * result is null, then the sequence did not match at all. If the sequence
- * did match, a 2D array is returned.
- * <br><br>
- * If there are groups (specified by sets of parentheses) in the regular
- * expression, then the contents of each will be returned in the array.
- * Assuming a loop with counter variable i, element [i][0] of a regular
- * expression match returns the entire matching string, and the match groups
- * start at element [i][1] (the first group is [i][1], the second [i][2],
- * and so on).
- *
- * @method matchAll
- * @param  {String} str    the String to be searched
- * @param  {String} regexp the regexp to be used for matching
- * @return {String[]}         2d Array of Strings found
- * @example
- * <div class="norender">
- * <code>
- * var string = "Hello p5js*! Hello world!"
- * var regexp = "Hello"
- * matchAll(string, regexp);
- * </code>
- * </div>
-
- */
-p5.prototype.matchAll = function(str, reg) {
-  var re = new RegExp(reg, 'g');
-  var match = re.exec(str);
-  var matches = [];
-  while (match !== null) {
-    matches.push(match);
-    // matched text: match[0]
-    // match start: match.index
-    // capturing group n: match[n]
-    match = re.exec(str);
-  }
-  return matches;
-};
-
-/**
- * Utility function for formatting numbers into strings. There are two
- * versions: one for formatting floats, and one for formatting ints.
- * The values for the digits, left, and right parameters should always
- * be positive integers.
- *
- * @method nf
- * @param {Number} num            the Number to format
- * @param {Number}       [left]   number of digits to the left of the
- *                                decimal point
- * @param {Number}       [right]  number of digits to the right of the
- *                                decimal point
- * @return {String}               formatted String
- */
-/**
- * @method nf
- * @param {Number[]} nums         the Numbers to format
- * @param {Number}       [left]
- * @param {Number}       [right]
- * @return {String[]}             formatted Strings
- * @example
- * <div>
- * <code>
- * function setup() {
- *   background(200);
- *   var num = 112.53106115;
- *
- *   noStroke();
- *   fill(0);
- *   textSize(14);
- *   // Draw formatted numbers
- *   text(nf(num, 5, 2), 10, 20);
- *
- *   text(nf(num, 4, 3), 10, 55);
- *
- *   text(nf(num, 3, 6), 10, 85);
- *
- *   // Draw dividing lines
- *   stroke(120);
- *   line(0, 30, width, 30);
- *   line(0, 65, width, 65);
+ * randomSeed(99);
+ * for (var i=0; i < 100; i++) {
+ *   var r = random(0, 255);
+ *   stroke(r);
+ *   line(i, 0, i, 100);
  * }
  * </code>
  * </div>
  *
  * @alt
- * "0011253" top left, "0112.531" mid left, "112.531061" bottom left canvas
+ * many vertical lines drawn in white, black or grey.
  *
  */
-p5.prototype.nf = function () {
-  if (arguments[0] instanceof Array) {
-    var a = arguments[1];
-    var b = arguments[2];
-    return arguments[0].map(function (x) {
-      return doNf(x, a, b);
-    });
-  }
-  else{
-    var typeOfFirst = Object.prototype.toString.call(arguments[0]);
-    if(typeOfFirst === '[object Arguments]'){
-      if(arguments[0].length===3){
-        return this.nf(arguments[0][0],arguments[0][1],arguments[0][2]);
-      }
-      else if(arguments[0].length===2){
-        return this.nf(arguments[0][0],arguments[0][1]);
-      }
-      else{
-        return this.nf(arguments[0][0]);
-      }
-    }
-    else {
-      return doNf.apply(this, arguments);
-    }
-  }
+p5.prototype.randomSeed = function(seed) {
+  lcg.setSeed(seed);
+  seeded = true;
+  previous = false;
 };
 
-function doNf() {
-  var num = arguments[0];
-  var neg = num < 0;
-  var n = neg ? num.toString().substring(1) : num.toString();
-  var decimalInd = n.indexOf('.');
-  var intPart = decimalInd !== -1 ? n.substring(0, decimalInd) : n;
-  var decPart = decimalInd !== -1 ? n.substring(decimalInd + 1) : '';
-  var str = neg ? '-' : '';
-  if (arguments.length === 3) {
-    var decimal = '';
-    if(decimalInd !== -1 || arguments[2] - decPart.length > 0){
-      decimal = '.';
-    }
-    if (decPart.length > arguments[2]) {
-      decPart = decPart.substring(0, arguments[2]);
-    }
-    for (var i = 0; i < arguments[1] - intPart.length; i++) {
-      str += '0';
-    }
-    str += intPart;
-    str += decimal;
-    str += decPart;
-    for (var j = 0; j < arguments[2] - decPart.length; j++) {
-      str += '0';
-    }
-    return str;
-  }
-  else {
-    for (var k = 0; k < Math.max(arguments[1] - intPart.length, 0); k++) {
-      str += '0';
-    }
-    str += n;
-    return str;
-  }
-}
-
 /**
- * Utility function for formatting numbers into strings and placing
- * appropriate commas to mark units of 1000. There are two versions: one
- * for formatting ints, and one for formatting an array of ints. The value
- * for the right parameter should always be a positive integer.
+ * Return a random floating-point number.
  *
- * @method nfc
- * @param  {Number}   num     the Number to format
- * @param  {Number}         [right] number of digits to the right of the
- *                                  decimal point
- * @return {String}           formatted String
- */
-/**
- * @method nfc
- * @param  {Number[]}   nums     the Numbers to format
- * @param  {Number}         [right]
- * @return {String[]}           formatted Strings
+ * Takes either 0, 1 or 2 arguments.
+ *
+ * If no argument is given, returns a random number from 0
+ * up to (but not including) 1.
+ *
+ * If one argument is given and it is a number, returns a random number from 0
+ * up to (but not including) the number.
+ *
+ * If one argument is given and it is an array, returns a random element from
+ * that array.
+ *
+ * If two arguments are given, returns a random number from the
+ * first argument up to (but not including) the second argument.
+ *
+ * @method random
+ * @param  {Number} [min]   the lower bound (inclusive)
+ * @param  {Number} [max]   the upper bound (exclusive)
+ * @return {Number} the random number
  * @example
  * <div>
  * <code>
- * function setup() {
- *   background(200);
- *   var num = 11253106.115;
- *   var numArr = new Array(1,1,2);
- *
- *   noStroke();
- *   fill(0);
- *   textSize(12);
- *
- *   // Draw formatted numbers
- *   text(nfc(num, 4, 2), 10, 30);
- *   text(nfc(numArr, 2, 1), 10, 80);
- *
- *   // Draw dividing line
- *   stroke(120);
- *   line(0, 50, width, 50);
+ * for (var i = 0; i < 100; i++) {
+ *   var r = random(50);
+ *   stroke(r*5);
+ *   line(50, i, 50+r, i);
  * }
+ * </code>
+ * </div>
+ * <div>
+ * <code>
+ * for (var i = 0; i < 100; i++) {
+ *   var r = random(-50, 50);
+ *   line(50,i,50+r,i);
+ * }
+ * </code>
+ * </div>
+ * <div>
+ * <code>
+ * // Get a random element from an array using the random(Array) syntax
+ * var words = [ "apple", "bear", "cat", "dog" ];
+ * var word = random(words);  // select random word
+ * text(word,10,50);  // draw the word
  * </code>
  * </div>
  *
  * @alt
- * "11,253,106.115" top middle and "1.00,1.00,2.00" displayed bottom mid
+ * 100 horizontal lines from center canvas to right. size+fill change each time
+ * 100 horizontal lines from center of canvas. height & side change each render
+ * word displayed at random. Either apple, bear, cat, or dog
  *
  */
-p5.prototype.nfc = function () {
-  if (arguments[0] instanceof Array) {
-    var a = arguments[1];
-    return arguments[0].map(function (x) {
-      return doNfc(x, a);
-    });
+/**
+ * @method random
+ * @param  {Array} choices   the array to choose from
+ * @return {*} the random element from the array
+ * @example
+ */
+p5.prototype.random = function (min, max) {
+
+  var rand;
+
+  if (seeded) {
+    rand  = lcg.rand();
   } else {
-    return doNfc.apply(this, arguments);
+    rand = Math.random();
   }
-};
-function doNfc() {
-  var num = arguments[0].toString();
-  var dec = num.indexOf('.');
-  var rem = dec !== -1 ? num.substring(dec) : '';
-  var n = dec !== -1 ? num.substring(0, dec) : num;
-  n = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  if (arguments[1] === 0) {
-    rem = '';
-  }
-  else if(arguments[1] !== undefined){
-    if(arguments[1] > rem.length){
-      rem+= dec === -1 ? '.' : '';
-      var len = arguments[1] - rem.length + 1;
-      for(var i =0; i< len; i++){
-        rem += '0';
-      }
-    }
-    else{
-      rem = rem.substring(0, arguments[1] + 1);
-    }
-  }
-  return n + rem;
-}
-
-/**
- * Utility function for formatting numbers into strings. Similar to nf() but
- * puts a "+" in front of positive numbers and a "-" in front of negative
- * numbers. There are two versions: one for formatting floats, and one for
- * formatting ints. The values for left, and right parameters
- * should always be positive integers.
- *
- * @method nfp
- * @param {Number} num      the Number to format
- * @param {Number}       [left]   number of digits to the left of the decimal
- *                                point
- * @param {Number}       [right]  number of digits to the right of the
- *                                decimal point
- * @return {String}         formatted String
- */
-/**
- * @method nfp
- * @param {Number[]} nums      the Numbers to format
- * @param {Number}       [left]
- * @param {Number}       [right]
- * @return {String[]}         formatted Strings
- * @example
- * <div>
- * <code>
- * function setup() {
- *   background(200);
- *   var num1 = 11253106.115;
- *   var num2 = -11253106.115;
- *
- *   noStroke();
- *   fill(0);
- *   textSize(12);
- *
- *   // Draw formatted numbers
- *   text(nfp(num1, 4, 2), 10, 30);
- *   text(nfp(num2, 4, 2), 10, 80);
- *
- *   // Draw dividing line
- *   stroke(120);
- *   line(0, 50, width, 50);
- * }
- * </code>
- * </div>
- *
- * @alt
- * "+11253106.11" top middle and "-11253106.11" displayed bottom middle
- *
- */
-p5.prototype.nfp = function() {
-  var nfRes = this.nf.apply(this, arguments);
-  if (nfRes instanceof Array) {
-    return nfRes.map(addNfp);
-  } else {
-    return addNfp(nfRes);
-  }
-};
-
-function addNfp() {
-  return (
-    parseFloat(arguments[0]) > 0) ?
-    '+'+arguments[0].toString() :
-    arguments[0].toString();
-}
-
-/**
- * Utility function for formatting numbers into strings. Similar to nf() but
- * puts a " " (space) in front of positive numbers and a "-" in front of
- * negative numbers. There are two versions: one for formatting floats, and
- * one for formatting ints. The values for the digits, left, and right
- * parameters should always be positive integers.
- *
- * @method nfs
- * @param {Number} num      the Number to format
- * @param {Number}       [left]   number of digits to the left of the decimal
- *                                point
- * @param {Number}       [right]  number of digits to the right of the
- *                                decimal point
- * @return {String}         formatted String
- */
-/**
- * @method nfs
- * @param {Number[]} nums     the Numbers to format
- * @param {Number}       [left]
- * @param {Number}       [right]
- * @return {String[]}         formatted Strings
- * @example
- * <div>
- * <code>
- * function setup() {
- *   background(200);
- *   var num1 = 11253106.115;
- *   var num2 = -11253106.115;
- *
- *   noStroke();
- *   fill(0);
- *   textSize(12);
- *   // Draw formatted numbers
- *   text(nfs(num1, 4, 2), 10, 30);
- *
- *   text(nfs(num2, 4, 2), 10, 80);
- *
- *   // Draw dividing line
- *   stroke(120);
- *   line(0, 50, width, 50);
- * }
- * </code>
- * </div>
- *
- * @alt
- * "11253106.11" top middle and "-11253106.11" displayed bottom middle
- *
- */
-p5.prototype.nfs = function() {
-  var nfRes = this.nf.apply(this, arguments);
-  if (nfRes instanceof Array) {
-    return nfRes.map(addNfs);
-  } else {
-    return addNfs(nfRes);
-  }
-};
-
-function addNfs() {
-  return (
-    parseFloat(arguments[0]) > 0) ?
-    ' '+arguments[0].toString() :
-    arguments[0].toString();
-}
-
-/**
- * The split() function maps to String.split(), it breaks a String into
- * pieces using a character or string as the delimiter. The delim parameter
- * specifies the character or characters that mark the boundaries between
- * each piece. A String[] array is returned that contains each of the pieces.
- *
- * The splitTokens() function works in a similar fashion, except that it
- * splits using a range of characters instead of a specific character or
- * sequence.
- *
- * @method split
- * @param  {String} value the String to be split
- * @param  {String} delim the String used to separate the data
- * @return {String[]}  Array of Strings
- * @example
- * <div>
- * <code>
- * var names = "Pat,Xio,Alex"
- * var splitString = split(names, ",");
- * text(splitString[0], 5, 30);
- * text(splitString[1], 5, 50);
- * text(splitString[2], 5, 70);
- * </code>
- * </div>
- *
- * @alt
- * "pat" top left, "Xio" mid left and "Alex" displayed bottom left
- *
- */
-p5.prototype.split = function(str, delim) {
-  return str.split(delim);
-};
-
-/**
- * The splitTokens() function splits a String at one or many character
- * delimiters or "tokens." The delim parameter specifies the character or
- * characters to be used as a boundary.
- * <br><br>
- * If no delim characters are specified, any whitespace character is used to
- * split. Whitespace characters include tab (\t), line feed (\n), carriage
- * return (\r), form feed (\f), and space.
- *
- * @method splitTokens
- * @param  {String} value   the String to be split
- * @param  {String} [delim] list of individual Strings that will be used as
- *                          separators
- * @return {String[]}          Array of Strings
- * @example
- * <div class = "norender">
- * <code>
- * function setup() {
- *   var myStr = "Mango, Banana, Lime";
- *   var myStrArr = splitTokens(myStr, ",");
- *
- *   print(myStrArr); // prints : ["Mango"," Banana"," Lime"]
- * }
- * </code>
- * </div>
- */
-p5.prototype.splitTokens = function() {
-  var d,sqo,sqc,str;
-  str = arguments[1];
-  if (arguments.length > 1) {
-    sqc = /\]/g.exec(str);
-    sqo = /\[/g.exec(str);
-    if ( sqo && sqc ) {
-      str = str.slice(0, sqc.index) + str.slice(sqc.index+1);
-      sqo = /\[/g.exec(str);
-      str = str.slice(0, sqo.index) + str.slice(sqo.index+1);
-      d = new RegExp('[\\['+str+'\\]]','g');
-    } else if ( sqc ) {
-      str = str.slice(0, sqc.index) + str.slice(sqc.index+1);
-      d = new RegExp('[' + str + '\\]]', 'g');
-    } else if(sqo) {
-      str = str.slice(0, sqo.index) + str.slice(sqo.index+1);
-      d = new RegExp('[' + str + '\\[]', 'g');
+  if (typeof min === 'undefined') {
+    return rand;
+  } else
+  if (typeof max === 'undefined') {
+    if (min instanceof Array) {
+      return min[Math.floor(rand * min.length)];
     } else {
-      d = new RegExp('[' + str + ']', 'g');
+      return rand * min;
     }
   } else {
-    d = /\s/g;
+    if (min > max) {
+      var tmp = min;
+      min = max;
+      max = tmp;
+    }
+
+    return rand * (max-min) + min;
   }
-  return arguments[0].split(d).filter(function(n){return n;});
 };
 
+
 /**
- * Removes whitespace characters from the beginning and end of a String. In
- * addition to standard whitespace characters such as space, carriage return,
- * and tab, this function also removes the Unicode "nbsp" character.
  *
- * @method trim
- * @param  {String} str a String to be trimmed
- * @return {String}       a trimmed String
- */
-/**
- * @method trim
- * @param  {String[]} strs an Array of Strings to be trimmed
- * @return {String[]}       an Array of trimmed Strings
+ * Returns a random number fitting a Gaussian, or
+ * normal, distribution. There is theoretically no minimum or maximum
+ * value that randomGaussian() might return. Rather, there is
+ * just a very low probability that values far from the mean will be
+ * returned; and a higher probability that numbers near the mean will
+ * be returned.
+ * <br><br>
+ * Takes either 0, 1 or 2 arguments.<br>
+ * If no args, returns a mean of 0 and standard deviation of 1.<br>
+ * If one arg, that arg is the mean (standard deviation is 1).<br>
+ * If two args, first is mean, second is standard deviation.
+ *
+ * @method randomGaussian
+ * @param  {Number} mean  the mean
+ * @param  {Number} sd    the standard deviation
+ * @return {Number} the random number
  * @example
  * <div>
- * <code>
- * var string = trim("  No new lines\n   ");
- * text(string +" here", 2, 50);
+ * <code>for (var y = 0; y < 100; y++) {
+ *  var x = randomGaussian(50,15);
+ *  line(50, y, x, y);
+ *}
  * </code>
  * </div>
+ * <div>
+ * <code>
+ *var distribution = new Array(360);
  *
+ *function setup() {
+ *  createCanvas(100, 100);
+ *  for (var i = 0; i < distribution.length; i++) {
+ *    distribution[i] = floor(randomGaussian(0,15));
+ *  }
+ *}
+ *
+ *function draw() {
+ *  background(204);
+ *
+ *  translate(width/2, width/2);
+ *
+ *  for (var i = 0; i < distribution.length; i++) {
+ *    rotate(TWO_PI/distribution.length);
+ *    stroke(0);
+ *    var dist = abs(distribution[i]);
+ *    line(0, 0, dist, 0);
+ *  }
+ *}
+ * </code>
+ * </div>
  * @alt
- * "No new lines here" displayed center canvas
- *
+ * 100 horizontal lines from center of canvas. height & side change each render
+ * black lines radiate from center of canvas. size determined each render
  */
-p5.prototype.trim = function(str) {
-  if (str instanceof Array) {
-    return str.map(this.trim);
+p5.prototype.randomGaussian = function(mean, sd)  {
+  var y1,x1,x2,w;
+  if (previous) {
+    y1 = y2;
+    previous = false;
   } else {
-    return str.trim();
+    do {
+      x1 = this.random(2) - 1;
+      x2 = this.random(2) - 1;
+      w = x1 * x1 + x2 * x2;
+    } while (w >= 1);
+    w = Math.sqrt((-2 * Math.log(w))/w);
+    y1 = x1 * w;
+    y2 = x2 * w;
+    previous = true;
   }
+
+  var m = mean || 0;
+  var s = sd || 1;
+  return y1*s + m;
 };
 
 module.exports = p5;
 
-},{"../core/core":5}],24:[function(_dereq_,module,exports){
+},{"../core/core":5}],26:[function(_dereq_,module,exports){
 /**
- * @module IO
- * @submodule Time & Date
+ * @module Math
+ * @submodule Trigonometry
  * @for p5
  * @requires core
+ * @requires polargeometry
+ * @requires constants
  */
 
 'use strict';
 
 var p5 = _dereq_('../core/core');
+var polarGeometry = _dereq_('./polargeometry');
+var constants = _dereq_('../core/constants');
+
+p5.prototype._angleMode = constants.RADIANS;
 
 /**
- * p5.js communicates with the clock on your computer. The day() function
- * returns the current day as a value from 1 - 31.
+ * The inverse of cos(), returns the arc cosine of a value. This function
+ * expects the values in the range of -1 to 1 and values are returned in
+ * the range 0 to PI (3.1415927).
  *
- * @method day
- * @return {Number} the current day
+ * @method acos
+ * @param  {Number} value the value whose arc cosine is to be returned
+ * @return {Number}       the arc cosine of the given value
+ *
  * @example
- * <div>
+ * <div class= “norender">
  * <code>
- * var d = day();
- * text("Current day: \n" + d, 5, 50);
+ * var a = PI;
+ * var c = cos(a);
+ * var ac = acos(c);
+ * // Prints: "3.1415927 : -1.0 : 3.1415927"
+ * print(a + " : " + c + " : " +  ac);
  * </code>
  * </div>
  *
- * @alt
- * Current day is displayed
- *
+ * <div class= “norender">
+ * <code>
+ * var a = PI + PI/4.0;
+ * var c = cos(a);
+ * var ac = acos(c);
+ * // Prints: "3.926991 : -0.70710665 : 2.3561943"
+ * print(a + " : " + c + " : " +  ac);
+ * </code>
+ * </div>
  */
-p5.prototype.day = function() {
-  return new Date().getDate();
+p5.prototype.acos = function(ratio) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.acos(ratio);
+  } else {
+    return polarGeometry.radiansToDegrees(Math.acos(ratio));
+  }
 };
 
 /**
- * p5.js communicates with the clock on your computer. The hour() function
- * returns the current hour as a value from 0 - 23.
+ * The inverse of sin(), returns the arc sine of a value. This function
+ * expects the values in the range of -1 to 1 and values are returned
+ * in the range -PI/2 to PI/2.
  *
- * @method hour
- * @return {Number} the current hour
+ * @method asin
+ * @param  {Number} value the value whose arc sine is to be returned
+ * @return {Number}       the arc sine of the given value
+ *
  * @example
- * <div>
+ * <div class= “norender">
  * <code>
- * var h = hour();
- * text("Current hour:\n" + h, 5, 50);
+ * var a = PI + PI/3;
+ * var s = sin(a);
+ * var as = asin(s);
+ * // Prints: "1.0471976 : 0.86602545 : 1.0471976"
+ * print(a + " : " + s + " : " +  as);
  * </code>
  * </div>
  *
- * @alt
- * Current hour is displayed
+ * <div class= “norender">
+ * <code>
+ * var a = PI + PI/3.0;
+ * var s = sin(a);
+ * var as = asin(s);
+ * // Prints: "4.1887903 : -0.86602545 : -1.0471976"
+ * print(a + " : " + s + " : " +  as);
+ * </code>
+ * </div>
  *
  */
-p5.prototype.hour = function() {
-  return new Date().getHours();
+p5.prototype.asin = function(ratio) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.asin(ratio);
+  } else {
+    return polarGeometry.radiansToDegrees(Math.asin(ratio));
+  }
 };
 
 /**
- * p5.js communicates with the clock on your computer. The minute() function
- * returns the current minute as a value from 0 - 59.
+ * The inverse of tan(), returns the arc tangent of a value. This function
+ * expects the values in the range of -Infinity to Infinity (exclusive) and
+ * values are returned in the range -PI/2 to PI/2.
  *
- * @method minute
- * @return {Number} the current minute
+ * @method atan
+ * @param  {Number} value the value whose arc tangent is to be returned
+ * @return {Number}       the arc tangent of the given value
+ *
  * @example
- * <div>
+ * <div class= “norender">
  * <code>
- * var m = minute();
- * text("Current minute: \n" + m, 5, 50);
+ * var a = PI + PI/3;
+ * var t = tan(a);
+ * var at = atan(t);
+ * // Prints: "1.0471976 : 1.7320509 : 1.0471976"
+ * print(a + " : " + t + " : " +  at);
  * </code>
  * </div>
  *
- * @alt
- * Current minute is displayed
+ * <div class= “norender">
+ * <code>
+ * var a = PI + PI/3.0;
+ * var t = tan(a);
+ * var at = atan(t);
+ * // Prints: "4.1887903 : 1.7320513 : 1.0471977"
+ * print(a + " : " + t + " : " +  at);
+ * </code>
+ * </div>
  *
  */
-p5.prototype.minute = function() {
-  return new Date().getMinutes();
+p5.prototype.atan = function(ratio) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.atan(ratio);
+  } else {
+    return polarGeometry.radiansToDegrees(Math.atan(ratio));
+  }
 };
 
 /**
- * Returns the number of milliseconds (thousandths of a second) since
- * starting the program. This information is often used for timing events and
- * animation sequences.
+ * Calculates the angle (in radians) from a specified point to the coordinate
+ * origin as measured from the positive x-axis. Values are returned as a
+ * float in the range from PI to -PI. The atan2() function is most often used
+ * for orienting geometry to the position of the cursor.
+ * <br><br>
+ * Note: The y-coordinate of the point is the first parameter, and the
+ * x-coordinate is the second parameter, due the the structure of calculating
+ * the tangent.
  *
- * @method millis
- * @return {Number} the number of milliseconds since starting the program
+ * @method atan2
+ * @param  {Number} y y-coordinate of the point
+ * @param  {Number} x x-coordinate of the point
+ * @return {Number}   the arc tangent of the given point
+ *
  * @example
  * <div>
  * <code>
- * var millisecond = millis();
- * text("Milliseconds \nrunning: \n" + millisecond, 5, 40);
+ * function draw() {
+ *   background(204);
+ *   translate(width/2, height/2);
+ *   var a = atan2(mouseY-height/2, mouseX-width/2);
+ *   rotate(a);
+ *   rect(-30, -5, 60, 10);
+ * }
  * </code>
  * </div>
  *
  * @alt
- * number of milliseconds since program has started displayed
+ * 60 by 10 rect at center of canvas rotates with mouse movements
  *
  */
-p5.prototype.millis = function() {
-  return window.performance.now();
+p5.prototype.atan2 = function (y, x) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.atan2(y, x);
+  } else {
+    return polarGeometry.radiansToDegrees(Math.atan2(y, x));
+  }
 };
 
 /**
- * p5.js communicates with the clock on your computer. The month() function
- * returns the current month as a value from 1 - 12.
+ * Calculates the cosine of an angle. This function takes into account the
+ * current angleMode. Values are returned in the range -1 to 1.
  *
- * @method month
- * @return {Number} the current month
+ * @method cos
+ * @param  {Number} angle the angle
+ * @return {Number}       the cosine of the angle
+ *
  * @example
  * <div>
  * <code>
- * var m = month();
- * text("Current month: \n" + m, 5, 50);
+ * var a = 0.0;
+ * var inc = TWO_PI/25.0;
+ * for (var i = 0; i < 25; i++) {
+ *   line(i*4, 50, i*4, 50+cos(a)*40.0);
+ *   a = a + inc;
+ * }
  * </code>
  * </div>
  *
  * @alt
- * Current month is displayed
+ * vertical black lines form wave patterns, extend-down on left and right side
  *
  */
-p5.prototype.month = function() {
-  return new Date().getMonth() + 1; //January is 0!
+p5.prototype.cos = function(angle) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.cos(angle);
+  } else {
+    return Math.cos(this.radians(angle));
+  }
 };
 
 /**
- * p5.js communicates with the clock on your computer. The second() function
- * returns the current second as a value from 0 - 59.
+ * Calculates the sine of an angle. This function takes into account the
+ * current angleMode. Values are returned in the range -1 to 1.
  *
- * @method second
- * @return {Number} the current second
+ * @method sin
+ * @param  {Number} angle the angle
+ * @return {Number}       the sine of the angle
+ *
  * @example
  * <div>
  * <code>
- * var s = second();
- * text("Current second: \n" + s, 5, 50);
+ * var a = 0.0;
+ * var inc = TWO_PI/25.0;
+ * for (var i = 0; i < 25; i++) {
+ *   line(i*4, 50, i*4, 50+sin(a)*40.0);
+ *   a = a + inc;
+ * }
  * </code>
  * </div>
  *
  * @alt
- * Current second is displayed
+ * vertical black lines extend down and up from center to form wave pattern
  *
  */
-p5.prototype.second = function() {
-  return new Date().getSeconds();
+p5.prototype.sin = function(angle) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.sin(angle);
+  } else {
+    return Math.sin(this.radians(angle));
+  }
 };
 
 /**
- * p5.js communicates with the clock on your computer. The year() function
- * returns the current year as an integer (2014, 2015, 2016, etc).
+ * Calculates the tangent of an angle. This function takes into account
+ * the current angleMode. Values are returned in the range -1 to 1.
  *
- * @method year
- * @return {Number} the current year
+ * @method tan
+ * @param  {Number} angle the angle
+ * @return {Number}       the tangent of the angle
+ *
  * @example
  * <div>
  * <code>
- * var y = year();
- * text("Current year: \n" + y, 5, 50);
+ *   var a = 0.0;
+ *   var inc = TWO_PI/50.0;
+ *   for (var i = 0; i < 100; i = i+2) {
+ *     line(i, 50, i, 50+tan(a)*2.0);
+ *     a = a + inc;
+ *   }
+ * </code>
+ *
+ *
+ * @alt
+ * vertical black lines end down and up from center to form spike pattern
+ *
+ */
+p5.prototype.tan = function(angle) {
+  if (this._angleMode === constants.RADIANS) {
+    return Math.tan(angle);
+  } else {
+    return Math.tan(this.radians(angle));
+  }
+};
+
+/**
+ * Converts a radian measurement to its corresponding value in degrees.
+ * Radians and degrees are two ways of measuring the same thing. There are
+ * 360 degrees in a circle and 2*PI radians in a circle. For example,
+ * 90° = PI/2 = 1.5707964.
+ *
+ * @method degrees
+ * @param  {Number} radians the radians value to convert to degrees
+ * @return {Number}         the converted angle
+ *
+ *
+ * @example
+ * <div class= “norender">
+ * <code>
+ * var rad = PI/4;
+ * var deg = degrees(rad);
+ * print(rad + " radians is " + deg + " degrees");
+ * // Prints: 0.7853981633974483 radians is 45 degrees
+ * </code>
+ * </div>
+ *
+ */
+p5.prototype.degrees = function(angle) {
+  return polarGeometry.radiansToDegrees(angle);
+};
+
+/**
+ * Converts a degree measurement to its corresponding value in radians.
+ * Radians and degrees are two ways of measuring the same thing. There are
+ * 360 degrees in a circle and 2*PI radians in a circle. For example,
+ * 90° = PI/2 = 1.5707964.
+ *
+ * @method radians
+ * @param  {Number} degrees the degree value to convert to radians
+ * @return {Number}         the converted angle
+ *
+ * @example
+ * <div class= “norender">
+ * <code>
+ * var deg = 45.0;
+ * var rad = radians(deg);
+ * print(deg + " degrees is " + rad + " radians");
+ * // Prints: 45 degrees is 0.7853981633974483 radians
+ * </code>
+ * </div>
+ */
+p5.prototype.radians = function(angle) {
+  return polarGeometry.degreesToRadians(angle);
+};
+
+/**
+ * Sets the current mode of p5 to given mode. Default mode is RADIANS.
+ *
+ * @method angleMode
+ * @param {Constant} mode either RADIANS or DEGREES
+ *
+ * @example
+ * <div>
+ * <code>
+ * function draw(){
+ *   background(204);
+ *   angleMode(DEGREES); // Change the mode to DEGREES
+ *   var a = atan2(mouseY-height/2, mouseX-width/2);
+ *   translate(width/2, height/2);
+ *   push();
+ *   rotate(a);
+ *   rect(-20, -5, 40, 10); // Larger rectangle is rotating in degrees
+ *   pop();
+ *   angleMode(RADIANS); // Change the mode to RADIANS
+ *   rotate(a); // var a stays the same
+ *   rect(-40, -5, 20, 10); // Smaller rectangle is rotating in radians
+ * }
  * </code>
  * </div>
  *
  * @alt
- * Current year is displayed
+ * 40 by 10 rect in center rotates with mouse moves. 20 by 10 rect moves faster.
+ *
  *
  */
-p5.prototype.year = function() {
-  return new Date().getFullYear();
+p5.prototype.angleMode = function(mode) {
+  if (mode === constants.DEGREES || mode === constants.RADIANS) {
+    this._angleMode = mode;
+  }
 };
 
 module.exports = p5;
 
-},{"../core/core":5}],25:[function(_dereq_,module,exports){
+},{"../core/constants":4,"../core/core":5,"./polargeometry":24}],27:[function(_dereq_,module,exports){
 /**
 * @requires constants
 * @todo see methods below needing further implementation.
@@ -10649,7 +12096,7 @@ p5.Matrix.prototype.ortho = function(left,right,bottom,top,near,far){
 
 module.exports = p5.Matrix;
 
-},{"../core/constants":4,"../core/core":5,"../math/polargeometry":20}],26:[function(_dereq_,module,exports){
+},{"../core/constants":4,"../core/core":5,"../math/polargeometry":24}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var p5 = _dereq_('../core/core');
@@ -11140,7 +12587,7 @@ p5.RendererGL.prototype._applyTextProperties = function() {
 };
 module.exports = p5.RendererGL;
 
-},{"../core/core":5,"../core/p5.Renderer":12,"./p5.Matrix":25,"./shader":27}],27:[function(_dereq_,module,exports){
+},{"../core/core":5,"../core/p5.Renderer":12,"./p5.Matrix":27,"./shader":29}],29:[function(_dereq_,module,exports){
 
 
 module.exports = {
@@ -11161,5 +12608,5 @@ module.exports = {
   lightTextureFrag:
     "precision mediump float;\n\nuniform vec4 uMaterialColor;\nuniform sampler2D uSampler;\nuniform bool isTexture;\n\nvarying vec3 vLightWeighting;\nvarying highp vec2 vVertTexCoord;\n\nvoid main(void) {\n  if(!isTexture){\n    gl_FragColor = vec4(vec3(uMaterialColor.rgb * vLightWeighting), uMaterialColor.a);\n  }else{\n    vec4 textureColor = texture2D(uSampler, vVertTexCoord);\n    if(vLightWeighting == vec3(0., 0., 0.)){\n      gl_FragColor = textureColor;\n    }else{\n      gl_FragColor = vec4(vec3(textureColor.rgb * vLightWeighting), textureColor.a);\n    }\n  }\n}"
 };
-},{}]},{},[5,10,11,13,4,22,21,23,7,24,14,1,2,6,18,16,17,9])(24)
+},{}]},{},[5,10,11,13,23,4,7,21,20,25,22,26,14,1,2,6,18,16,17,9])(26)
 });
