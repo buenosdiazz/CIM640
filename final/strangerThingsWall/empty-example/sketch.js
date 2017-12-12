@@ -2,46 +2,65 @@ var interfaceItems = [];
 var bg;
 var posX = 0;
 var posY = 0;
+var usermessage = "";
+
+var onPrevMillis = 0;
+//var offPrevMillis = 0;
+var onInterval = 900;
+//var offInterval = 1000;
+var flipLights = false;
+
+var letterCounter = 0;
+var startMessage = false;
+var lightCounter = 0;
+
+
+
 
 function setup(){
     bg = loadImage("assets/bg.jpg");
     createCanvas(1110, 700);
+//    var inp = createInput('');
+//    //inp.input(myInputEvent);
+//
+//    button = createButton('click me');
+//    button.position(19, 19);
+//    button.mousePressed(changeBG);
 
-    interfaceItems.push(new interface(posX+166, posY+125,15,25,color(0,100,0)));
-    interfaceItems.push(new interface(posX+573, posY+104,15,25,color(0,100,0)));
-    interfaceItems.push(new interface(posX+76, posY+312,15,25,color(0,100,0)));
-    interfaceItems.push(new interface(posX+470, posY+311,15,25,color(0,100,0)));
-    interfaceItems.push(new interface(posX+947, posY+223,15,25,color(0,100,0)));
-    interfaceItems.push(new interface(posX+411, posY+535,15,25,color(0,100,0)));
-    interfaceItems.push(new interface(posX+847, posY+469,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("a",posX+166, posY+125,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("e",posX+573, posY+104,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("i",posX+76, posY+312,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("m",posX+470, posY+311,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("q",posX+947, posY+223,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("u",posX+411, posY+535,15,25,color(0,100,0)));
+    interfaceItems.push(new interface("y",posX+847, posY+469,15,25,color(0,100,0)));
 
-    interfaceItems.push(new interface(posX+265, posY+113,15,25,color(139,0,0)));
-    interfaceItems.push(new interface(posX+689, posY+104,15,25,color(139,0,0)));
-    interfaceItems.push(new interface(posX+177, posY+311,15,25,color(139,0,0)));
-    interfaceItems.push(new interface(posX+573, posY+265,15,25,color(139,0,0)));
-    interfaceItems.push(new interface(posX+144, posY+504,15,25,color(139,0,0)));
-    interfaceItems.push(new interface(posX+505, posY+517,15,25,color(139,0,0)));
-    interfaceItems.push(new interface(posX+974, posY+467,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("b",posX+265, posY+113,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("f",posX+689, posY+104,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("j",posX+177, posY+311,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("n",posX+573, posY+265,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("r",posX+144, posY+504,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("v",posX+505, posY+517,15,25,color(139,0,0)));
+    interfaceItems.push(new interface("z",posX+974, posY+467,15,25,color(139,0,0)));
 
-    interfaceItems.push(new interface(posX+357, posY+106,15,25,color(0,0,139)));
-    interfaceItems.push(new interface(posX+793, posY+80,15,25,color(0,0,139)));
-    interfaceItems.push(new interface(posX+274, posY+340,15,25,color(0,0,139)));
-    interfaceItems.push(new interface(posX+688, posY+249,15,25,color(0,0,139)));
-    interfaceItems.push(new interface(posX+244, posY+523,15,25,color(0,0,139)));
-    interfaceItems.push(new interface(posX+629, posY+485,15,25,color(0,0,139)));
+    interfaceItems.push(new interface("c",posX+357, posY+106,15,25,color(0,0,139)));
+    interfaceItems.push(new interface("g",posX+793, posY+80,15,25,color(0,0,139)));
+    interfaceItems.push(new interface("k",posX+274, posY+340,15,25,color(0,0,139)));
+    interfaceItems.push(new interface("o",posX+688, posY+249,15,25,color(0,0,139)));
+    interfaceItems.push(new interface("s",posX+244, posY+523,15,25,color(0,0,139)));
+    interfaceItems.push(new interface("w",posX+629, posY+485,15,25,color(0,0,139)));
 
-    interfaceItems.push(new interface(posX+464, posY+106,15,25,color(204,204,0)));
-    interfaceItems.push(new interface(posX+905, posY+45,15,25,color(204,204,0)));
-    interfaceItems.push(new interface(posX+357, posY+337,15,25,color(204,204,0)));
-    interfaceItems.push(new interface(posX+813, posY+247,15,25,color(204,204,0)));
-    interfaceItems.push(new interface(posX+311, posY+535,15,25,color(204,204,0)));
-    interfaceItems.push(new interface(posX+728, posY+473,15,25,color(204,204,0)));
+    interfaceItems.push(new interface("d",posX+464, posY+106,15,25,color(204,204,0)));
+    interfaceItems.push(new interface("h",posX+905, posY+45,15,25,color(204,204,0)));
+    interfaceItems.push(new interface("l",posX+357, posY+337,15,25,color(204,204,0)));
+    interfaceItems.push(new interface("p",posX+813, posY+247,15,25,color(204,204,0)));
+    interfaceItems.push(new interface("t",posX+311, posY+535,15,25,color(204,204,0)));
+    interfaceItems.push(new interface("x",posX+728, posY+473,15,25,color(204,204,0)));
 }
 
 function draw() {
   background(bg);
     interfaceItems[0].display();
-    interfaceItems[0].check();
     interfaceItems[1].display();
     interfaceItems[2].display();
     interfaceItems[3].display();
@@ -68,6 +87,41 @@ function draw() {
     interfaceItems[24].display();
     interfaceItems[25].display();
 
+    if(startMessage == true){
+       if(millis()-onPrevMillis >= onInterval){
+        onPrevMillis = millis();
+           lightCounter++;
+           if(lightCounter % 2 == 0){
+              flipLights = false;
+              }else{
+                flipLights = true;
+              }
+
+           if(flipLights == true){
+
+               for(var i=0; i < interfaceItems.length; i++){
+                   if(usermessage[letterCounter] == interfaceItems[i].letter){
+                      interfaceItems[i].overlay = true;
+                      }
+               }
+
+
+           }else{
+                for(var i=0; i < interfaceItems.length; i++){
+                   if(usermessage[letterCounter] == interfaceItems[i].letter){
+                      interfaceItems[i].overlay = false;
+                      }
+               }
+                console.log(usermessage[letterCounter]);
+
+               letterCounter++;
+           }
+           if(letterCounter >= usermessage.length){
+               startMessage = false;
+               letterCounter = 0;
+           }
+       }
+    }
 
 
 
@@ -143,21 +197,10 @@ function draw() {
     */
 }
 
-function mousePressed(){
-    if(interfaceItems[0].check() == true){
-        console.log("pressed A");
-
-    }
-
-       if(interfaceItems[1].check() == true){
-        console.log("pressed B");
-    }
-}
 
 
 
-
-function interface(tempX, tempY, tempL, tempW, tempColor){
+function interface(tempLetter,tempX, tempY, tempL, tempW, tempColor){
     this.x = tempX;
     this.y = tempY;
     this.l = tempL;
@@ -165,6 +208,8 @@ function interface(tempX, tempY, tempL, tempW, tempColor){
     this.setFill= tempColor;
     this.setStroke= tempColor;
     this.overlay = false;
+    this.letter = tempLetter;
+    this.img = loadImage("assets/bulb.png");
 
     this.display= function(){
         fill(this.setFill);
@@ -172,13 +217,12 @@ function interface(tempX, tempY, tempL, tempW, tempColor){
         ellipse(this.x, this.y, this.l, this.w);
 
         if(this.overlay == true){
-          fill(127,200);
-        ellipse(this.x, this.y, this.l, this.w);
+          image(this.img, this.x-100, this.y-70);
         }
     }
 
       this.check = function(){
-        if( mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y &&mouseY < (this.y + this.l)){ this.overlay = true;
+        if( mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.l)){ this.overlay = true;
            return true
            }
         else{
@@ -188,4 +232,14 @@ function interface(tempX, tempY, tempL, tempW, tempColor){
     }
 
 }
+
+function sendMessage(){
+    usermessage = document.getElementById("message").value.toLowerCase();
+    console.log(usermessage);
+    startMessage = true;
+    onPrevMillis = millis();
+
+ }
+
+
 
