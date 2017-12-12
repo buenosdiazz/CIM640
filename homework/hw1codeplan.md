@@ -1,6 +1,6 @@
 Coffee Overdose Calculator
 
-This program is a calculator where the user enters their weight and the calculator returns what the person's lethal amount of american coffee is based on their weight. 
+This program is a calculator where the user enters their weight and the calculator returns what the person's lethal amount of american coffee is. 
 
 * inputs
 * Capture weight
