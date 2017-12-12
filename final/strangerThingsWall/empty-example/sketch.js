@@ -240,7 +240,7 @@ function interface(tempLetter,tempX, tempY, tempL, tempW, tempColor){
 
 }
 
-function sendMessage(){
+function sendMessage1(){
     usermessage = document.getElementById("message").value.toLowerCase();
     console.log(usermessage);
     startMessage = true;
