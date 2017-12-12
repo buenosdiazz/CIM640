@@ -20,6 +20,8 @@ var lightCounter = 0;
 function setup(){
     bg = loadImage("assets/bg.jpg");
     createCanvas(1110, 700);
+
+
 //    var inp = createInput('');
 //    //inp.input(myInputEvent);
 //
