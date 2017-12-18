@@ -13,6 +13,7 @@ var flipLights = false;
 var letterCounter = 0;
 var startMessage = false;
 var lightCounter = 0;
+var foo = new p5.SpeechRec();
 
 
 

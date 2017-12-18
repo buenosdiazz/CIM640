@@ -21,15 +21,27 @@
     <form>
     <label for="message">Enter Message:</label>
     <input type="text" name="message" style=" color: black" placeholder="Run" id="message">
-    <button type="button" id="sendButton" style=" color: black"> Send Message </button>
+    <button type="button" id="sendButton" style=" color: black"> Send Message </button><Br><br>
+
+
     </form>
 
     <Br>
  <script>
+// start listening
+
+  var foo = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
+     foo.continuous = true;
+     foo.interimResults = false;
+
+foo.start()
+
 
 
 var sendButton = document.getElementById("sendButton");
 sendButton.addEventListener("click", sendMessage1);
+
+
 
   /*   sendButton.addEventListener('keyup',function(e){
     if (e.keyCode === 13) {
@@ -41,12 +53,10 @@ sendButton.addEventListener("click", sendMessage1);
 // var voice = new p5.Speech(); // speech synthesis object
 //voice.speak('Send a Message from the Upside-down'); // say something
 
-
-
-
-     var foo = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
 foo.onResult = sendMessage; // bind callback function to trigger when speech is recognized
-foo.start(); // start listening
+
+
+
 
 
 
