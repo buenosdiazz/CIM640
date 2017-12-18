@@ -17,7 +17,7 @@
   <body>
 
    <h1>SEND A MESSAGE FROM THE UPSIDE-DOWN</h1>
-   <h3> Use your voice or type a message below: </h3> <Br>
+   <h3> Type a message below: </h3> <Br>
     <form>
     <label for="message">Enter Message:</label>
     <input type="text" name="message" style=" color: black" placeholder="Run" id="message">
@@ -28,13 +28,7 @@
 
     <Br>
  <script>
-// start listening
 
-  var foo = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
-     foo.continuous = true;
-     foo.interimResults = false;
-
-foo.start()
 
 
 
@@ -43,30 +37,6 @@ sendButton.addEventListener("click", sendMessage1);
 
 
 
-  /*   sendButton.addEventListener('keyup',function(e){
-    if (e.keyCode === 13) {
-    sendMessage;
-  }
-});
-     */
-
-// var voice = new p5.Speech(); // speech synthesis object
-//voice.speak('Send a Message from the Upside-down'); // say something
-
-foo.onResult = sendMessage; // bind callback function to trigger when speech is recognized
-
-
-
-
-
-
-function sendMessage(){
-    usermessage = foo.resultString.toLowerCase();
-    console.log(usermessage);
-    startMessage = true;
-    onPrevMillis = millis();
-
- }
       </script>
 
 
