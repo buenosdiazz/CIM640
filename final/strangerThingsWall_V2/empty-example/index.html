@@ -21,7 +21,7 @@
     <form>
     <label for="message">Enter Message:</label>
     <input type="text" name="message" style=" color: black" placeholder="Run" id="message">
-    <button type="button" id="sendButton" style=" color: black"> Send Message </button><Br><br>
+    <button type="button" id="sendButton" style=" color: black"> Send Message </button><br><br>
 
 
     </form>
@@ -31,10 +31,10 @@
 // start listening
 
   var foo = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
-     foo.continuous = true;
+     foo.continuous = false;
      foo.interimResults = false;
 
-foo.start()
+//foo.start()
 
 
 
@@ -55,18 +55,34 @@ sendButton.addEventListener("click", sendMessage1);
 
 foo.onResult = sendMessage; // bind callback function to trigger when speech is recognized
 
+foo.onEnd = cleanMessage;
 
 
+function cleanMessage(){
+    //currentmessage = "";
+    console.log("message done");
+
+    startMessage = true;
+        onPrevMillis = millis();
+        usermessage = currentmessage;
+}
 
 
 
 function sendMessage(){
-    usermessage = foo.resultString.toLowerCase();
-    console.log(usermessage);
-    startMessage = true;
-    onPrevMillis = millis();
+
+    currentmessage = foo.resultString.toLowerCase();
+    console.log(currentmessage);
+
+
+
+
+    //console.log("send Message");
+
 
  }
+
+
       </script>
 
 

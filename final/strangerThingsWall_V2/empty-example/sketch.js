@@ -4,6 +4,8 @@ var posX = 0;
 var posY = 0;
 var usermessage = "";
 
+var currentmessage = "";
+
 var onPrevMillis = 0;
 //var offPrevMillis = 0;
 var onInterval = 900;
@@ -14,6 +16,9 @@ var letterCounter = 0;
 var startMessage = false;
 var lightCounter = 0;
 var foo = new p5.SpeechRec();
+
+var sayIt = false;
+var startListen = false;
 
 
 
@@ -92,6 +97,24 @@ function draw() {
      interfaceItems[23].display();
     interfaceItems[24].display();
     interfaceItems[25].display();
+
+//    if(mouseIsPressed){
+//       //grab current result
+//        startListen = true;
+//       }
+//
+//    if(startListen == true && mouseIsPressed == false){
+//       startListen = false;
+//
+//        //current phrase
+//        //startMessage
+//
+//        startMessage = true;
+//        onPrevMillis = millis();
+//        usermessage = currentmessage;
+//
+//
+//       }
 
     if(startMessage == true){
        if(millis()-onPrevMillis >= onInterval){
@@ -246,8 +269,21 @@ function sendMessage1(){
     console.log(usermessage);
     startMessage = true;
     onPrevMillis = millis();
+   // messages.push(usermessage);
 
  }
 
+
+function mousePressed(){
+//sayIt = true;
+    usermessage = "";
+    foo.start();
+
+
+}
+
+function mouseReleased(){
+    sayIt = false;
+}
 
 
