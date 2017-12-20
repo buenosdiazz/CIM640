@@ -34,7 +34,7 @@ function setup(){
     bg = loadImage("assets/bg.jpg");
 
 
-     var button = createButton("Send Voice Message");
+     var button = createButton("Record Message");
 
     button.position(30, 165);
     button.mousePressed(pressed);
