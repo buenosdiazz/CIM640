@@ -27,16 +27,16 @@ var button;
 function setup(){
 
 
-
+var button = createButton("Record Message");
     createCanvas(1110, 700);
 
 
     bg = loadImage("assets/bg.jpg");
 
 
-     var button = createButton("Record Message");
 
-    button.position(30, 165);
+
+
     button.mousePressed(pressed);
 //    var inp = createInput('');
 //    //inp.input(myInputEvent);
