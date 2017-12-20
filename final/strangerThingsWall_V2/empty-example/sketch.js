@@ -19,16 +19,25 @@ var foo = new p5.SpeechRec();
 
 var sayIt = false;
 var startListen = false;
+var button;
 
 
 
 
 function setup(){
-    bg = loadImage("assets/bg.jpg");
+
+
 
     createCanvas(1110, 700);
 
 
+    bg = loadImage("assets/bg.jpg");
+
+
+     var button = createButton("Click to Record Voice");
+
+    button.position(30, 165);
+    button.mousePressed(pressed);
 //    var inp = createInput('');
 //    //inp.input(myInputEvent);
 //
@@ -67,6 +76,8 @@ function setup(){
     interfaceItems.push(new interface("p",posX+813, posY+247,15,25,color(204,204,0)));
     interfaceItems.push(new interface("t",posX+311, posY+535,15,25,color(204,204,0)));
     interfaceItems.push(new interface("x",posX+728, posY+473,15,25,color(204,204,0)));
+
+
 }
 
 function draw() {
@@ -115,6 +126,8 @@ function draw() {
 //
 //
 //       }
+
+
 
     if(startMessage == true){
        if(millis()-onPrevMillis >= onInterval){
@@ -274,7 +287,7 @@ function sendMessage1(){
  }
 
 
-function mousePressed(){
+function pressed(){
 //sayIt = true;
     usermessage = "";
     foo.start();
